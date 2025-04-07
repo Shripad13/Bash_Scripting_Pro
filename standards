@@ -1,0 +1,5 @@
+#Non Functional Requirements (NFR)
+Code should be DRY.
+Credentials should not be hard coded.
+Re-run of code should not fail.
+Code should be multi-environment compatible.

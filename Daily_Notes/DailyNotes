@@ -1,2 +1,8 @@
 Learning DevSecOps 
 This is the start of Learning DevSecOps
+
+
+alias gp="git push"
+git add . ; git commit -m "Bash_scripting" ; gp 
+
+Path in gitbash - /c/Users/shripad.maddi/Desktop/Shripad/B59-Batch/Bash_Scripting

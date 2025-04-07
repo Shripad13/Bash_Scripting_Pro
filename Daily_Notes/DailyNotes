@@ -6,3 +6,12 @@ alias gp="git push"
 git add . ; git commit -m "Bash_scripting" ; gp 
 
 Path in gitbash - /c/Users/shripad.maddi/Desktop/Shripad/B59-Batch/Bash_Scripting
+
+
+
+ 1006  git fetch origin Rel-7.0.1.0
+ 1007  git status
+ 1008  git pull origin Rel-7.0.1.0
+ 1009  git status
+ 1010  git push origin Rel-7.0.1.0
+ 1011  git status

@@ -3,7 +3,7 @@ This is the start of Learning DevSecOps
 
 
 alias gp="git push"
-git add . ; git commit -m "Bash_scripting" ; gp 
+git add . ; git commit -m "Bash_scripting" ; git push
 
 Path in gitbash - /c/Users/shripad.maddi/Desktop/Shripad/B59-Batch/Bash_Scripting
 

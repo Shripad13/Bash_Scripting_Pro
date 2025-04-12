@@ -1,0 +1,23 @@
+
+AWS does not allow password authentication by default for security reasons. You must use SSH with a private key.
+
+If you really want to use username and password on Linux (not recommended for security), you’d have to:
+
+Launch the instance using a key pair.
+
+SSH into the instance.
+
+Manually set a password for the user (sudo passwd ec2-user or ubuntu).
+
+Enable password authentication in SSH config:
+
+Edit /etc/ssh/sshd_config:
+
+
+PasswordAuthentication yes
+Restart SSH:
+
+
+sudo systemctl restart sshd
+Then you could use tools like PuTTY or another SSH client with the username and password.
+

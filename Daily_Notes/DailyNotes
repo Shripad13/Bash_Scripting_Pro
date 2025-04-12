@@ -1,5 +1,13 @@
-Learning DevSecOps 
-This is the start of Learning DevSecOps
+### Learning DevSecOps ###
+## This is the start of Learning DevSecOps ##
+
+#################################
+Public AMI  - DevOps-LabImage-RHEL9
+Region      - N.Virginia (us-east-1)
+Credentials - ec2-user/DevOps321
+AMI ID     - ami-0fcc78c828f981df2
+#################################
+
 
 
 alias gp="git push"
@@ -13,3 +21,7 @@ $ git pull
 $ git push
 
  
+#How to set Hostname according to our choice in Linux.
+sudo set-hostname <new-hostname>
+
+

@@ -1,5 +1,22 @@
-#Non Functional Requirements (NFR)
-Code should be DRY.
-Credentials should not be hard coded.
-Re-run of code should not fail.
-Code should be multi-environment compatible.
+# Non Functional Requirements (NFR)
+1. Code should be DRY.
+2. Credentials should not be hard coded. --->> because if you push ur code to github repo & someone can see & misuse
+3. Re-run of code should not fail. --->> Ex - Creating file/Directory in script each time will fail script.
+4. Code should be multi-environment compatible. --->> Dev/QA/Prod
+
+
+## My Domain --->> devsecopswithshri.site
+
+
+# DNS Records for the internal components should always be private :
+
+1. Frontend: should be accessible from the internet, so will be creating the DNS recording using Public-IP-Address  & we refer this as Public-DNS-Record.
+
+2. 
+
+
+# Domain Migration Takes 24 hrs of time to reflect
+1. We will buy a domain on Go-Daddy/ Hostinger
+2. We will create a public hosted zone on AWS (& copy the NS servers from this hosted zone
+)
+3. Then on the NS section of hosted zone on the domain provider, update the NS with the above one.

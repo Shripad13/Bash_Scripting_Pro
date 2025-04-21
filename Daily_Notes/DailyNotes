@@ -10,15 +10,44 @@ AMI ID     - ami-0fcc78c828f981df2
 
 
 
+
+###############  On LOCAL ###################################################
+
 alias gp="git push"
 git add . ; git commit -m "Bash_scripting" ; git push
 
 Path in gitbash - /c/Users/shripad.maddi/Desktop/Shripad/B59-Batch/Bash_Scripting
+#####################################################################################
 
 
 $ git add . ; git commit -m "Bash_scripting"
 $ git pull
 $ git push
+
+##################### ON SERVER ##########################################
+
+
+
+#git config --global user.email "stmaddi@outlook.com"
+#git config --global user.name "Shripad13"
+
+# you want to make git pull work without asking for authentication every time on your server
+git config --global credential.helper store
+git pull ----->> Git will ask for username and password once, and then it will store it in plain text at ~/.git-credentials, so be cautious.
+Git will store it in plain text at ~/.git-credentials, so be cautious.
+
+
+If you get below error - fatal: Need to specify how to reconcile divergent branches.
+Then use below command -
+git pull --rebase
+git pull
+
+### On EC2 Server ##
+ git clone https://github.com/Shripad13/Expense_Shell_Application.git
+
+PAT token - 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
+
+#####################################################################################
 
  
 #How to set Hostname according to our choice in Linux.

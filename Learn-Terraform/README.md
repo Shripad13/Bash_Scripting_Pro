@@ -62,3 +62,4 @@ DEstroy Command - terraform destroy -auto approve
 3. Initializes the modules
 
 # 
+terraform fmt --recursive ; git add. ; git coomit -m "message" ; git push 

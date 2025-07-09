@@ -1,0 +1,942 @@
+
+
+###################### PLURALSIGHT Links #########################
+
+Mail Chain- Launch of the DevOps Skill Booster Program – Empowering Our Future Together
+
+You have been shared with the channels to log in and finish the assignment. Here's a link to the channel for fast reference.
+DevOps - Foundation : https://app.pluralsight.com/channels/details/2aa51f41-7d09-489d-92ff-ba4f76d11e72
+AWS - Foundation - https://app.pluralsight.com/channels/details/b1cb4a7a-f53e-40e1-af23-8b1dcf076728
+AI/ML - Foundation - https://app.pluralsight.com/channels/details/5ddc9552-da68-4152-867d-2be94d0b6fae
+Automation - Adv - https://app.pluralsight.com/channels/details/2fe553a1-473d-4b65-b450-d35bca45838e
+
+
+
+############# SHELL SCRIPTING ##########################################################################
+ 
+ 
+ 
+For OS Automation use - Bash scripting
+For Applications automation use - Python, Java, Nodejs
+
+Why Shell  - Native to linux , better performance
+Type of Shells - Bash, Z , K, Fish, C 
+Bash is default in RedHat family & in most Linux distributions
+
+ 
+## Below Are the Linux Interpretors ## 
+Shebang Character
+#!/bin/bash or #!/bin/sh or #!/bin/ksh
+#!/usr/bin/env bash
+
+
+This is executed by kernel system called execve()
+Kernel checks for #! & passes path to the programm as command line arguments.
+
+
+Why should we write shebang?
+bash, sh , ksh executors in shell scripts
+
+Mostly widely/commonly used bash (#!/bin/bash)
+
+#!/bin/sh is the default link to #!bin/bash 
+
+
+Execute script -
+bash [script name]
+./script_name
+
+CTLR +L - to clear terminal
+
+
+r-4
+w-2
+x-1
+
+## To make SSH connection ##
+login to ServerA & make connection to remote server
+Give remote server username@IP, so it will copy pub_key of ServerA to authorized copy of remote server.
+
+ssh-copy-id username@IP
+
+
+Below command for creating pub key from pvt key
+ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
+
+########################
+ssh-copy-id -i /apps/resources/.ssh/id_rsa.pub username@IP
+ex- 
+for server in 10.190.96.242 10.190.96.243; do ssh-copy-id -i /apps/resources/.ssh/id_rsa.pub ngcs@$server; done
+
+
+####################3 To check Core, Memory, Storage ########################
+CPU count - 
+lscpu | grep "^CPU(s):"
+lscpu | grep -i "CPU(s):"
+ 
+memory - 
+grep MemTotal /proc/meminfo
+
+ cat /proc/meminfo
+ cat /proc/cpuinfo
+
+ 
+ fdisk -l & lsblk  ---> to see disks on server
+ 
+storage -
+df -h --total | grep total
+
+# Command for top 10 high conusming Space directories
+du -sh * | sort -rh | head -n 10
+
+du -sch *
+
+lsof /apps | grep -i dele
+df -hPT /apps
+
+
+top -c
+top -h
+
+Check Running Processes
+ps  aux --sort=%cpu | head -10
+
+
+
+##########
+ Free Memory : Free memory refers to the memory that is not being used at all by the system. It is the memory that is completely unused and available for use by programs or processes.
+ Free Memory : The completely unused memory.
+
+ Available Memory : The memory that is free or can be quickly reclaimed from the cache or buffers for use by new processes.
+ Available memory is the memory that is free or can be quickly reclaimed from other processes or cached data (i.e., the memory that can be used by new processes without swapping).
+
+total: Total amount of RAM available on the system.
+
+used: Memory that is actively used by processes, including memory used by the cache.
+
+free: Memory that is completely unused.
+
+shared: Memory that is shared between processes.
+
+buff/cache: Memory used by the kernel for buffers and cache.
+
+available: Memory that can be used by new processes without significant paging or swapping.
+
+uname -a
+ The uname command in Linux is used to display system information. It provides details about the operating system, kernel version, hardware architecture, and other system-related information
+
+Output - Linux myhostname 5.4.0-74-generic #83-Ubuntu SMP Fri Jun 18 17:04:32 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+
+Linux: The kernel name.
+myhostname: The system hostname.
+5.4.0-74-generic: The kernel release number.
+#83-Ubuntu SMP Fri Jun 18 17:04:32 UTC 2021: Kernel version and build information.
+x86_64: The machine hardware architecture.
+GNU/Linux: The operating system.
+
+uname -r ----> shows the linux kernel-release
+uname -v ----> shows the linux kernel-version
+uname -0 ---->  shows the GNU/Linux
+uname -i ----> shows the linux hardware version 
+
+
+
+hostnamectl
+
+cat /etc/os-release
+
+lscpu
+
+
+COmamnd  to check linux version on Old Server - lsb_release -a
+
+
+To check RabbitMQ Version - rpm -qi rabbitmq-server	
+
+
+################# TO find Metaspace values #############
+
+
+/apps/resources/jdk1.8.0/bin
+./jstat -gcmetacapacity PID
+./jstat -gcmetacapacity 25680
+
+cd /apps/resources/jdk1.8.0/bin
+ ./jstat -gc PID
+
+These values will be in Bytes
+
+MC (Metaspace Capacity): 2048 (bytes or megabytes, depending on your JVM setup) – the maximum Metaspace capacity.
+MU (Metaspace Used): 1024 – the current amount of memory used within the Metaspace.
+MCMX (Metaspace Committed Memory): 1024 – the amount of memory that has been committed (allocated) by the JVM for the Metaspace.
+
+########################### Day 2 ###############################################
+
+
+To check for specific user java Processes - 
+ps -ef|grep java|grep $USER |egrep -v ngcs_stg
+
+
+
+man - help command
+EX -  man top , man df
+
+
+netstat -anp|grep <port no.>
+ netstat -tunlp|grep 19092
+ netstat -lnpt | grep :8000
+ 
+ netstat -anp |grep  :8033
+
+md5 checksum command Apply only on Jar & war files
+
+[ngcs_cra@ssm2sknpasky02 upload]$ md5sum wat-web-9.2-10-weblogic.war
+64f86c6f10fc0688f3929201b69c143f  wat-web-9.2-10-weblogic.war
+
+du -Ph
+
+
+
+    jar -tvf ns-server-ear-fz-6.0.1.0.ear | grep log4j
+    jar -tvf PIE-Server-EAR-6.0.1.0.ear | grep log4j
+    jar -tvf batch-jobs.war | grep log4j
+ 
+    jar -tvf skychain.war | grep log4j
+    jar -tvf ngcs-ws-fz.war | grep log4j
+  
+    find . -type f -name "log4j*.jar"
+    clear
+    find . -name "*.xml" -exec grep log4j '{}' \;
+    clear
+    find . -type f -name "*.xml" -exec grep log4j '{}' \;
+  
+   locate log4j*
+   locate *log*4j*
+   locate *log*4j*.jar
+   cd /apps/ngcs/ngsc-lib/
+   ls -rlt
+   locate log4j*.jar
+   
+   RUn from home directory -
+   find . -type f -name "log4j*.jar"
+   
+   
+   
+   
+tar -exclude={*.log*,*.out,*nohup*} -cvzf Skychain_M1.tar.zip *
+   
+   
+################### CHeck the history with timestamp ########################
+   
+ echo 'export HISTTIMEFORMAT="%d/%m/%y %T "' >> ~/.bash_profile
+ source ~/.bash_profile
+   Then RUN History command 
+   
+   
+###########################################
+   
+
+1. 
+nproc - Command Gives number of CPU's using by current machines
+
+2. Always write Shebang & Meata data whenever you write Script 
+
+
+#!/bin/bash
+
+###########################################
+# Author : Shripad Maddi
+# Date   : 21 January 2024
+# This script outputs the Node Health
+# Version : v1
+###########################################
+
+3. Always use below command at the beginning of script
+
+set -x # command used to enable debugging
+
+It shows the which command we execute in script, also print output of commands
+
+
+set +x # command used to disable debugging
+
+When set -x is enabled, every command will be printed to the terminal with a + sign before its execution.
+When set +x is used, debugging is turned off, and the commands will be executed normally without being printed.
+
+4.
+grep   -->> filter /search the output 
+
+
+5.
+
+[ap_frm@CRM2CNPAPP26 tmp]$ date | echo "today is Sunday"
+today is Sunday
+
+date command is System Default Command so it does not give the output to second input
+
+
+6. AWK Command - filter out output 
+awk - command is the pattern scanning & Processing language
+
+grep command gives output in entire statement
+awk command gives output in specific row or column from output
+
+7.
+set -e # Exists the scripts when there is an error while executing script.
+
+8. set -o pipefail
+The pipefail option ensures that the script fails if any command in a pipeline fails, even if other commands in the pipeline succeed. It prevents silent errors from slipping through the cracks, keeping your code robust.
+
+9.
+set -exo pipeline 
+# we can add all 3 lines in one line
+
+10. CURL command to call API endpoints
+
+Retrieves the information from Internet
+
+curl <URL> | grep ERROR
+
+curl -X GET https://dummyapi.online/api/movies
+
+curl -X GET https://dummyapi.online/api/movies | jq
+
+
+
+11. POSTMAN Appln - Helps you create a API requests
+
+12. wget - downloads the any file from internet
+
+13. nohup ./startWebLogic.sh &  -->> & at the end means process will run at background 
+
+14.You can split incident log file file and try.
+
+split -b 512M(file size) <filename>
+split -b 512M java_pid2895.hprof heap_file1
+
+
+######## TIme Command ##########
+
+Bash has Built in Time command to report how much time a process consumed.
+
+#### Variables in Bash 
+
+1. Variables in Bash given a value with =
+2.No spaces after & before equal to (=)
+
+myvar="this is some chars; * $\"
+
+3. Remove variables with the unset commands
+ 
+ Ex - echo myvar is $myvar
+ 
+4. for a shell script to gety a copy of shell variable it needs to be "exported".
+
+5. you can export & assign in the same statement
+
+export var2="var2 value"
+
+6. Function in Bash
+export -f <myfunc> will export the function myfunc.
+
+a=1(a=2)       a=1{a=2}
+echo $a        echo $a
+prints 1       prints 2
+
+
+7. Aliases & funcions should normally be defined in .bashrc
+The bashrc file is executed for non-interactive, command-line shell sessions, while the bash_profile file is executed for login shell sessions, such as when you log into your system or remotely via SSH.
+
+8. ##Sourcing Script.
+
+Sourcing is a common way to ipmort a variable assigments or functions.
+
+9. Working wirh Aliases
+Sort command alternatives -
+
+alias ll="ls -l"
+alias copy=cp
+alias rn=mv
+
+
+Simply type alias to list existing aliases
+
+Unset an alias with the unalias command
+
+10. Uses of ECHO command 
+
+-n - will not print a trailing newline
+-e - Enable backlash escaped characters like \n & \t
+-E - Disable backlash escaped characters in case they were enabled by default
+\n - to print on new line
+\t - to print a tab character 
+
+
+
+
+#!/bin/bash
+echo Hello World
+echo -n Good to see you "\n\n"
+echo Thanks
+echo -e Hi "\t\t\t" There "\n\n"
+echo -E Bye "\t\t\t" For Now "\n\n"
+
+#!/bin/bash
+echo Hello World
+echo -e Good to see you "\n\n"
+echo Thanks
+echo -e Hi "\t\t\t" There "\n\n"
+echo -e Bye "\t\t\t" For Now "\n\n"
+
+
+11. Declare COMMANDS
+declare -l Uppercase values in the variable are converts to Lowercase
+declare -u lowercase values in the variable are converts to Uppercase
+declare -r variable is made read-only.
+
+12. sequence command 
+
+ seq 1 5 
+#prints 1 2 3 4 5 in column
+
+ echo "seq 1 5 | xargs
+#prints 1 2 3 4 5 in one row
+
+
+
+Delete the final three lines in the file. 
+dG which in vim deletes the current and remaining lines in the file.
+
+dd - Delete the line by press dd on Vi mode (should not be on INSERT Mode)
+
+In vim, press Shift+G to move the cursor to the last line in the file.
+
+Press Shift+A to enter INSERT mode at the end of the line, 
+
+_______________________________________________________________________________
+
+We can discard any output of a script that we use by redirecting to /dev/null.
+
+We can discard any output of a script that we use by redirecting to /dev/null.
+
+command > /dev/null 2>&1
+
+
+ 0 representing stdin, 1 representing stdout, and 2 representing stderr.
+
+> stdout here
+2> stderr here
+< stdin from here
+
+&> file  - file gets stdout & stderr from command, file is created or overwritten
+
+2>&1 redirects standard error ( 2 ) to standard output ( 1 )
+
+
+Notice the 2>&1 at the end. We redirect stderr(2) to stdout(1). 
+We use &1 to mention to the shell that the destination file is a file descriptor and not a file name.
+So if we use 2>1, we will only redirect stderr to a file called 1. This is not what we want!
+
+_______________________________________________________________________________
+
+
+
+
+
+### Redirection Techniques
+
+echo 'Warning Shripad' >&2      --- Send std output to the same place as file number two which is std error
+
+
+## Piping
+comand1 | comand2
+
+#comand1 - stdout
+#comand 2 - stdin comes from
+
+command1 2>&1 | command2
+# gets stdout & stderr from command1
+
+command &>> file
+#appends stdout & stderr of 
+
+sort <<END - sort command reads from std input & writes the std output.
+
+END & EOF - are same, looks string til end of file.
+
+
+
+########## Find Command ###########
+
+find / -type f -iname DOC_NET_RATING_RPT_*.csv
+
+find / -name shripad
+
+/ - finds in all directories
+-type f,d,l - f filename, d - directories, l - symbolic links search
+iname - ignores case sensitive 
+
+grep -rl <word>
+
+#command to find find files larger than 100 MB in  linux - 
+find /path/to/search -type f -size +100M
+
+
+13. sudo su -   
+for switching user , You will login to root user
+
+14. Backtick (``) - inside backtick act as a entire command 
+The backtick starts/ends command substitution. The shell reads the command inside the backticks, interprets the results, and places those results into the command.
+
+15. trap command 
+
+
+SIGNALS in Linux
+
+Kill command to kill process
+SIGKILL - 
+
+
+
+###################### NETWORKING COMMANDS ################################################3
+
+1. ping - Data Transfer & receive happening or not
+
+2. netstat - network statistics
+
+netstat shows Active Internet connections 
+
+3. ifconfig - interface config
+
+NIC - network Interface card
+
+4. traceroute VS tracepath
+
+5. mtr - command to run ping & tracepath at together
+
+mtr - My Trace Route
+mtr testcgoek.mercator.com
+
+6. nslookup - shows IP address and name
+ nslookup testcgoek.mercator.com 
+ nslookup <PUBLIC IP >
+ nmap -p 53 <public_ip>
+ 
+ 
+ If the IP is hosting DNS, it may return a domain name, or it may indicate that the IP is associated with a DNS service.
+ 
+ 
+7. telnet - help us to connect with port name
+
+nc -zv <IP name port>
+same as telnet
+
+
+ex -  telnet testcgoek.mercator.com 80
+      telnet testcgoek.mercator.com 8080
+      telnet testcgoek.mercator.com 443
+
+
+##### Default port ####
+HTTP   = 80 
+HTTPS  = 443
+
+IMAP default port - 993 for secure & 143 
+SMTP default port - 587
+SFTP default port - 22
+
+FTP /SFTP - 20,21
+SMTP - 25
+SSH - 22
+Telnet - 23
+DNS- 53
+NTP - 123
+
+
+
+
+ pressing Ctrl+] and then type quit
+
+
+8. cat /etc/hosts
+you can add entry , you can give name to IP 
+
+9. ip address show
+
+10. iwconfig - Internet of wireless configuration
+
+11. ss 
+ss command is same as netstat
+
+12. dig  democgoxx.mercator.com
+    dig -x <public_ip>
+
+13. whois democgoxx.mercator.com
+    whois <public_ip>
+	
+whois command for finding DNS details , registry etc
+
+14. arp command 
+
+arp' command in Linux helps manage how your system communicates with other devices on the network. It allows you to display, add, and remove entries in the Address Resolution Protocol (ARP) cache,
+
+15. ifplugstatus
+
+16. iptables
+COmmand can be run only by root access
+
+17. watch 
+With this command will run any command at every 2 sec
+EX- 
+watch -n 2 df -kh
+ watch -n 5 date
+ 
+ 
+18. nmap - network map
+same like traceroute  
+nmap scans any URL
+
+EX-  nmap -v democgoxx.mercator.com
+
+19. route 
+route show gateway
+
+20. netstat -nta 
+run in cmd to check which IP addresses are listening on ur system 
+
+############################################################################################
+
+ awk '{print $1, $2, $4}' app.log
+ OR
+ sed -n '1,2,4'p app.log # -n for number, p for print 
+ 
+ Above command will print coulmn 1,2 &4 of app.log file
+ If you dont give comma then it comes next to without any space
+ 
+ 
+ awk '/INFO/ {print $1, $2, $4, $5}' app.log 
+ It will print INFO related lines 
+
+############################################################################################
+
+#COMMAND 
+find /path/to/search -type f -name "*.txt" -exec <command> {} \;
+
+
+-mtime: This option is used to search for files based on the modification time (i.e., the time the file's contents were last modified).
++5: This specifies that you want to find files modified more than 5 days ago. The + sign means "greater than," so it looks for files that haven't been modified in the last 5 days.
+
+/path/to/search: The directory where you want to search.
+-type f: This restricts the search to files (replace with -type d for directories).
+-name "*.txt": Search for files matching a specific pattern.
+-exec: This option specifies the command to run on each result found by find.
+{}: A placeholder for the file path returned by find. For each file found, find will replace {} with the full path of the file.
+\;: Terminates the -exec command. The \; tells find that the command ends there. It must be escaped (\) to prevent the shell from interpreting it.
+
+
+
+The -exec option allows you to perform an action (such as delete, copy, or move) on each file that the find command locates.
+{} is a placeholder that represents the file found.
+\; or + ends the command and specifies whether the command should run on each file individually (\;) or all at once (+).
+
+
+#!/bin/sh
+
+cd $HOME/logs/BackUp
+find $HOME/logs/BackUp -type f -mtime +5 -exec rm -r {} \;
+
+cd $HOME/logs/Incident_Logs
+find $HOME/logs/Incident_Logs -type f -mtime +5 -exec rm -r {} \;
+
+cd $HOME/logs/
+find $HOME/logs/ -name "*.hprof*" -mtime +5 -exec rm -r {} \;
+
+cd $HOME/upload/Backup
+ls -ld --time-style=long-iso $HOME/upload/Backup/* | awk -v date="$(date -d '5 days ago' +%Y-%m-%d)" '$6 "-" $7 < date {print $NF}' | xargs -I {} basename {} | xargs -I {} rm -rf "$HOME/upload/Backup/{}"
+
+ 
+ 
+############################################################################################
+ 
+ To upload jar in EAR in Linux Server - 
+ jar -uvf PIE-Server-EAR-7.1.0.0.ear lib/jf-model-7.1.0.0.jar
+ 
+ 
+ jar -uvf ns-server-ear-xx-7.2.2.0.ear lib/ns-flightres-model-7.1.0.0.jar
+ jar -uvf ns-server-ear-xx-7.2.2.0.ear ns-b2b-implementation-7.1.0.0.jar
+ 
+ jar -uvf ns-server-ear-xx-7.2.2.0.ear ns-messages-implementation-7.1.0.0.jar
+ 
+ jar -uvf ns-server-ear-sk-7.1.3.0.ear lib/resources-sk-7.1.3.0.jar
+ 
+ 
+ 
+ If any jar need to be upload in any EAR then that folder name should be created
+ folder lib should be created and jar should be placed in that
+ 
+ Folder structure should be same as one which folder from EAR & one which we want to upload jar 
+ 
+ 
+ To upload jar in EAR in Windows command Prompt - 
+ C:\Apps\jdk1.8.0_51\bin\jar -uvf C:\Apps\Logs\UAT\ns-server-ear-tg-4.0.0.0.ear lib/ns-ghoperations-model-4.0.0.0.jar
+
+
+To list the jars inside ear file - 
+jar -tvf <ear name> | grep <specific file name>
+
+
+To find specific things in files
+ grep -i url AGL-*.xml
+
+###################################################################
+
+    jar -tvf ns-server-ear-fz-6.0.1.0.ear | grep log4j
+    jar -tvf PIE-Server-EAR-6.0.1.0.ear | grep log4j
+    jar -tvf batch-jobs.war | grep log4j
+ 
+    jar -tvf skychain.war | grep log4j
+    jar -tvf ngcs-ws-fz.war | grep log4j
+  
+    find . -type f -name "log4j*.jar"
+    clear
+    find . -name "*.xml" -exec grep log4j '{}' \;
+    clear
+    find . -type f -name "*.xml" -exec grep log4j '{}' \;
+  
+   locate log4j*
+   locate *log*4j*
+   locate *log*4j*.jar
+   cd /apps/ngcs/ngsc-lib/
+   ls -rlt
+   locate log4j*.jar
+   
+   RUn from home directory -
+   find . -type f -name "log4j*.jar"
+
+#### To List jar inside .ear or .war
+
+[ngcs@SSM2FZNPASKY13 upload]$ jar -tvf ns-server-ear-fz-7.2.0.0.ear | grep ns-flightres-model-
+
+8182003 Tue Apr 30 01:16:58 BST 2024 lib/ns-flightres-model-7.1.0.0.jar
+
+[sc_fz@CRM2CNPASKY01 ngcs-ear]$ /apps/resources/jdk1.8.0_121/bin/jar -tvf ns-server-ear-fz-7.2.0.0.ear | grep ns-flightres-model-
+
+8182003 Tue Apr 30 01:16:58 GST 2024 lib/ns-flightres-model-7.1.0.0.jar
+
+
+
+
+########################### GitHUB ###################
+
+Must CHeck Github Repositories for DevOps - 
+https://github.com/bregman-arie/devops-exercises
+https://github.com/trimstray/the-book-of-secret-knowledge
+https://github.com/joseadanof/awesome-cloudnative-trainings/
+
+
+# egrep foo
+awk '/foo/' filename
+
+#### for done loop
+for u in user{1..5} ; do echo $u;done
+
+for u in user{1..5} ; do sudo useradd $u;done
+
+for u in user{1..5} ; do sudo userdel -r $u;done
+
+for u in user{1..5} ; do sudo useradd $u; echo "password1" | sudo passwd --stdin $u ; done
+
+########
+
+## File command - To check which file it is
+file [filename]
+file [directory]/* - list all files type inside directory
+
+## umask command
+umask is a Linux command that lets you set up default permissions for newly created files and folders.
+
+A umask value of 022 lets the owner both read and write all newly created files, but everybody else can only read them:
+
+chmod u+x = To give execute permission to user only
+chmod a+x = execute Permissiom to all user, group & other 
+chmod +x =
+
+ChnageOwnership of Group only use chown
+chown existinggroupname:newgroupname <filename>
+
+chown -R existinggroupname:newgroupname <filename>
+
+
+## CUSTOMIZING VIM 
+Using the .vimrc file within our HOME_DIRECTORY allows us to customize. 
+
+## Built-in Variables
+***Positional Parameters - $1, $2...${10}
+$0 is not positional but represents the script name
+$0 represents the name of the current shell 
+
+
+*** Number of positional parameters - 
+$# - To check count (number of arguments) in script.
+$* - It stores complete set of positional parameter in a single string.
+$@ - Quoted string treated as separate arguments.
+$? - exit status of command.
+
+
+
+*** List of all parameters - $*
+
+## Prompting for User Input ##
+read - command for user input populate the variable name
+-p = to prompt message
+-s = to silence thescreen input 
+
+#!/bin/bash
+read -p "Enter a username: " user_name
+read -sp "Enter a Password: " user_password
+echo -e "\n $user_name $user_password"
+
+## Testing Numerical values with Operators 
+-eq, -lt, -gt
+
+Test String Values- 
+want to have the user enter a password twice for verification
+
+
+
+#!/bin/bash
+if [ $# -eq 0 ]; then
+        read -p "Enter a username: " user_name
+        read -sp "Enter a Password: " user_password
+        echo " "
+        read -sp "Enter a Password again: " user_password_check
+
+        if [ "$user_password" != "$user_password_check" ]; then
+                echo -e "\n${0}: Passwords do not match!!"
+                exit 1
+        fi
+else
+        user_name="$1"
+        user_password="${2:- Password1}"
+fi
+echo -e "\n $user_name $user_password"
+ 
+ 
+# When setting variable dont leave whitespace aroind = symbol
+# WHen using variable always double quote
+
+## BASH FUNCTIONS
+Functions are modular blocks of code that can be referenced by the function name, helping make your code more readable & aiding future development.
+
+
+
+#!/bin/bash
+
+prompt_user ( ) {
+		message=${1:- "Enter the account details"}
+		echo "$message"
+		read -p "Enter a username: " user_name
+        read -sp "Enter a Password: " user_password
+        echo " "
+        read -sp "Enter a Password again: " user_password_check
+		echo " "
+}
+if [ $# -eq 0 ]; then
+        prompt_user
+        if [ "$user_password" != "$user_password_check" ]; then
+                #echo "${0}: Passwords do not match!!"
+                prompt_user "Passwords didn't match , re-enter details"
+        fi
+else
+        user_name="$1"
+        user_password="${2:- Password1}"
+fi
+echo -e "\n $user_name $user_password"
+
+
+
+##################
+FOR loops iterate througha list of some kind
+WHILE loops loop a condition a until is no longer met
+
+[ap_frm@CRM2CNPAPP15 tmp]$ cat done.sh
+#!/bin/bash
+
+for i in dog cat lion
+do
+        echo i is $i
+done
+
+
+Output 
+i is dog
+i is cat
+i is lion
+
+################## Functions ##################
+function NAME {
+
+		function body .....
+}
+
+[ap_frm@CRM2CNPAPP15 tmp]$ cat functionhello.sh
+#!/bin/bash
+function printhello {
+        echo hello
+}
+printhello
+[ap_frm@CRM2CNPAPP15 tmp]$ ./functionhello.sh
+hello
+
+# Return COmmand -
+Functions return when there are no more statements or 
+When a return statement is executed
+
+The return command is used to exit a function and provide an exit status.
+This status can be any integer, and by convention, a return value of 0 indicates success, while any non-zero value indicates failure or some specific error.
+
+function myfunc {
+	echo starting
+	return
+	echo this will not be executed 
+}	
+
+# Exit Command
+
+If a function returns 0, it indicates that the function completed successfully.
+If a function returns a non-zero value, it indicates an error or some specific condition the script is designed to handle.
+
+return is used only in functions and terminates the function execution.
+exit terminates the entire script or shell session, not just a function.
+
+*Important Notes:
+If you use return outside a function, you'll get an error, as return is only valid within functions.
+In normal shell commands (outside of functions), you would use exit to terminate the script with a status code.
+
+
+## exec 19<data_file in shell script
+
+exec is a built-in command that can manipulate file descriptors.
+19 is the file descriptor number. You can choose any number that isn't already in use (standard file descriptors are 0 for stdin, 1 for stdout, and 2 for stderr).
+<data_file indicates that the file is being opened for reading.
+
+After you're done with the file, it's a good practice to close the file descriptor using exec 19<&-.
+
+## lsof -p $$ - COMMAND
+
+lsof: This stands for "list open files." It is a utility that displays information about files opened by processes.
+
+-p: This option specifies that you want to filter the output to show only the files opened by a particular process.
+
+$$: This is a special variable in shell scripting that holds the process ID (PID) of the currently executing shell. By using $$, you are effectively telling lsof to list the open files for the current shell process.
+
+
+#############################################################################################
+
+
+######### User Exception handling ###########################
+
+
+
+
+

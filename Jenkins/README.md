@@ -1,0 +1,267 @@
+# What is Groovy in the context of Jenkins?
+Groovy is a scripting language used in Jenkins for writing Declarative and Scripted Pipelines. Jenkins uses Groovy for scripting custom pipeline logic, shared libraries, and for advanced pipeline customization.
+
+# How do you define environment variables in a Jenkins Pipeline using Groovy?
+
+pipeline {
+    environment {
+        MY_VAR = 'value'
+    }
+    agent any
+    stages {
+        stage('Example') {
+            steps {
+                echo "The value is ${env.MY_VAR}"
+            }
+        }
+    }
+}
+
+# How do you define a simple Scripted Pipeline in Jenkins using Groovy?
+
+node {
+    stage('Build') {
+        echo 'Building...'
+    }
+    stage('Test') {
+        echo 'Testing...'
+    }
+    stage('Deploy') {
+        echo 'Deploying...'
+    }
+}
+
+# What is a shared library in Jenkins?
+A shared library is a reusable piece of code stored in a Git repository that can be loaded in multiple Jenkins pipelines using Groovy. It helps in avoiding code duplication across pipelines.
+
+# How can you share code across multiple pipelines in Jenkins using Groovy?
+Use a Shared Library:
+Define your Groovy classes or functions in vars/ or src/ directories.
+Load using @Library annotation.
+
+Example:
+
+vars/sayHello.groovy:
+
+def call(name = 'World') {
+    echo "Hello, ${name}"
+}
+
+Jenkinsfile:
+
+@Library('my-shared-library') _
+sayHello('Jenkins User')
+
+# How do you use load to run external Groovy scripts in Scripted Pipelines?
+
+node {
+    def myScript = load 'scripts/utility.groovy'
+    myScript.doSomething()
+}
+
+The script should return a class or closure with the doSomething() function defined.
+
+
+
+# How can you catch errors in a Jenkins Scripted Pipeline?
+by using a try-catch block to catch errors and immediately stop the pipeline when a failure occurs.
+
+node {
+    try {
+        stage('Test') {
+            error 'Something went wrong!'
+        }
+    } catch (e) {
+        echo "Caught error: ${e.getMessage()}"
+    } finally {
+        echo 'This always runs'
+    }
+}
+
+# How do you use when conditions in Declarative Pipelines?
+
+In Jenkins Declarative Pipelines, the when directive allows you to control the execution of pipeline stages based on specific conditions. This enables you to define different actions based on factors like branch name, environment variables, or build status. Multiple conditions can be combined within a single when block, and all must be true for the stage to execute. 
+
+pipeline {
+    agent any
+    stages {
+        stage('Deploy') {
+            when {
+                branch 'main'
+            }
+            steps {
+                echo 'Deploying to production...'
+            }
+        }
+    }
+}
+
+# What is the difference between sh and bat in Jenkins?
+sh: Used to run shell commands on Unix/Linux.
+bat: Used to run batch commands on Windows.
+
+# How do you load and use a Groovy script from the @Library in Jenkins?
+
+@Library('my-shared-library') _
+import com.mycompany.MyHelper
+
+MyHelper.sayHello()
+
+# What is @library in Jenkins file?
+For Shared Libraries which only define Global Variables ( vars/ ), or a Jenkinsfile which only needs a Global Variable, the annotation pattern @Library('my-shared-library') _ may be useful for keeping code concise.
+
+# How can you run parallel stages in Jenkins Groovy script?
+
+stage('Parallel Tasks') {
+    parallel {
+        stage('Task A') {
+            steps {
+                echo 'Running Task A'
+            }
+        }
+        stage('Task B') {
+            steps {
+                echo 'Running Task B'
+            }
+        }
+    }
+}
+
+# How do you create dynamic stages in a Scripted Pipeline using Groovy?
+You can use a loop to define stages dynamically based on input:
+def stages = ['Build', 'Test', 'Deploy']
+
+node {
+    stages.each { stageName ->
+        stage(stageName) {
+            echo "Running stage: ${stageName}"
+        }
+    }
+}
+
+# How do you pass parameters to a Jenkins pipeline and use them in Groovy code?
+
+pipeline {
+    agent any
+    parameters {
+        string(name: 'ENVIRONMENT', defaultValue: 'dev', description: 'Target environment')
+    }
+    stages {
+        stage('Show Param') {
+            steps {
+                echo "Deploying to ${params.ENVIRONMENT}"
+            }
+        }
+    }
+}
+
+
+# How can you retry a failed step in a Jenkins pipeline using Groovy?
+retry(3) {
+    sh 'some-flaky-command.sh'
+}
+Retries the command up to 3 times if it fails.
+
+# How do you use credentials securely in a Jenkins pipeline?
+To use credentials securely in a Jenkins pipeline, store them as Jenkins credentials, not in the pipeline code, and use the credentials() step to access them within the pipeline. This ensures sensitive information like passwords and API keys are not exposed in the pipeline definition or logs. 
+
+pipeline {
+    agent any
+    stages {
+        stage('Use Credentials') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'my-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh 'echo Username: $USER'
+                }
+            }
+        }
+    }
+}
+
+# What are closures in Groovy, and how are they used in Jenkins pipelines?
+A closure is a block of code that can be passed around and executed later. Pipelines use closures heavily — e.g., steps { ... }, stage { ... } are closures.
+
+def greet = { name -> echo "Hello, $name" }
+greet('Jenkins')
+
+
+# How do you create custom steps in a Jenkins Shared Library?
+Create a vars file like deployApp.groovy:
+def call(String env) {
+    echo "Deploying to ${env}"
+}
+
+Then call it in your Jenkinsfile:
+@Library('my-shared-library') _
+deployApp('staging')
+
+
+# How do you handle post-build actions in a Declarative Pipeline?
+
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'This always runs'
+        }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed!'
+        }
+    }
+}
+
+# How can you use input step for manual approval in Jenkins Pipelines?
+
+pipeline {
+    agent any
+    stages {
+        stage('Approval') {
+            steps {
+                input message: 'Proceed to deploy?', ok: 'Yes'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+            }
+        }
+    }
+}
+
+
+
+## What Does H Mean in Jenkins Cron?
+The H in Jenkins cron syntax stands for “Hash” or “Hashed value”, and it is used to spread out job execution times to avoid overloading the system.
+
+# Why Use H?
+Prevents many jobs from starting at exactly the same time (like at 12:00 AM)
+Distributes load evenly over time
+Especially useful in large Jenkins installations or when you have dozens/hundreds of scheduled jobs
+
+H - Hashed value for load balancing job execution
+Benefits - Avoids collisions, spreads load, consistent per job
+
+# PollSCM -
+Wehnever Source code or any change in script or if new Commit then only Pipeline will be triggered.
+ Ex - triggers { pollSCM ('H */4 * * 1-5') }
+
+# Cronjob in jenkins - it triggers according to schedule
+triggers { cron ('H */4 * * 1-5') }
+
+
+Stages in jenkins are sequence in nature, STAGE1 onlt be executed after STGAE2 completed.
+But using Parallel stage we can achieve execution of multiple STAGE same time.
+
+
+snapshot/backup will be available at this path on server if we loses jenkins
+/var/lib/jenkins

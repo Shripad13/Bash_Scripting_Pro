@@ -7,3 +7,6 @@ echo "I will learn bash Scripting asap"
 sleep 2
 
 echo "script name: $# completed"
+
+
+

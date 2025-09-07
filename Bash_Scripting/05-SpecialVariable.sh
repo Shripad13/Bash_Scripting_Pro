@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Special varibales
+#Special varibales are the predefined variables in bash which have special meaning
 # $0 - Prints the name of the script yo are running
 # $1 - Prints the first argument you supply to the script
 # $2 - Prints the second argument you supply to the script
@@ -24,11 +24,67 @@ echo "Arguments in the script are: $@"              #Prints ALL the arguments us
 
 
 
-# echo $0   # Prints the ScriptName
+# echo $0                                           # Prints the ScriptName which you are running
 # echo "*************************"
 # echo "Exit status of the Previous command is $?"  #Prints the EXIT status of the previous command
 # echo "*************************"
 # echo "Arguments in the script are: $*"            #Prints ALL the arguments used in the script
 # echo "*************************"
-# 
+
+
+# $@ & $* are same but there is a difference when you use it inside the double quotes
+#$@	Treats each argument as a separate word (individually quoted)
+#$*	Treats all arguments as a single word (as a single string)
+
+#$_Last argument of the previous command
+
+
+# echo "Arguments in the script are: $@"            #Prints ALL the arguments used in the script as individual strings
+# echo "Arguments in the script are: $*"            #Prints ALL the arguments used in the script as a single string
+
+#Variable	          Output
+#$@	                 ["apple", "banana split", "cherry"] (array of words)
+#$*	                 "apple banana split cherry" (single string)
+
+# echo "*************************"
+# echo "Process ID of the current script is $$"     #Prints the Process ID of the current script
+# echo "*************************"
+
+# sleep 1000 &                     #Run this command in background
+# echo "Process ID of the last background command is $!"  #Prints the Process ID of the last background command
+# echo "*************************"
+
+# sleep 1000 &                     #Run this command in background
+# PID=$!                           #Assign the Process ID of the last background command to a variable
+# echo "Process ID of the last background command is $PID"  #Prints the Process ID of the last background command
+# echo "*************************"
+
+# sleep 1000 &                     #Run this command in background
+
+STATUS=$?                        #Assign the EXIT status of the last background command to a variable
+echo "Exit status of the last background command is $STATUS"  #Prints the EXIT status of the last background command
+ echo "*************************"
+
+# STEP="Sample Step"
+# echo -e "\e[32m ** Running step: $STEP ** \e[0m"
+# STATUS=0
+# if [ $STATUS -ne 0 ]; then
+#   echo -e "\e[31m ❌ Step '$STEP' failed with exit status $STATUS. Exiting script. \e[0m"
+#   exit 1
+# fi
+# echo -e "\e[32m ✅ Step '$STEP' completed successfully. \e[0m"
+# echo "*************************"
+# sleep 500 &                     #Run this command in background
+# STATUS=$?                        #Assign the EXIT status of the last background command to a variable
+# echo "Exit status of the last background command is $STATUS"  #Prints the EXIT status of the last background command
+# echo "*************************"
+# STEP="Sample Step"
+# echo -e "\e[32m ** Running step: $STEP ** \e[0m"
+# STATUS=1
+# if [ $STATUS -ne 0 ]; then
+#   echo -e "\e[31m ❌ Step '$STEP' failed with exit status $STATUS. Exiting script. \e[0m"
+#   exit 1
+# fi
+# echo -e "\e[32m ✅ Step '$STEP' completed successfully. \e[0m"
+# echo "*************************"     
 

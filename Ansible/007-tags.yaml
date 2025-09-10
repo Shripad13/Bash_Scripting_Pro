@@ -1,0 +1,34 @@
+- name: Demo on tasks
+  hosts: all                        # hosts group name
+  gather_facts: no                 # disable gathering facts, it is enabled by default, it will collect system information like OS, CPU, Memory, etc. which is not required in this playbook.
+  tasks:
+    - name: Installing frontend
+      ansible.builtin.debug:
+        msg: Installing frontend
+      tags: frontend
+
+    - name: Starting frontend
+      ansible.builtin.debug:
+        msg: Starting frontend
+      tags: frontend
+
+    - name: Installing DB
+      ansible.builtin.debug:
+        msg: Installing DB
+      tags: DB
+
+    - name: Starting DB
+      ansible.builtin.debug:
+        msg: Starting DB                
+      tags: DB
+
+
+    - name: Installing Backend
+      ansible.builtin.debug:
+        msg: Installing Backend
+      tags: Backend
+
+    - name: Starting Backend
+      ansible.builtin.debug:
+        msg: Starting Backend  
+      tags: Backend      

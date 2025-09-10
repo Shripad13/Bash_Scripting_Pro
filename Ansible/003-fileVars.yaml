@@ -1,0 +1,16 @@
+- name: Demo on fileVars
+  hosts: all                        # hosts group name
+  vars:                             # file level variable
+    URL: "play.google.com"          # file containing variables
+  vars_files:                       # file level variable
+    - "{{ env }}-vars.yaml"               # file containing variables, it can be any file with .yml or .yaml extension
+
+  tasks:
+    - name: Print a message using a variable 
+      ansible.builtin.debug:
+        msg: "value of the URL {{ URL }}" 
+
+    - name: Print a message using a variable
+      ansible.builtin.debug:
+        msg: "Current environment is {{ ENV }} & the dev-lead name is {{ DEVLEAD }} their value is {{ A }}"             
+

@@ -28,8 +28,14 @@ $ git push
 
 
 
-#git config --global user.email "stmaddi@outlook.com"
-#git config --global user.name "Shripad13"
+git config --global user.email "stmaddi@outlook.com"
+git config --global user.name "Shripad13"
+git add . ; git commit -m "Bash_scripting"
+git remote -v  #check whether you already have any remote configured 
+git remote add origin https://github.com/userShripad13/repoomicraitsolutions-project.git
+git push origin main
+
+
 
 # you want to make git pull work without asking for authentication every time on your server
 git config --global credential.helper store
@@ -46,6 +52,7 @@ git pull
  git clone https://github.com/Shripad13/Expense_Shell_Application.git
 
 PAT token - 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
+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
 
 #####################################################################################
 
@@ -53,4 +60,16 @@ PAT token - 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
 #How to set Hostname according to our choice in Linux.
 sudo set-hostname <new-hostname>
 
+#####################################################################################
+#how to create a repository in github from ec2 server
 
+sudo yum install gh -y  # for RHEL/CentOS
+
+sudo apt-get update  # for Ubuntu/Debian
+sudo apt-get install gh -y
+
+
+gh auth login
+gh repo create omicraitsolutions-project --public
+git remote add origin  https://github.com/Shripad13/omicraitsolutions-project
+git push -u origin main

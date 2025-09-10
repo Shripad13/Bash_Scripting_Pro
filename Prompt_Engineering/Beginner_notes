@@ -1,0 +1,19 @@
+## Common Parameters
+
+1. Max Tokens - Controls length of Output (1 Token = 1 piece word)
+2. Temperature - Controls how Creative or Predictable the AI is
+3. Top P (Nucleus Sampling) - Controls Randomness by narrowing choices to top X% of motly likely options
+4. Stop Sequence - Tell the model where to stop generating text
+
+
+Paid Version means CHatGPT Plus & gives access to GPT-4.o model
+Faster reponses
+Priority access during high-traffic periods
+Features - voice conversation & image generation
+Provides Plugins -
+
+Common Prompt Engineering Techniques - 
+1. Few-shot prompting - Provide examples for ChatGPT to follow.
+2. Chain-of-thought (CoT) -  Achieve complex reasoning through middle reasoning steps.
+
+3. Share Descriptive but concise prompts

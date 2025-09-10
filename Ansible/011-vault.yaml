@@ -1,0 +1,15 @@
+- name: Printing secrets
+  hosts: all                        # hosts group name
+  vars:
+    DBPASS: "DevOps123"             # Encrypt & mention here
+  tasks:
+    - name: Printing Secrets
+      ansible.builtin.debug:
+        msg: "value of the  pass is {{ DBPASS }}"  # print the DB password using the variable DBPASS, which is defined in the vars section.
+      no_log: true  # This will prevent the sensitive information from being logged in the output.
+      
+    - name: Printing secret file content
+      ansible.builtin.debug:
+        msg: "{{ lookup('file', 'secret.txt') }}"  # Using lookup to read the content of a file named secret.txt.
+      no_log: true  # This will prevent the sensitive information from being logged in the output.
+

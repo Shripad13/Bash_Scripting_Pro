@@ -1,0 +1,16 @@
+- name: Demo on tasks
+  hosts: all                       # hosts group name
+  gather_facts: no                 # disable gathering facts, it is enabled by default, it will collect system information like OS, CPU, Memory, etc. which is not required in this playbook.
+  become: yes                      # Runs the task with sudo/root , called as previlige escalation
+  tasks:
+    - name: Installing nginx
+      ansible.builtin.package:
+        name: nginx
+        state: present             # means its install package
+        #state: absent             # means it will not install package
+        #state: latest             # means it will update the package with latest one 
+
+    - name: Starting nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted                 

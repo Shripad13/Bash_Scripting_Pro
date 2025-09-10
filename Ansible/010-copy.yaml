@@ -1,0 +1,11 @@
+- name: Copying the file using copy module
+  hosts: all                        # hosts group name
+  gather_facts: no                  # disable gathering facts, it is enabled by default, it will collect system information like OS, CPU, Memory, etc. which is not required in this playbook.
+  tasks:
+    - name: Copying nginx file
+      ansible.builtin.copy:
+        src: nginx.conf
+        dest: /home/ec2-user/nginx.conf
+        owner: root
+        group: root
+        mode: '0644'  # Permissions in octal format

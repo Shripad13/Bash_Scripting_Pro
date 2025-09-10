@@ -1,0 +1,6 @@
+- name: Demo on errors
+  hosts: all                        # hosts group name
+  tasks:
+    - name: Check if Java process runnign or not
+      ansible.builtin.debug:
+        msg: "This task will always succeed" 

@@ -1,0 +1,18 @@
+- name: Demo on using shell module
+  hosts: all                        # hosts group name
+  #gather_facts: no            # disable gathering facts, it is enabled by default, it will collect system information like OS, CPU, Memory, etc. which is not required in this playbook.
+  tasks:
+    - name: Runs uptime command 
+      ansible.builtin.shell: uptime
+      register: OUT                  # register the output of the command in a variable called OUT. register is predefined keyword in Ansible to store the output of a task in a variable.
+
+    - name: Printing uptime command
+      ansible.builtin.debug:          # debug module is used to print/display a message
+        msg: "Uptime of the system is {{ OUT.stdout }} and the exit code is {{ OUT.rc }}"  # print the output of the command using the registered variable OUT, rc is the return code of the command, 0 means success and any other value means failure.
+
+    - name: Printing OS version and flavour
+      ansible.builtin.debug:
+        msg: "Current node OS version is {{ ansible_distribution_version }} and the flavour is {{ ansible_distribution }}"  # print the OS version and flavour using the gathered facts, ansible_distribution_version and ansible_distribution are predefined variables in Ansible to get the OS version and flavour respectively.
+
+
+

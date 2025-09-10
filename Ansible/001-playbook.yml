@@ -1,0 +1,17 @@
+- name: play1
+  hosts: all                   # hosts group name, by default it is 'all' means run on all hosts mentioned in inv file.
+  tasks:
+    - name: task1 of play1
+      ansible.builtin.debug:    # debug module is used to print/display a message
+        msg: "Hello World!"
+
+    - name: task2 of play1
+      ansible.builtin.debug:
+        msg: "Hello, Ansible Playbooks!"    
+
+- name: play2
+  hosts: dev                      # hosts group name
+  tasks:
+    - name: task1 of play2
+      ansible.builtin.debug:
+        msg: "Ansible is an awesome automation tool!"    

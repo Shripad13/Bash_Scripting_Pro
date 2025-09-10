@@ -21,8 +21,8 @@
 
 ## How inputs and outputs are categorized :
 
-# 1. Standard Output     1> or > or >>  (Expected error less output)
-# 2. Standard Error      2> or 2>>  (Expected Output)
+# 1. Standard Output     1> or > or >>  (Expected error less output)(Normal Output)
+# 2. Standard Error      2> or 2>>  (Expected Output)(Error Output)
 # 3. Standard Output and Standard Error   &> or &>> or 2>&1 (Expected output and error)
 # 4. Standard Input      < (Input to a command from a file)
 ex : mysql -u root -p </tmp/studentapp.sql  # Input redirection

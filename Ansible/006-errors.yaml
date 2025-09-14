@@ -1,6 +1,12 @@
 - name: Demo on errors
   hosts: all                        # hosts group name
+  gather_facts: no                 # disable gathering facts, it is enabled by default, it will collect system information like OS, CPU, Memory, etc. which is not required in this playbook.
   tasks:
-    - name: Check if Java process runnign or not
+    - name: Check if Java process running or not
+      ansible.builtin.shell: ps -ef | grep java | grep -v grep
+      ignore_errors: True          # ignore_errors is a predefined keyword in Ansible to ignore the errors of a task, if the task fails, it will not stop the playbook execution.
+    - name: Printing a msg
       ansible.builtin.debug:
-        msg: "This task will always succeed" 
+        msg: "This is a second task" 
+
+# Command: $ ansible-playbook -i inv  -e ansible_user=ec2-user -e ansible_password=DevOps321  006-errors.yaml

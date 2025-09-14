@@ -45,8 +45,7 @@ Git will store it in plain text at ~/.git-credentials, so be cautious.
 
 If you get below error - fatal: Need to specify how to reconcile divergent branches.
 Then use below command -
-git pull --rebase
-git pull
+ git add .; git commit -m "update" ; git pull --rebase; git pull
 
 ### On EC2 Server ##
  git clone https://github.com/Shripad13/Expense_Shell_Application.git

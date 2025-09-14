@@ -32,3 +32,12 @@
       ansible.builtin.debug:
         msg: Starting Backend  
       tags: Backend      
+
+  # Command : 
+  # $ ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=your_password 007-tags.yaml -t "Backend"
+  
+  # $ ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=your_password 007-tags.yaml --tags "DB"
+  # $ ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=your_password 007-tags.yaml --tags "frontend"
+  # $ ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=your_password 007-tags.yaml --tags "Backend"
+
+  

@@ -10,8 +10,11 @@
         msg: "Hello, Ansible Playbooks!"    
 
 - name: play2
-  hosts: dev                      # hosts group name
+  hosts: frontend                      # hosts group name
   tasks:
     - name: task1 of play2
       ansible.builtin.debug:
-        msg: "Ansible is an awesome automation tool!"    
+        msg: "Ansible is an awesome configuration management automation tool!"
+    - name: task2 of play2
+      ansible.builtin.debug:
+        msg: "Ansible is very helpful!"  

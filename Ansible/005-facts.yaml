@@ -5,3 +5,6 @@
     - name: Printing OS version and flavour
       ansible.builtin.debug:
         msg: "Current node OS version is {{ ansible_distribution_version }} and the flavour is {{ ansible_distribution }}"  # print the OS version and flavour using the gathered facts, ansible_distribution_version and ansible_distribution are predefined variables in Ansible to get the OS version and flavour respectively.
+
+
+#Command : ansible-playbook -i inv  -e ansible_user=ec2-user -e ansible_password=DevOps321  005-facts.yaml

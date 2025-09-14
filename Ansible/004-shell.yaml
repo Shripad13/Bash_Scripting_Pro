@@ -3,8 +3,17 @@
   #gather_facts: no            # disable gathering facts, it is enabled by default, it will collect system information like OS, CPU, Memory, etc. which is not required in this playbook.
   tasks:
     - name: Runs uptime command 
-      ansible.builtin.shell: uptime
+      ansible.builtin.shell: uptime  # Shell module is not meant to show the output of the command, it is used to run the command on the remote node.
       register: OUT                  # register the output of the command in a variable called OUT. register is predefined keyword in Ansible to store the output of a task in a variable.
+
+    - name: Print all the details of the command execution
+      ansible.builtin.debug:          # debug module is used to print/display a message
+        var: OUT                      # print all the details of the command execution using the registered variable OUT, var is a predefined keyword in Ansible to print the value of a variable.
+        #msg: "{{OUT}}"                # you can also use msg to print the value of a variable.
+
+
+
+#In Ansible's debug module, msg and var are mutually exclusive parameters. You can't use them together in the same task. You need to choose one.
 
     - name: Printing uptime command
       ansible.builtin.debug:          # debug module is used to print/display a message
@@ -16,3 +25,4 @@
 
 
 
+#command:  ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=DevOps321  004-shell.yaml

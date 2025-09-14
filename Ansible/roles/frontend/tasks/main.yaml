@@ -1,2 +1,0 @@
-- name: Configuring hostname 
-  ansible.builtin.shell: set-hostnmae {{ componnent }}

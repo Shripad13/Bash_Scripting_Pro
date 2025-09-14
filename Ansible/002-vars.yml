@@ -3,15 +3,15 @@
   vars:                             #play level variable
     URL: "play.google.com"
   tasks:
-    - name: Print/Display a message using a variable
+    - name: Print/Display a message using a variable (Task1)
       ansible.builtin.debug:
-        msg: "value of the URL {{ URL }}"
+        msg: "value of the URL is {{ URL }}"
       
-    - name: Print/Display a message using a variable
+    - name: Print/Display a message using a variable (Task2)
       ansible.builtin.debug:
         msg: "{{ URL }}"             # always enclose in quotes if not any prefix for variables
 
-    - name: Print/Display a message using a variable
+    - name: Print/Display a message using a variable (Task3)
       ansible.builtin.debug:
         msg: "valueof the task variable is {{ URL }}" 
       vars:                              # task level variable
@@ -24,5 +24,11 @@
   tasks:
     - name: Print/Display a message using a variable on play2
       ansible.builtin.debug:
-        msg: "value of the URL {{ URL }}"    
+        msg: "value of the URL {{ CLI_URL }}"    
 
+
+# If you not defined the variable CLI_URL in play or task level then you can pass the variable from command line using -e option
+#COMMAND -  ansible-playbook -i /home/ec2-user/Ansible/inv -e ansible_user=ec2-user -e ansible_password=DevOps321 -e CLI_URL=flipkart.com 002-vars.yml
+# CLI variable >> task variable >> play variable
+# CLI variable will always have highest precedence.
+# ex-  ansible-playbook -i /home/ec2-user/Ansible/inv -e ansible_user=ec2-user -e ansible_password=DevOps321 -e CLI_URL=flipkart.com -e URL=devsecopswithshri.com  002-vars.yml

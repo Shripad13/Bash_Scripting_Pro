@@ -14,3 +14,8 @@
       ansible.builtin.debug:
         msg: "Current environment is {{ ENV }} & the dev-lead name is {{ DEVLEAD }} their value is {{ A }}"             
 
+
+#Command - $  ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=DevOps321  -e @prod-vars.yaml 003-fileVars.yaml
+# -e@prod-vars.yml ---> It will load all the variables from prod-vars.yaml file
+# $ ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=DevOps321 -e env=dev  003-fileVars.yaml
+

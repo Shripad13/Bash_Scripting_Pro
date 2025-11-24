@@ -18,3 +18,5 @@
     - name: task2 of play2
       ansible.builtin.debug:
         msg: "Ansible is very helpful!"  
+
+     

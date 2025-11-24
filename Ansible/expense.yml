@@ -1,0 +1,12 @@
+- name: Expense Playbook To Configure {{ COMPONENT }}
+#  hosts: all
+  hosts: "{{ COMPONENT }}"
+  become: true
+  roles:
+    - role: "{{COMPONENT}}"
+
+
+
+#Command to run for frontend: ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=DevOps321 -e COMPONENT=frontend  expense.yml
+#Command to run for mysql:    ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=DevOps321 -e COMPONENT=mysql  expense.yml
+#Command to run for backend:  ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=DevOps321 -e COMPONENT=backend  expense.yml

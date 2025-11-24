@@ -47,11 +47,22 @@ If you get below error - fatal: Need to specify how to reconcile divergent branc
 Then use below command -
  git add .; git commit -m "update" ; git pull --rebase; git pull
 
+#####################################################################################
+
+Configure Git to always use rebase when pulling
+One-time setup (for all repos):
+git config --global pull.rebase true
+
+and it will always do a rebase automatically, no need to type --rebase every time.
+git pull
+
+#####################################################################################
+
 ### On EC2 Server ##
  git clone https://github.com/Shripad13/Expense_Shell_Application.git
 
-PAT token - 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
-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
+PAT token - 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
+Valid till 11 th Dec
 
 #####################################################################################
 
@@ -72,3 +83,15 @@ gh auth login
 gh repo create omicraitsolutions-project --public
 git remote add origin  https://github.com/Shripad13/omicraitsolutions-project
 git push -u origin main
+
+
+####################### Miscellaneous Points ###################################
+
+>> During launching EC2 instance if you want to execute or run any commands or installing tools during start of Server then you can put them in User Data & launch ec2.
+
+>> Every company maintain their own AMI's , in that they will install required softwares needed for application & you will use that only.
+
+##########################################################
+
+
+Mostly you see Operational Issues like maintaing multiple machines Storage inconsistency , Network Issues, Port issues

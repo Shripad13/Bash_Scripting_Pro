@@ -1,0 +1,13 @@
+[frontend]
+frontend.devsecopswithshri.site
+
+[mysql]
+mysql.devsecopswithshri.site
+
+[backend]
+backend.devsecopswithshri.site
+
+
+# ansible-playbook -i inv-prod -e ansible_user=ec2-user -e ansible_password=DevOps321 -e COMPONENT=mysql -e ENV=prod expense.yml
+# ansible-playbook -i inv-prod -e ansible_user=ec2-user -e ansible_password=DevOps321 -e COMPONENT=backend -e ENV=prod expense.yml
+# ansible-playbook -i inv-prod -e ansible_user=ec2-user -e ansible_password=DevOps321 -e COMPONENT=frontend -e ENV=prod expense.yml

@@ -1,0 +1,13 @@
+[frontend]
+frontend-qa.devsecopswithshri.site
+
+[mysql]
+mysql-qa.devsecopswithshri.site
+
+[backend]
+backend-qa.devsecopswithshri.site
+
+
+# ansible-playbook -i inv-qa -e ansible_user=ec2-user -e ansible_password=DevOps321 -e COMPONENT=mysql -e ENV=qa expense.yml
+# ansible-playbook -i inv-qa -e ansible_user=ec2-user -e ansible_password=DevOps321 -e COMPONENT=backend -e ENV=qa expense.yml
+# ansible-playbook -i inv-qa -e ansible_user=ec2-user -e ansible_password=DevOps321 -e COMPONENT=frontend -e ENV=qa expense.yml

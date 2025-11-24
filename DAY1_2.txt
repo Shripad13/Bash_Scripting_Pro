@@ -734,6 +734,17 @@ https://github.com/trimstray/the-book-of-secret-knowledge
 https://github.com/joseadanof/awesome-cloudnative-trainings/
 
 
+
+################## GIT #####################
+$ git pull --rebase
+means:
+"Fetch the latest changes from the remote branch, and then rebase my local changes on top of them."
+Instead of merging, it re-applies your local commits on top of the fetched changes, resulting in a cleaner, linear history.
+ 
+
+########################### ###########################  
+
+
 # egrep foo
 awk '/foo/' filename
 

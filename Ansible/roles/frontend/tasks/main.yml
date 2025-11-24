@@ -1,36 +1,22 @@
-- name: Configuring hostname
-  ansible.builtin.shell: set-hostname {{ COMPONENT }}
-
 - name: Install nginx
   ansible.builtin.package:
     name: nginx
     state: present
-    become: true
+
 
 - name: Copy file with owner and permissions
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: nginx.conf
     dest: /etc/nginx/default.d/nginx.conf
 
-- name: Cleanup the file
-  ansible.builtin.file:
-    path: /usr/share/nginx/html/*
-
-- name: Create a directory
-  ansible.builtin.file:
-    path: /usr/share/nginx/html/
-    state: directory
-
-- name: Downloading & unarchiving the frontend Code
-  ansible.builtin.unarchive:
-    src: "https://expense-web-app.s3.amazonaws.com/frontend.zip"
-    dest: /usr/share/nginx/html/
-    remote_src: yes
+- name: App Pre-requisite Tasks
+  ansible.builtin.include_role:           # through this we can call any role inside another role
+    name: common                          # Name of the role to be called
+    tasks_from: pre-req                   # Name of the file to be called inside the role
 
 
-- name: Starting nginx service
+- name: Restarting nginx service
   ansible.builtin.service:
     name: nginx
-    state: started
+    state: restarted
     enabled: true
-    become: true

@@ -17,6 +17,21 @@
 
 # Domain Migration Takes 24 hrs of time to reflect
 1. We will buy a domain on Go-Daddy/ Hostinger
-2. We will create a public hosted zone on AWS (& copy the NS servers from this hosted zone
-)
+2. We will create a public hosted zone on AWS (& copy the NS servers from this hosted zone)
 3. Then on the NS section of hosted zone on the domain provider, update the NS with the above one.
+
+
+
+
+## Tools - 
+Linux 
+Shell scripting
+Ansible
+GOCD
+Terraform
+Hashicorp Vault
+
+
+# Pending things
+1. create an Launch template with ansible installed & use   that AMI for future use
+2. practise on expense-terraform project & watch the recording

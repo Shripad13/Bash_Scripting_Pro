@@ -1,0 +1,16 @@
+- name: Cleanup the App Directory
+  ansible.builtin.file:
+    path: "{{APP_PATH}}"
+    state: absent
+  ignore_errors: true  # optional, in case it doesn't exist    
+
+- name: Create a App Directory
+  ansible.builtin.file:
+    path: "{{APP_PATH}}"
+    state: directory
+
+- name: Downloading & unarchiving the "{{COMPONENT}}" Code
+  ansible.builtin.unarchive:
+    src: "{{ URL }}"
+    dest: "{{APP_PATH}}"
+    remote_src: yes

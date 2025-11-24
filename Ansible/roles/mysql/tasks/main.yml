@@ -1,0 +1,19 @@
+
+
+- name: Install {{COMPONENT}}
+  ansible.builtin.package:
+    name: mysql-server
+    state: present
+
+- name: Starting {{COMPONENT}} service
+  ansible.builtin.systemd_service:
+    name: mysqld
+    state: started
+    enabled: true
+
+- name: Configuring the {{COMPONENT}}
+  ansible.builtin.shell: mysql_secure_installation --set-root-pass ExpenseApp@1
+
+
+
+

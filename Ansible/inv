@@ -1,8 +1,11 @@
 [frontend]
 172.31.23.212
 
-[backend]
+[mysql]
+172.31.23.32
 
+[backend]
+172.31.25.238
 
 [dev]
 

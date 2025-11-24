@@ -1,0 +1,3 @@
+# this file going to be executed first before any task execution in our case backend, frontend, mysql
+dependencies:
+  - role: common

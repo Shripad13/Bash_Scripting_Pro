@@ -1,15 +1,24 @@
 - name: Printing secrets
-  hosts: all                        # hosts group name
-  vars:
-    DBPASS: "DevOps123"             # Encrypt & mention here
+  hosts: all  
+  vars_files:
+    - secrets.yml                      # hosts group name 
   tasks:
-    - name: Printing Secrets
+    - name: Show DB password
       ansible.builtin.debug:
         msg: "value of the  pass is {{ DBPASS }}"  # print the DB password using the variable DBPASS, which is defined in the vars section.
-      no_log: true  # This will prevent the sensitive information from being logged in the output.
+      #no_log: true  # This will prevent the sensitive information from being logged in the output.
       
     - name: Printing secret file content
       ansible.builtin.debug:
-        msg: "{{ lookup('file', 'secret.txt') }}"  # Using lookup to read the content of a file named secret.txt.
-      no_log: true  # This will prevent the sensitive information from being logged in the output.
+        msg: "{{ lookup('file', 'secret.yml') }}"  # Using lookup to read the content of a file named secret.yml.
+      #no_log: true  # This will prevent the sensitive information from being logged in the output.
 
+
+# ansible-vault encrypt_string 'DevOps123' --name 'DBPASS'  # To encrypt a single variable
+# ansible-vault encrypt secret.txt  # To encrypt the file
+# ansible-vault decrypt secret.txt  # To decrypt the file
+# Ansible vault is to encrypt sensitive data like passwords, API keys, etc., within Ansible playbooks or files.
+
+
+# Command to run the vault file -
+# ansible-playbook -i localhost, -e ansible_user=ec2-user -e ansible_password=DevOps321 011-vault.yaml --ask-vault-password

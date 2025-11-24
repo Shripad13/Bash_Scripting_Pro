@@ -265,3 +265,17 @@ But using Parallel stage we can achieve execution of multiple STAGE same time.
 
 snapshot/backup will be available at this path on server if we loses jenkins
 /var/lib/jenkins
+
+# why jenkins is not created for the purpose of continuous deployment?
+
+A typical Jenkins setup may not come with built-in monitoring or automatic rollback features.
+
+Continuous deployment often involves different environments (e.g., dev, staging, production), and setting up Jenkins to handle these environments can require additional plugins, scripts, or integrations with other deployment tools.
+
+Jenkins has to be securely configured to handle things like environment variables, credentials, and infrastructure secrets. The need for proper security setups (like secret management) might make Jenkins users cautious about enabling continuous deployment right away.
+
+Tools like Spinnaker, ArgoCD, or GitLab CI/CD are often used for fully managed continuous deployment pipelines because they come with more built-in features for deploying applications, handling blue/green deployments, canary releases, and rollback strategies.
+
+
+
+Jenkins can be used for continuous deployment, but by default, it is more geared toward continuous integration. For CD, it requires additional configuration and might require integrating with other deployment and orchestration tools to handle full lifecycle deployments safely and efficiently.

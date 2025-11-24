@@ -1,0 +1,3 @@
+COMPONENT: "backend"
+APP_PATH: "/app"
+URL: "https://expense-web-app.s3.amazonaws.com/backend.zip"

@@ -17,6 +17,14 @@ ansible.builtin.systemd_service - also daemon reload module, Preferred for syste
 
 ansible.builtin.fetch module – Fetch files from remote nodes
 
+
+ansible.builtin.user module – Manage user accounts
+
+ansible.builtin.dnf -
+
+
+ansible.builtin.stat - conditional check module
+
 ✅ state: present  #means:"Make sure the package is installed."
 If the package is already installed, Ansible does nothing (it's idempotent). If it's not installed, Ansible will install it.
 ✅state: absent   #Ensure the package is removed/uninstalled.
@@ -31,3 +39,12 @@ remote_src: yes       #Means things will happen to remote servers (manadatory to
 
 ignore_errors: True          # ignore_errors is a predefined keyword in Ansible to ignore the errors of a task, if the task fails, it will not stop the playbook execution.
 
+
+
+###############################
+# How to call a common yml file to the main.yml file with ansible.builtin.include_role collection
+
+- name: App Pre-requisite Tasks
+  ansible.builtin.include_role:           # through this we can call any role inside another role
+    name: common                          # Name of the role to be called
+    tasks_from: pre-req.yml               # Name of the file to be called inside the role

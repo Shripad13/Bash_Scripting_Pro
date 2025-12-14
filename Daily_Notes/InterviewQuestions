@@ -27,3 +27,35 @@ If you get this question in your interview, make sure to knock it out of the par
 Explore other popular interview questions with the average and great answers: https://lnkd.in/eGwt5fFn
 
 Download this and other cloud interview questions and answers (FREE): https://lnkd.in/egg_rVWH
+
+
+# How do you ensure security in your DevOps practices, particularly in cloud environments?
+“I integrate security at every stage of the DevOps pipeline—shifting left with automated code scanning, dependency checks, and container image scanning. In cloud environments, I enforce least-privilege IAM roles, encrypt data in transit and at rest, and store secrets in service HashiCorp Vault. I use CI/CD gates for security checks, enable logging and monitoring with tools like CloudWatch and GuardDuty, and apply network controls such as security groups, NACLs, and Kubernetes network policies. Overall, I combine automation, least privilege, and continuous monitoring to keep cloud workloads secure.
+
+
+# what strategies do you use for containerization & orchestration, especially with Docker & kuberentes.
+I containerize applications using Docker with minimal, secure, multi-stage images and clear tagging standards. For orchestration, I rely on Kubernetes with best practices like resource limits, health probes, autoscaling, and secure RBAC/Network Policies. I use Helm for deployments, integrate everything into CI/CD pipelines, and ensure observability with Prometheus, Grafana, and ELK/Loki. Overall, I focus on building scalable, secure, and highly available containerized systems.
+
+# Can you describe your experiense with Infra as code particularly with Terraform?
+I have strong hands-on experience with Infrastructure as Code, especially using Terraform to build and manage cloud environments in a consistent, automated way. In my previous roles, I designed and maintained modular Terraform architectures for AWS, including VPC networking, security groups, IAM roles, EKS/ECS clusters, EC2 instances, RDS, and other core services.
+
+I follow best practices such as module reuse, remote state with S3 + DynamoDB locking, version-controlled Terraform code, and structured environments like dev/stage/prod. I also integrate Terraform into Jenkins CI/CD pipelines, where each commit triggers formatting and validation checks, a terraform plan for review, and an approval flow before running terraform apply.
+
+Security and governance are key, so I use tools like tfsec, TFLint, and Checkov, and manage sensitive variables through Parameter Store or Secrets Manager. I’ve also helped teams migrate manually created resources into Terraform to reduce drift and improve reproducibility.
+
+Overall, Terraform has been central to how I implement scalable, reliable, and automated cloud infrastructure.
+
+
+# Day-to-Day DevOps Activities?
+
+My day usually starts with a stand-up meeting where I share updates and blockers. Then, I check monitoring dashboards (Grafana, Prometheus, AppDynamics) for any alerts. If pipelines fail, I troubleshoot and fix issues in GitLab CI/CD. I also work on updating configurations, writing documentation, and improving automation scripts. Continuous collaboration with developers and operations teams is key to ensure smooth deployments and system reliability.
+“As a DevOps Engineer, my day typically starts with an Agile stand-up meeting where I share updates on ongoing tasks, blockers, and next steps. After that, I check monitoring dashboards using tools like AppDynamics, Grafana, and Prometheus to ensure system health and address any alerts proactively.
+If any CI/CD pipelines fail in GitLab, I troubleshoot by analyzing logs, fixing scripts, and re-running jobs. I also work on updating configurations for environments, writing documentation for deployment processes, and improving automation.
+A big part of my role involves developing and maintaining GitLab pipelines for build, test, and deployment stages, integrating monitoring and alerting for reliability. Collaboration with developers and operations teams is continuous to ensure smooth releases and system stability.”
+# Key Activities to Mention
+Agile & Stand-ups: Daily sync, sprint planning.
+Monitoring: AppDynamics, Grafana, Prometheus.
+Pipeline Management: GitLab CI/CD troubleshooting & development.
+Configuration Updates: Environment configs, Helm charts.
+Documentation: Deployment guides, monitoring setup.
+Automation & Continuous Improvement: Scripts, alerts, dashboards.

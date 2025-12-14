@@ -279,3 +279,7 @@ Tools like Spinnaker, ArgoCD, or GitLab CI/CD are often used for fully managed c
 
 
 Jenkins can be used for continuous deployment, but by default, it is more geared toward continuous integration. For CD, it requires additional configuration and might require integrating with other deployment and orchestration tools to handle full lifecycle deployments safely and efficiently.
+
+# how have you implemented CI/CD pipelines in your previous roles, especially using jenkins?
+My experience with jenkins included managing & maintaining the build & release pieplines, which involved monitoring Continuous deployment processes Ans resolving deployment failures quickly.
+In my previous roles, I built and managed end-to-end CI/CD pipelines in Jenkins using Pipeline-as-Code with Jenkinsfiles. I automated build, test, and deployment stages, integrated unit and security scans, and used webhooks for automatic triggers on code commits. I also implemented Docker-based builds, pushed artifacts to registries, and deployed to Kubernetes or cloud environments using Helm or kubectl. For production releases, I added approval gates, rollback strategies, and notifications. Overall, I used Jenkins to deliver faster, reliable, and repeatable deployments.

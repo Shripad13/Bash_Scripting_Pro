@@ -35,3 +35,42 @@ Hashicorp Vault
 # Pending things
 1. create an Launch template with ansible installed & use   that AMI for future use
 2. practise on expense-terraform project & watch the recording
+
+
+> Standards to be followed :
+1. Right now, whatever we create, we are going with open network (allow all)
+2. In organization, we dont use default VPC
+3. As per our network needs, we would need to create custom VPC with private & public subnets.
+   
+> What we have achieved is a basic version of the application.
+1. We need to design a product keeping the security in to a consideration.
+2. Only App users (Engineers & developers) should access the application through ILB.
+3. Tools should never be open to public (Tools should be in private subnet/ default vpc)   
+4. We need to create a bastion host to access the private instances.
+5. Ensure we create the network & all the components keeping the numer of environments on to consideration. (Dev/QA/Prod)
+
+> Points to keep in mind while designing the network :
+1. Connect to VPN.
+2. you will connect to server using SSO
+3. Create an Infrastructure which is HIGH AVAILABLE & FAULT TOLERANT. 
+
+> In organization, if we keep multiple accounts for multiple environments & projects:
+1. If you have multiple accounts in AWS, its tough to manage them.
+2. Dev Infra will be in dev-x aws account.
+3. Prod Infra will be in prod-x aws account.
+4. api Infra will be in api-x aws account.
+5. Sandbox Infra will be in sandbox-x aws account.
+
+> AWS Landing Zone - 
+1. Will have a main account for a organization & inside that we will have multiple accounts tied.
+2. In that main account, we will use a service called a AWS Landing Zone.
+3. If you login to that main account, you will see all the accounts listed there.
+4. You can switch between the accounts using AWS SSO.   
+
+# Tages are very important -
+1. BU
+2. Sub BU
+3. Org
+4. Billing 
+5. Environment
+6. App

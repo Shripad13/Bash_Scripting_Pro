@@ -17,9 +17,60 @@
 
 # Domain Migration Takes 24 hrs of time to reflect
 1. We will buy a domain on Go-Daddy/ Hostinger
-2. We will create a public hosted zone on AWS (& copy the NS servers from this hosted zone)
+2. We will create a PUBLIC hosted zone on AWS (& copy the NS servers from this hosted zone)
 3. Then on the NS section of hosted zone on the domain provider, update the NS with the above one.
+4. Then going forward, all the requests that comes to the domain provider will be routed to AWS Route53. for domain transalation.
 
+while true; do nslookup decsecopswithshri.site; sleep 5; done
+
+
+# Flow of Request:
+
+1. User sends a request to the public DNS record.
+2. Request is go through ISP to reach AWS Route53.
+3. The request is routed through the AWS Load Balancer (NLB).
+4. The NLB forwards the request to the Kubernetes Ingress Controller.
+5. The Ingress Controller routes the request to the appropriate service within the cluster.
+6. The service forwards the request to the backend pods.
+
+
+decsecopswithshri.site  ---> ISP ---> Route53 Public Hosted Zone ---> NLB ---> Ingress Controller ---> Service ---> Pods
+
+
+## https Vs https
+
+http --->> Port 80  --->> Non Secure --> communication will be in plain text
+https --->> Port 443 --->> Secure  --> communication will be encrypted using SSL/TLS certificate
+# SSL/TLS Certificate :
+1. DigiCert, SSL.com, GlobalSign, Cloudflare , Let's Encrypt (Free) are the top SSL certificate providers.
+2. Using AWS Certificate Manager (ACM) we can request & manage SSL/TLS certificates. & attache to LB.
+3. Two Types of Certificates :
+   1. Public Certificate --->> used for public websites
+   2. Private Certificate --->> used for internal applications
+4. Regular Certificate --->> used for single domain
+5. Wildcard Certificate --->> used for multiple sub-domains (*.devsecopswithshri.site)
+   
+
+1. Get the certificate from ACM.
+2. Create a CNAME record with the value provided by ACM in the DNS provider
+3. Once the CNAME is verified by ACM, the certificate will be issued.
+4. Attach the certificate to the Load Balancer.
+5. That should work for both argo.devsecopswithshri.site & expense.argo.devsecopswithshri.site & vault.devsecopswithshri.site
+6. We will deploy a ingress controller with one LB & will use that LB to route the traffic to different services based on the host header.
+
+
+## Install helm chart for nginx ingress controller
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm upgrade -i ngx-ingress ingress-nginx/ingress-nginx -f ingress.yaml
+                (chart name)   (path in the repo)    (values of your choice)
+
+
+# Only Manual Task is to update the CNAME record of the ingress COntroller LB on the Route 53 for expense & argocd application, which can also be automated using External DNS tool.
+
+
+## How External DNS works?
+Need to create an External DNS service account with IAM role having permissions to manage Route 53 records.
+Reference- https://github.com/kubernetes-sigs/external-dns
 
 
 
@@ -32,9 +83,8 @@ Terraform
 Hashicorp Vault
 
 
-# Pending things
-1. create an Launch template with ansible installed & use   that AMI for future use
-2. practise on expense-terraform project & watch the recording
+
+
 
 
 > Standards to be followed :

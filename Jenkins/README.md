@@ -1,3 +1,29 @@
+
+# What is Continuous Integration and Continuous Deployment (CI/CD) in Jenkins?
+Continuous Integration (CI) is the practice of automatically building and testing code changes as they are committed to a shared repository. Continuous Deployment (CD) extends this by automatically deploying successful builds to production or staging environments. Jenkins is a popular open-source automation server that facilitates CI/CD by allowing developers to create pipelines that automate the build, test, and deployment processes.
+
+Continuous Deployment - Will be done by Big companies like Netflix, Amazon, Microsoft, MAANG, where every code which is tested & passed will be directly deployed to production without manual intervention.
+You should not say continuous deployment in interviews, say continuous delivery.
+
+## Jenkins -
+1. Jenkins is an open-source framework & is a free to use tool.
+2. Its been there in industry for almost 2 decades.
+3. Product Managed by open-source community.
+4. Commercial support by CloudBees.
+5. You are responsible for managing & maintaining the Jenkins server/ software.
+6. Jenkins has Master & worker node architecture.
+
+
+## Github Actions-
+1. CI Framework on the top of github platform.
+2. your repository should be in github.
+3. Only free for individual users & public repositories.
+4. For enterprise its paid based on usage.
+5. Action platform managed by github itself.
+6. You are not responsible for managing & maintaining the underlying platform.
+7. you can create runners (worker nodes) on your own infra or use github hosted runners.
+
+
 # What is Groovy in the context of Jenkins?
 Groovy is a scripting language used in Jenkins for writing Declarative and Scripted Pipelines. Jenkins uses Groovy for scripting custom pipeline logic, shared libraries, and for advanced pipeline customization.
 

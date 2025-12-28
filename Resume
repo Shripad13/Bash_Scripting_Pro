@@ -1,5 +1,93 @@
-## Update Below Points in Resume
 
-1.Domain Purchase & Certificate purchase from AWS Certificate Manager 
-2.Domain Migration from On-Premise to AWS 
-3.SSL/TLS Certificate Configuration on AWS Cert Manager.
+## 1️⃣Interview Introduction (≈2 minutes)
+
+“Good morning, and thank you for the opportunity.
+My name is Shripad Maddi, and I’m a Senior DevOps Engineer with over 6 years of experience in building, deploying, and managing scalable cloud-native applications.
+
+Currently, I’m working at Accelya Group, where I focus heavily on AWS-based cloud infrastructure, containerization, and modern DevOps practices. I have hands-on experience designing and managing microservices architectures using Docker and Kubernetes, primarily on Amazon EKS. I’ve been involved in containerizing applications end-to-end, maintaining private Docker registries, and implementing secure, optimized container images.
+
+From a cloud architecture and deployment perspective, I work extensively with Infrastructure as Code using Terraform to provision AWS resources, ensuring consistency across development, QA, and production environments. I’ve also implemented RBAC, secret management with HashiCorp Vault, and security best practices to maintain highly secure Kubernetes clusters.
+
+On the CI/CD side, I’ve designed and maintained end-to-end pipelines using GitHub Actions, Jenkins, and ArgoCD, enabling automated build, test, and deployment for microservices. I use Helm charts to standardize deployments and reduce configuration complexity, which has significantly improved deployment speed and reliability.
+
+Additionally, I have strong experience in monitoring and observability using tools like Prometheus, Grafana, and Splunk, ensuring system reliability and performance. Earlier in my career at TCS, I gained solid production experience managing large-scale middleware environments, which helped me build a strong foundation in troubleshooting and operational excellence.
+
+Overall, I enjoy working in cloud-native, DevOps-driven environments where I can automate processes, improve deployment strategies, and support scalable microservices on AWS.”
+
+
+## 1️⃣ AWS DevOps Engineer – HR Round (Business-focused, high level)
+
+“Good morning, and thank you for the opportunity.
+My name is Shripad Maddi, and I have over 6 years of experience as a DevOps Engineer, working extensively on AWS cloud environments, automation, and CI/CD practices.
+
+Currently, I work as a Senior DevOps Engineer at Accelya Group, where I help teams deliver applications faster and more reliably by building scalable cloud infrastructure and automated deployment pipelines. I’ve worked with AWS services and Infrastructure as Code using Terraform to ensure consistent and secure environments across development, QA, and production.
+
+I have strong experience with Docker and Kubernetes, supporting microservices-based applications and improving deployment reliability through automation tools like GitHub Actions, Jenkins, and ArgoCD. I also focus on improving security, monitoring, and overall system stability using industry best practices.
+
+What motivates me most is enabling development teams by simplifying deployments, improving system reliability, and supporting business growth through cloud automation. I’m now looking for an AWS DevOps role where I can continue building scalable cloud solutions and contribute to high-impact platforms.”
+
+
+## 2️⃣ AWS DevOps Engineer – Technical Round (Hands-on & architecture-focused)
+
+“Hello, my name is Shripad Maddi, and I’m a Senior DevOps Engineer with 6+ years of experience designing and managing AWS-based cloud infrastructure and CI/CD pipelines.
+
+In my current role at Accelya Group, I work extensively with AWS and Amazon EKS, where I’ve containerized microservices using Docker and orchestrated deployments using Kubernetes. I provision infrastructure using Terraform, enabling repeatable and version-controlled cloud environments.
+
+I’ve built and maintained end-to-end CI/CD pipelines using GitHub Actions and Jenkins, integrating security scans, quality gates, and automated deployments via ArgoCD and Helm charts. From an AWS architecture standpoint, I focus on scalability, security, and least-privilege access using RBAC and IAM best practices.
+
+I also work on observability using Prometheus, Grafana, and Splunk, and manage secrets securely through HashiCorp Vault integrated with EKS. Overall, my strength lies in combining AWS cloud architecture with automation and Kubernetes to deliver reliable, production-ready systems.”
+
+## 3️⃣ SRE – HR Round (Reliability & collaboration focus)
+
+“Good morning, my name is Shripad Maddi, and I’m a DevOps Engineer with more than 6 years of experience supporting highly available production systems.
+
+Currently at Accelya Group, I work closely with development and operations teams to ensure system reliability, stability, and smooth releases. My role involves automating deployments, improving monitoring, and reducing manual intervention across environments.
+
+I’ve worked with AWS, Docker, and Kubernetes, supporting microservices deployments and ensuring applications are observable and resilient. I strongly believe in proactive monitoring and continuous improvement, using tools like Prometheus, Grafana, and Splunk.
+
+With my earlier experience at TCS handling large-scale production systems, I’ve developed a strong sense of ownership, incident handling, and collaboration. I’m looking for an SRE role where I can focus on improving reliability, reducing downtime, and building resilient cloud systems.”
+
+
+## 4️⃣ SRE – Technical Round (Reliability, monitoring & automation)
+
+“Hi, I’m Shripad Maddi, a Senior DevOps Engineer with 6+ years of experience, working closely with SRE principles such as automation, observability, and reliability engineering.
+
+In my current role, I manage microservices running on Amazon EKS, where I focus on deployment automation, RBAC security, and performance tuning. I use Terraform to provision AWS infrastructure and Helm with ArgoCD for consistent, GitOps-based deployments.
+
+I actively work on monitoring and alerting using Prometheus, Grafana, AppDynamics, and Splunk, ensuring actionable alerts and system visibility. I also automate operational tasks using Ansible, Bash, and Python, reducing manual toil.
+
+From an SRE perspective, I focus on improving deployment reliability, reducing MTTR, and maintaining production stability while enabling frequent releases.”
+
+## 5️⃣ Platform Engineer – HR Round (Enablement & scalability focus)
+
+“Good morning, my name is Shripad Maddi, and I’m a Senior DevOps Engineer with strong experience in building shared platforms and cloud infrastructure.
+
+At Accelya Group, I work on creating reusable deployment frameworks, CI/CD pipelines, and Kubernetes platforms that enable development teams to deploy microservices independently and securely. I focus on standardization, automation, and scalability across AWS environments.
+
+I enjoy building internal platforms that simplify cloud usage for developers, improve security, and reduce operational overhead. I’m now looking for a Platform Engineer role where I can help design and maintain robust cloud platforms that support multiple teams.”
+
+## 6️⃣ Platform Engineer – Technical Round (Internal platforms & tooling)
+
+“Hello, I’m Shripad Maddi, a Senior DevOps Engineer with 6+ years of experience designing and operating cloud-native platforms on AWS.
+
+I’ve built Kubernetes-based platforms using Amazon EKS, standardizing deployments through Helm charts and GitOps with ArgoCD. I provision infrastructure using Terraform, ensuring consistency and governance across environments.
+
+My work includes creating secure CI/CD pipelines, integrating Vault for secret management, implementing RBAC, and enabling observability across microservices. I focus on building self-service platforms that allow development teams to deploy, scale, and monitor applications with minimal friction.
+
+My goal as a Platform Engineer is to provide reliable, scalable foundations that empower teams while maintaining security and operational excellence.”
+
+## 1️⃣ “Tell me about your current project” – Strong Technical Response (2 minutes)
+
+“Currently, I’m working as a Senior DevOps Engineer at Accelya Group, where my primary responsibility is building and managing a cloud-native microservices platform on AWS.
+
+The application landscape is fully containerized using Docker and runs on Amazon EKS. My role starts from infrastructure provisioning using Terraform, where I create and manage AWS resources like EKS clusters, IAM roles, networking components, and supporting services.
+
+For deployments, we follow a GitOps approach using ArgoCD, along with Helm charts that I designed to standardize microservice deployments across Dev, QA, and Production. This helped reduce configuration drift and deployment errors significantly.
+
+On the CI/CD side, I’ve implemented end-to-end pipelines using GitHub Actions and Jenkins, integrating unit tests, SonarQube quality gates, and security scans such as SAST and SCA. Once the pipeline passes, deployments are automatically promoted through environments.
+
+Security is a key focus area. I implemented EKS RBAC with least-privilege access, integrated HashiCorp Vault for secrets management using init containers, and ensured secure communication between services.
+
+For observability, I work with Prometheus and Grafana for metrics, and Splunk for centralized logging, which helps us proactively monitor performance and quickly resolve production issues.
+
+Overall, the project focuses on scalability, security, automation, and reliability, and my role is to ensure smooth deployments, stable infrastructure, and efficient developer enablement.”

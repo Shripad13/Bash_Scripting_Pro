@@ -14,3 +14,8 @@ that also you can update in .bash_profile file
 Ex: type git, type date, type cat , type fdisk 
 
 It will show the path where these applications installed on server
+
+
+sudo dnf list installed |grep java
+sudo dnf list |grep java
+sudo dnf list |grep jdk

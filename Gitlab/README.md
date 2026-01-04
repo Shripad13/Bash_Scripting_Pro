@@ -10,7 +10,7 @@ git config --global user.email "email@example.com"
 git config --global user.name "First Last"
 
 
-#Branch name for Production Release - Master / main
+# Branch name for Production Release - Master / main
 Branch name for next release development - development
 Feature Branch - feature
 Bugfix branch  - bugfix
@@ -63,7 +63,7 @@ git flow feature finish 123-implement-multifactor-auth
 
 git flow release
 
-#A release will represent a merge of the develop branch to a new short-lived release branch. Perform this with the following command:
+# A release will represent a merge of the develop branch to a new short-lived release branch. Perform this with the following command:
 
 git flow release start 2026-03-02
 
@@ -72,7 +72,7 @@ Execute the following command:
 git log
 
 
-##Two weeks have passed and it's time to perform a new release. The old release has been stable during this time, so it’s time to finish the release in advance of creating a new one. Issue the following command:
+## Two weeks have passed and it's time to perform a new release. The old release has been stable during this time, so it’s time to finish the release in advance of creating a new one. Issue the following command:
 
 git flow release finish '2026-03-02' -m 'Stable in advance of 2026-03-16 release'
 
@@ -116,7 +116,7 @@ Example:
 1.3.0 → 2.0.0: A breaking change was introduced.
 2.0.0 → 2.0.1: A bug fix that doesn’t break compatibility.
  
-##Why Use Semantic Versioning?
+## Why Use Semantic Versioning?
 Clarity: Helps consumers of the software know whether upgrading is safe (e.g., if it’s a major version, they should review the release notes carefully).
 Compatibility: Assists in determining whether existing code will still work with a new version, and whether there are new features available.
  

@@ -27,6 +27,10 @@ You should not say continuous deployment in interviews, say continuous delivery.
 # What is Groovy in the context of Jenkins?
 Groovy is a scripting language used in Jenkins for writing Declarative and Scripted Pipelines. Jenkins uses Groovy for scripting custom pipeline logic, shared libraries, and for advanced pipeline customization.
 
+> Scripted Pipeline: Written in Groovy code, gives full programming flexibility, but can be complex and harder to read.
+
+> Declarative Pipeline: Uses structured, predefined syntax, easier to read and maintain, with built-in error handling and stages.
+
 # How do you define environment variables in a Jenkins Pipeline using Groovy?
 
 pipeline {

@@ -9,3 +9,4 @@ Yes, but Both Ansible and Terraform can do similar things, but they serve differ
 🔧 𝗔𝗻𝘀𝗶𝗯𝗹𝗲 → 𝗖𝗼𝗻𝗳𝗶𝗴𝘂𝗿𝗮𝘁𝗶𝗼𝗻 𝗠𝗮𝗻𝗮𝗴𝗲𝗺𝗲𝗻𝘁
 • Used to configure & manage provisioned resources
 • Works alongside Terraform, not as a replacement
+

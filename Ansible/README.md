@@ -1,6 +1,6 @@
 
-#For ansible , pre-requisite is Python 3.11
-Latest ansible version is 11.3
+# For ansible , pre-requisite is Python 3.11
+Latest ansible version is 13 with 13.2.0 is the most recent update.
 sudo dnf list |grep ansible
 
 yum is the package manager till RHEL8
@@ -10,8 +10,8 @@ dnf is the package manager for RHEL9
 sudo pip3.11 install ansible
 ansible --version
 
-#What is inventory?
- Inventory is a file that has the list of all the VM IP'sthat needs to be managed by  ansible
+# What is inventory?
+ Inventory is a file that has the list of all the VM IP'sthat needs to be managed by ansible
  all is the default group on this file that includes every thing on the file.
  
  # Running ansible commands manually
@@ -81,8 +81,8 @@ You can even declare variables in file & defind in playbook.
 Push - Use when Infra is Static
 Pull - Use when Infra is Dynamic
 
-# Ansible Tower - GUI for Ansible & it has feature of getting the inventory dynamically.
-
+> Ansible Tower - GUI for Ansible & it has feature of getting the inventory dynamically.
+> Ansible Tower provides a Robust Data Logging feature.
 
 
  ### How to run an ansible playbook?
@@ -90,7 +90,7 @@ ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=DevOps321 0
 ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=DevOps321 001-playbook.yml
 
 ## Variable Precednce in variable
-localvariables >> play variable
+local variables >> play variable
 
 When you supply Command Line Variables have higher precednce than play & local variables.
 ex -  
@@ -102,18 +102,18 @@ In ansible it acts whole unit for each task, if you give variable before module 
 
 In Ansible, If you attempt to use a variable which is not declared, then it returns as error.
 
-
-
 # How to Gather facts of the nodes mentioned on the invemtory -
 
 Gathering facts refers to the automatic collection of system information/properties (also known as facts) from the managed nodes (hosts) before running any tasks. This is handled by the setup module,(ansible.builtin.setup:)
 
-Types of facts gathers - OS details, Network interfaces, Memoory & CPU info, Disk & mounts etc
+Types of facts gathers - OS details, Network interfaces, Memory & CPU info, Disk & mounts etc
 
 Ansible is very rich with collections.
 
 By default gather_facts is yes in all playbooks, if you dont want to gather_facts then mention as no.
 Make sure all group is there in inv file.
+gather_facts: yes
+gather_facts: no
 
 ansible -i inv all -e ansible_user=ec2-user -e ansible_password=  -m ansible.builtin.gather_facts
 
@@ -125,13 +125,10 @@ $ ansible -i inv frontend -e ansible_user=ec2-user -e ansible_password=DevOps321
 
 $ ansible -i inv frontend -e ansible_user=ec2-user -e ansible_password=DevOps321  -m ansible.builtin.gather_facts|grep "ansible_nodename"
 
-$ ansible -i inv frontend -e ansible_user=ec2-user -e ansible_password=DevOps321  -m ansible.builtin.gather_facts|grep "ansible_kernel"
+ $ ansible -i inv frontend -e ansible_user=ec2-user -e ansible_password=DevOps321  -m ansible.builtin.gather_facts|grep "ansible_kernel"
 
 You can redirect the output to some file, becoz it generated hug info of facts
 ansible -i inv all -e ansible_user=ec2-user -e ansible_password=  -m ansible.builtin.gather_facts > ~/op.txt
-
-
-
 
 
 # Ansible Vault
@@ -139,7 +136,7 @@ Vault helps you in encrypting the string & supplying in a format thats not plain
 Ansible does not support defining !vault values directly inside playbooks this way. Vault-encrypted values are meant to be stored in separate variable files, not inline in the playbook YAML.
 
 Run Below command to get plain password intfrom encrypted pass
-$ ansible-vault encrypt_string <password>
+ $ ansible-vault encrypt_string <password>
 
 
 
@@ -193,14 +190,13 @@ roles/
 # what is Role Dependency in Ansible ?
 1. This helps in making one particualr task as pre-requisite
 
-For example, Running a Backend first without making Mysql operation doesnt work.
+For example, Running a Backend first without making Mysql operational doesnt work.
 So we can define role dependency for BACKEND as MySQL, that means you wish to run backend, MySQL will be executed first.
 
-It is mentioned here on common/mian.yml & this needs to be called in backend/meta/main.yml file, so that automatically it will be executed first.
+It is mentioned here on common/main.yml & this needs to be called in backend/meta/main.yml file, so that automatically it will be executed first.
 
 
 ## Running Playbook using PUSH Mechanism
-
 
 ansible-playbook -i inv-dev -e ansible_username=ec2-user -e ansible_password=DevOps321 -e COMPONENT=frontend -e ENV=dev expense.yml
 
@@ -208,13 +204,33 @@ OR
 
 ansible-playbook -i frontend-dev.expense.internal -e ansible_username=ec2-user -e ansible_password=DevOps321 -e COMPONENT=frontend -e ENV=dev expense.yml
 
+# How ansible-pull works?
+1. This connects to the instance and runs ansible command that connects to the repo & runs the playbook.
+2. Make sure the machine you are running has ANsible Installed.
+3. Either you can install ansible in the same provisioner or make sure the AMI you are using has ansible installed.
+4. Source can only be on Git.
+   
+   $ ansible-pull -u <git_URL.git> playBookname.yml
+
+# B59-S39 - Session on ansible-pull
 
 ### Ansible PULL Mechanism
 
 Ansible also works using pull based mechanism, in this case we dont have to maintain the inventory.
 But ensure the node that runs this ansible-pull should have ANSIBLE installed.
 
+> You need to have ansible install on TARGET NODES for using Ansible Pull Mechanism
+
+The ansible-pull mechanism is designed for scale and environments with intermittent connectivity, or where security policies prevent a central control node from initiating connections to managed hosts. 
+
+1. Agentless Execution: ansible-pull does not require a persistent agent running on the managed nodes.
+2. Git Integration: managed node uses Git to clone or update a repository containing the Ansible playbooks.
+3. Scheduled Tasks: A cron job or scheduler on the managed node runs the ansible-pull command at a regular interval to check for updates.
+4. Local Execution: Once the repository is updated locally, the command executes the specified playbook against localhost. The inventory file for the playbook typically lists 127.0.0.1 as the target. 
+
 ## When to use PUSH Vs PULL 
+1. When you have a case where you dont want to keep a node just for ansible
+2. Whenever you r infra is dynamic (that means infra comes out & grows), that time maintaining the infra is a big deal, in that time we will ensure the nodes that are provisioned as ANSIBLE install & we make that node to pull the playBook using the ansible-pull & run the playbook.
 
 Typically its a choice, but generally if the inventory is STATIC, then we designate one of the node as Ansible Controller where we make the deployments from here using PUSH to other nodes.
 
@@ -227,42 +243,108 @@ hosts: localhost
 
 Also you need to pull the code ONLY from Github & git related products like Git, Gitlab, Bigbucket
 
-COMMAND to run on target node directly - ansible-pull -U <git url repo> -e COMPONENT=frontend -e ENV=dev expense.yml
+COMMAND to run on target node directly - 
+  $ ansible-pull -U <git url repo> -d <destination_directory> -e COMPONENT=frontend -e ENV=dev expense.yml
 
 Where you want to do configuration management on server, run the ansible command there itself as simple as that.
 
 
+⬇️ What if your servers could pull configurations themselves—like how Git works?
+Welcome to Ansible Pull, a powerful alternative to the traditional push-based automation model.
+
+🔹 What is Ansible Pull?
+
+Unlike the standard Ansible Push model (where a control node pushes Playbooks to targets), Ansible Pull flips the approach:
+Each managed node pulls Playbooks from a Git repository and applies them locally.
+
+It’s ideal for scalable, decentralized environments—especially where SSH access is restricted.
+
+🔹 Why Use Ansible Pull?
+
+✅ Eliminates the need for a central control node
+✅ Works behind firewalls and NAT
+✅ Scales easily for 100s or 1000s of servers
+✅ Automates periodic configuration with cron
+✅ Uses Git as a single source of truth
+
+🔹 How Ansible Pull Works-
+Ansible Pull is already included with Ansible. On each node, just run:
+ansible-pull -U https://lnkd.in/gGs3Nk6V site.yml
+
+You can also automate this using cron for regular config pulls:
+(crontab -l ; echo "*/30 * * * * ansible-pull -U https://lnkd.in/gGs3Nk6V site.yml >> /var/log/ansible-pull.log 2>&1") | crontab -
+---
+🔹 Example Use Case
+Imagine bootstrapping 200 cloud VMs. Instead of setting up SSH access to each, you embed ansible-pull in your instance startup script. Each server pulls its config and self-configures—hands-free automation.
+
+> Ansible config file will be on repo of github
+
+🔹 Ansible Pull vs. Ansible Push – Key Differences
+1. Control Node Requirement
+Push: Needs a centralized controller
+Pull: Each node is independent
+
+2. SSH Access
+Push: Requires SSH to all hosts
+Pull: No SSH needed—nodes pull from Git
+
+3. Scalability
+Push: Gets tricky as the environment grows
+Pull: Scales naturally—nodes work in parallel
+
+4. Firewall-Friendly
+Push: May face network restrictions
+Pull: Works behind firewalls with outbound Git access
+
+5. Git Integration
+Push: Optional
+Pull: Mandatory—Git is the source of configuration
+
+6. Use Case
+Push: Great for centralized, ad-hoc, or manual control
+Pull: Ideal for cloud-scale, immutable, or air-gapped setups
+
+
+
 # Ansible Tower-
 For all our jobs in Ansible, there is no UI so far.
-You can use Ansible Tower for UI, but tower can be useful only for ANsible.
+You can use Ansible Tower for UI, but tower can be useful only for Ansible.
 
 # Available Tools for Deployments- 
-
-1. Jenkins not really menat for purpose of deployments, Its main goal is CI.
+1. Jenkins not really meant for purpose of deployments, Its main goal is CI.
 2. Go CD - Its a continuous deployment Tool.
 3. ArgoCD - Its a exclusively for Kubernetes deployments & dont work for server based deployments.
 
 
 ## 🌀 What is Ansible Galaxy?
-
 Ansible Galaxy is:
 A community hub and package repository where Ansible users can share, discover, and reuse automation content like roles, collections, and playbooks.
 It's like npm (for Node.js) or PyPI (for Python) — but specifically for Ansible content.
 
 
-## For Use of Ansible-pull
-> You need to have ansible install on target nodes - 
->. Steps to make your own AMI :
-1.Use lab image & create instance
+# Steps to make your own AMI :
+1. Use lab image & create instance
 2. Install ansible on that node using "pip3.11 install ansible"
 3. Create  an AMI using this & name it as "b58-golden-image"
-4. Make sure you are the owner , so supply your account id.
+4. Make sure you are the owner, so supply your account id.
 
 ## Ansible builtin module Vs Ansible community modules
 If you are using the builtin modules you dont need to  install requirements.
 If you are using the community modules, you need to check for requirements & install.
 
-# To extract the secrets form Hasicorp Vault for Ansible
+# To extract the secrets from Hasicorp Vault for Ansible
 vars:
         secrets: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=expense-dev/data/backend', token=token, url='https://vault.devsecopswithshri.site:8200', validate_certs=False) }}"
 
+
+> Ansible config file - /etc/ansible/ansible.cfg
+> Ansible log - /var/log/ansible.log
+> Ansible looks for modules - /usr/share/ansible
+
+
+# What is the filename where we store all the host ip?
+In config file - /etc/ansible/hosts
+
+# How to specify host with port number?
+In /etc/ansible/hosts
+hostname:port

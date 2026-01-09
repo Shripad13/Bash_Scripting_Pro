@@ -1,3 +1,7 @@
+## Ansible Modules
+
+ansible.builtin.ping - To check the connectivity of target machine
+
 ansible.builtin.debug - for print a messg, like echo in bash
 
 ansible.builtin.shell - allows you to run shell commands using the system’s shell
@@ -15,30 +19,29 @@ ansible.builtin.service - Want maximum compatibility across distros
 ansible.builtin.systemd_service - Need full control on modern Linux (systemd)
 ansible.builtin.systemd_service - also daemon reload module, Preferred for systemd distros
 
-ansible.builtin.fetch module – Fetch files from remote nodes
+ansible.builtin.fetch - This module Fetches files from remote nodes
 
-
-ansible.builtin.user module – Manage user accounts
-
-ansible.builtin.dnf -
-
+ansible.builtin.user – This module Manages user accounts
 
 ansible.builtin.stat - conditional check module
+
+ansible all -m setup - To gather ad-hoc info about system.
 
 ✅ state: present  #means:"Make sure the package is installed."
 If the package is already installed, Ansible does nothing (it's idempotent). If it's not installed, Ansible will install it.
 ✅state: absent   #Ensure the package is removed/uninstalled.
 ✅state: latest   #Ensure the latest version of the package is installed.
 
-state: started        #Ensures the service is running.
-enabled: yes          #Configures the service to start automatically on boot.
-become: yes           #Instructs Ansible to escalate privileges (e.g., using sudo) for executing tasks.
-remote_src: yes       #Means things will happen to remote servers (manadatory to mention this)
+✅state: started        #Ensures the service is running.
+✅enabled: yes          #Configures the service to start automatically on boot.
+✅become: yes           #Instructs Ansible to escalate privileges (e.g., using sudo) for executing tasks.
+✅remote_src: yes       #Means things will happen to remote servers (manadatory to mention this)
 
-# In Ansible if one taks fails then successive task will not execute & stops there only, so for exceptions handling sometimes you can use below -
+```
+In Ansible if one task fails then successive task will not execute & stops there only, so for exceptions handling sometimes you can use below -
 
 ignore_errors: True          # ignore_errors is a predefined keyword in Ansible to ignore the errors of a task, if the task fails, it will not stop the playbook execution.
-
+```
 
 
 ###############################
@@ -48,3 +51,8 @@ ignore_errors: True          # ignore_errors is a predefined keyword in Ansible 
   ansible.builtin.include_role:           # through this we can call any role inside another role
     name: common                          # Name of the role to be called
     tasks_from: pre-req.yml               # Name of the file to be called inside the role
+
+
+## How to check Connectivity of all the target Nodes?
+ansible all -m ping
+

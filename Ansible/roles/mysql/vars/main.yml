@@ -1,1 +1,2 @@
 COMPONENT: "mysql"
+secrets: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=expense-dev/data/mysql token={{vault_token}} url=https://vault.devsecopswithshri.site:8200 validate_certs=False') }}"

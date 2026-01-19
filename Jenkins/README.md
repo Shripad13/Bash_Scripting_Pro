@@ -313,3 +313,78 @@ Jenkins can be used for continuous deployment, but by default, it is more geared
 # how have you implemented CI/CD pipelines in your previous roles, especially using jenkins?
 My experience with jenkins included managing & maintaining the build & release pieplines, which involved monitoring Continuous deployment processes Ans resolving deployment failures quickly.
 In my previous roles, I built and managed end-to-end CI/CD pipelines in Jenkins using Pipeline-as-Code with Jenkinsfiles. I automated build, test, and deployment stages, integrated unit and security scans, and used webhooks for automatic triggers on code commits. I also implemented Docker-based builds, pushed artifacts to registries, and deployed to Kubernetes or cloud environments using Helm or kubectl. For production releases, I added approval gates, rollback strategies, and notifications. Overall, I used Jenkins to deliver faster, reliable, and repeatable deployments.
+
+# What is Multibranch Pipeline in Jenkins?
+A Multibranch Pipeline in Jenkins is a type of pipeline that automatically creates and manages pipelines for  each branch in a source code repository. It scans the repository for branches containing a Jenkinsfile and creates a separate pipeline for each branch, allowing for isolated builds and tests per branch. This is particularly useful for teams practicing Git branching strategies, as it enables continuous integration and delivery workflows tailored to each branch without manual configuration. 
+use Webhooks to trigger builds on code changes.
+
+# How do you set up a Multibranch Pipeline in Jenkins?
+To set up a Multibranch Pipeline in Jenkins, follow these steps:
+1. Install the Multibranch Pipeline Plugin: Ensure that the Multibranch Pipeline plugin is installed in your Jenkins instance.
+2. Create a New Multibranch Pipeline Job: In Jenkins, click on "New Item," enter a name for your job, select "Multibranch Pipeline," and click "OK."
+3. Configure the Source Repository: In the job configuration, under the "Branch Sources" section, add your source code repository (e.g., Git, GitHub, Bitbucket). Provide the necessary repository URL and credentials if required.
+4. Define Branch Discovery: Configure branch discovery settings to specify which branches should be included in the pipeline. You can choose to include all branches or filter specific ones.
+5. Set Build Triggers: Optionally, configure build triggers to automatically scan the repository for    new branches or changes at regular intervals.
+6. Save the Configuration: Click "Save" to create the Multibranch Pipeline job.
+
+# How does Jenkins handle branch-specific configurations in a Multibranch Pipeline?
+In a Multibranch Pipeline, Jenkins handles branch-specific configurations by looking for a Jenkinsfile in each branch of the repository. Each branch can have its own Jenkinsfile that defines the pipeline stages, steps, and configurations specific to that branch. When Jenkins scans the repository, it automatically creates a separate pipeline for each branch that contains a Jenkinsfile, allowing for isolated builds and tests per branch. This enables teams to implement different CI/CD workflows for different branches, such as feature branches, development branches, and production branches, without manual configuration.
+
+# What are some best practices for managing Jenkins pipelines using Groovy?
+1. Use Declarative Pipelines: Prefer Declarative syntax for better readability and maintainability.
+2. Modularize with Shared Libraries: Create reusable functions and classes in Shared Libraries to avoid code duplication.
+3. Use Version Control: Store Jenkinsfiles and Shared Libraries in version control systems like Git for tracking changes.
+4. Parameterize Pipelines: Use parameters to make pipelines flexible and adaptable to different environments or scenarios.
+5. Implement Error Handling: Use try-catch blocks and post conditions to handle errors gracefully.
+6. Use Credentials Management: Store sensitive information securely using Jenkins credentials.
+
+# How do you store credntials securely in Jenkins pipelines using Groovy?
+Use the withCredentials step to securely access stored credentials in Jenkins pipelines. This ensures that sensitive information like passwords and API keys are not exposed in the pipeline definition or logs.
+
+#  How will you ensure secondary pipelines runs after the secondary pipeline is successful in jenkins using groovy?
+You can use the build step to trigger a secondary pipeline after the primary pipeline completes successfully. Here is an example of how to do this in a Jenkins Declarative Pipeline using Groovy:
+pipeline {
+    agent any
+    stages {
+        stage('Primary Pipeline') {
+            steps {
+                echo 'Running primary pipeline...'
+                // Primary pipeline logic here
+            }
+        }
+    }
+    post {
+        success {
+            build job: 'Secondary_Pipeline_Job_Name', wait: true
+        }
+    }
+}
+
+In this example, the secondary pipeline (Secondary_Pipeline_Job_Name) will be triggered only if the primary pipeline completes successfully. The wait: true parameter ensures that the primary pipeline waits for the secondary pipeline to finish before proceeding.
+
+
+choice parameters {
+        choice(name: 'ENVIRONMENT', choices: ['dev', 'staging', 'prod'], description: 'Select the deployment environment')
+    }
+}
+
+
+
+# What is the condition to use scripted pipeline over declarative pipeline in jenkins?
+Scripted pipelines are preferred over declarative pipelines in Jenkins when you need:
+1. Greater flexibility and control over the pipeline logic.
+2. Complex workflows that require advanced programming constructs.
+3. Dynamic stage creation based on runtime conditions.
+4. Integration with external systems or APIs that require custom scripting.
+5. Fine-grained error handling and recovery mechanisms.
+
+# How do you implement blue-green deployments using Jenkins pipelines and Groovy?
+To implement blue-green deployments using Jenkins pipelines and Groovy, you can follow these steps:
+1. Define two environments (blue and green) in your infrastructure.
+2. Create a Jenkins pipeline that includes stages for building, testing, and deploying your application.
+3. Use environment variables or parameters to specify which environment to deploy to (blue or green).
+4. Implement a deployment stage that deploys the application to the specified environment.
+5. After deployment, run tests to verify the deployment was successful. 
+
+# How do you clenup temporary file in jenkins workspace?
+You can use the cleanWs() step in your Jenkins pipeline to clean up temporary files in the workspace. This step removes all files and directories in the workspace, helping to free up space and ensure a clean environment for subsequent builds.

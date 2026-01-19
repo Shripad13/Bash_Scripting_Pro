@@ -3,10 +3,12 @@
 
 
 “Good morning, and thank you for the opportunity.
-My name is Shripad Maddi, and I’m a Senior DevOps Engineer with overall 6 years of experience in building, deploying, and managing  AWS-based cloud infrastructure and CI/CD pipelines.
+My name is Shripad Maddi, and I’m a Senior DevOps Engineer with overall 3 years of experience in building, deploying, and managing  AWS-based cloud infrastructure and CI/CD pipelines.
+
 I provision infrastructure using Terraform, enabling repeatable and version-controlled cloud environments.
 
 I’ve built and maintained end-to-end CI/CD pipelines using Gitlab CI and Jenkins, integrating security scans, quality gates, and automated deployments. # via ArgoCD and Helm charts.
+
 
 Main motivation is to enabling development teams by simplifying deployments, improving system reliability, and supporting business growth through cloud automation. 
 
@@ -22,9 +24,9 @@ Received Certification of Appreciation from Emirates Airline for Consistent Stab
 
 
 “Good morning, and thank you for the opportunity.
-My name is Shripad Maddi, and I’m a Senior DevOps Engineer with over 6 years of experience in building, deploying, and managing scalable cloud-native applications.
+My name is Shripad Maddi, and I’m a Senior DevOps Engineer with over 3 years of experience in building, deploying, and managing scalable cloud-native applications.
 
-Currently, I’m working at Accelya Group, where I focus heavily on AWS-based cloud infrastructure, containerization, and modern DevOps practices. I have hands-on experience designing and managing microservices architectures using Docker and Kubernetes, primarily on Amazon EKS. I’ve been involved in containerizing applications end-to-end, maintaining private Docker registries, and implementing secure, optimized container images.
+Currently, I’m working at Accelya Group, where I focus heavily on AWS-based cloud infrastructure, containerization, CI/CD pipelines and modern DevOps practices. I have hands-on experience designing and managing microservices architectures using Docker and Kubernetes, primarily on Amazon EKS. I’ve been involved in containerizing applications end-to-end, maintaining private Docker registries, and implementing secure, optimized container images.
 
 From a cloud architecture and deployment perspective, I work extensively with Infrastructure as Code using Terraform to provision AWS resources, ensuring consistency across development, QA, and production environments. I’ve also implemented RBAC, secret management with HashiCorp Vault, and security best practices to maintain highly secure Kubernetes clusters.
 
@@ -111,3 +113,82 @@ Security is a key focus area. I implemented EKS RBAC with least-privilege access
 For observability, I work with Prometheus and Grafana for metrics, and Splunk for centralized logging, which helps us proactively monitor performance and quickly resolve production issues.
 
 Overall, the project focuses on scalability, security, automation, and reliability, and my role is to ensure smooth deployments, stable infrastructure, and efficient developer enablement.”
+
+
+
+
+###
+
+1. How do you start a day at work as a DevOps Engineer & Cloud Engineer ?
+As a DevOps and Cloud Engineer, I typically start my day by reviewing any alerts or notifications from our monitoring systems like Prometheus, Grafana, or Splunk to check for any incidents or performance issues that may have occurred overnight. I prioritize addressing any critical issues first to ensure system stability.
+Next, I check the status of our CI/CD pipelines in GitHub Actions or Jenkins to see if there were any failed builds or deployments that need attention. If there are any pending code reviews or merge requests, I allocate time to review them and provide feedback to the development team.
+I also review any scheduled infrastructure changes or deployments planned for the day, coordinating with relevant teams to ensure smooth execution. If there are any new feature requests or improvements from the development team, I discuss them to understand requirements and plan implementation.
+Finally, I allocate time for continuous learning, whether it’s exploring new tools, reading documentation, or attending webinars to stay updated with the latest trends in DevOps and cloud technologies. Overall, my day is a balance of reactive incident management and proactive planning for infrastructure and deployment improvements.
+
+2. How do you handle incidents in production systems ?
+When handling incidents in production systems, I follow a structured approach to ensure quick resolution and minimal impact on users. First, I acknowledge the incident and gather as much information as possible from monitoring tools like Prometheus, Grafana, and Splunk to understand the scope and severity of the issue. I prioritize the incident based on its impact on business operations and user experience. Next, I communicate with relevant stakeholders, including development teams, operations teams, and management, to keep them informed about the situation and any potential impact.
+
+2. How will you help New Customer as DevOps Engineer to migrate their existing applications to AWS Cloud ?
+To help a new customer migrate their existing applications to AWS Cloud as a DevOps Engineer, I would follow a structured approach:
+1. Assessment: Begin by assessing the current application architecture, dependencies, and infrastructure requirements. Identify any potential challenges or constraints.
+2. Planning: Develop a detailed migration plan that outlines the steps, timeline, and resources needed for the migration. This includes selecting the appropriate AWS services (e.g., EC2, RDS, S3, EKS) based on the application needs.
+3. Infrastructure as Code: Use Terraform to define and provision the AWS infrastructure required for the application. This ensures consistency and repeatability across environments.
+4. Containerization: If applicable, containerize the application using Docker to facilitate easier deployment and scalability on AWS services like Amazon EKS.
+5. CI/CD Pipeline: Set up CI/CD pipelines using tools like GitHub Actions or Jenkins to automate the build, test, and deployment processes for the application.
+6. Data Migration: Plan and execute the migration of databases and data storage to AWS services like Amazon RDS or S3, ensuring data integrity and minimal downtime.
+7. Testing: Conduct thorough testing in a staging environment to validate the application’s functionality, performance, and security on AWS.
+8. Deployment: Execute the migration to production, closely monitoring the process and addressing any issues that   arise.
+9. Post-Migration Support: Provide ongoing support and optimization for the application on AWS, including monitoring, scaling, and cost management.
+10. Documentation and Training: Document the new architecture and processes, and provide training to the customer’s team for effective management of the AWS environment.
+    
+
+3. I have to deploy an application. In which scenario you will choose EC2 & Lambda?
+When deciding between deploying an application on EC2 (Elastic Compute Cloud) versus AWS Lambda, I would consider the following scenarios:
+1. Use EC2 when: 
+   - The application requires full control over the operating system and environment.
+   - The application needs to run for extended periods or has long-running processes.
+   - The application requires specific software or configurations not available in Lambda.
+   - The application has high memory or CPU requirements that exceed Lambda's limits.
+2. Use Lambda when:
+   - The application is event-driven and can be broken into small, independent functions.
+   - The application has variable traffic and needs to scale automatically.
+   - The application is serverless and doesn't require managing servers or infrastructure.
+
+ 3. What do you understand by DevOps?
+
+
+5. Consider i have an application for which pod is running on EKS Cluster. Now I want that whenever I hit myapp.com in browser the request should get routed to that pod. What all steps will you take?
+
+Ingress controller for host/path based routing
+Which service will you choose ? CLuster IP, NodePort, LoadBalancer
+
+6. what is NACL & what do you understand about it?
+Network Access Control List (NACL) is a virtual firewall that controls inbound and outbound traffic at the subnet level in an Amazon VPC. It provides an additional layer of security by allowing or denying specific IP addresses, protocols, and ports for traffic entering or leaving a subnet. NACLs are stateless, meaning that return traffic must be explicitly allowed by rules. They are typically used to provide a basic level of security for subnets, complementing security groups that operate at the instance level.
+
+7. How to choose security group vs NACL?
+Security Groups vs NACLs:
+1. Security Groups: 
+   - Operate at the instance level.
+   - Stateful: return traffic is automatically allowed.
+   - Used to control inbound and outbound traffic for EC2 instances.
+   - More granular control over individual instances.
+2. NACLs:
+   - Operate at the subnet level.
+   - Stateless: return traffic must be explicitly allowed.
+   - Used to control traffic entering and leaving subnets.
+   - Provide a basic layer of security for multiple instances within a subnet.
+Choose Security Groups for instance-level security and NACLs for subnet-level security.
+
+8. How will you troubleshoot 403 error in your application?
+A 403 Forbidden error indicates that the server understands the request but refuses to authorize it. To troubleshoot a 403 error in an application, I would follow these steps:
+1. Check Application Logs: Review the application logs to identify any specific error messages or details related to the 403 error.
+2. Verify Permissions: Ensure that the user or service account making the request has the necessary permissions to access the requested resource.
+3. Review Access Control Lists: Check any access control lists (ACLs) or security settings that may be restricting access to the resource.
+4. Inspect Web Server Configuration: Review the web server configuration (e.g., Apache, Nginx) to ensure that the correct permissions are set for the requested resource.
+5. Check File and Directory Permissions: Verify that the file and directory permissions on the server are correctly set to allow access.
+6. Test with Different User: Try accessing the resource with a different user account to determine if the issue is specific to a particular user.
+7. Review Firewall Rules: Check any firewall rules that may be blocking access to the resource.
+8. Consult Documentation: Refer to the application or server documentation for any specific requirements or configurations related to access control.
+9. Contact Support: If the issue persists, consider reaching out to the application or server support team for further assistance.
+10. Implement Fixes: Based on the findings, implement the necessary fixes to resolve the 403 error and test to ensure access is restored.
+Possible causes of 403 errors include incorrect permissions, misconfigured access controls, or issues with authentication mechanisms.

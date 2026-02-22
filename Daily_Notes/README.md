@@ -122,3 +122,7 @@ Retro call -
 3. You work towards something & the story was something
 4. you have estimated that the task would be of 1 sprint but when you started you've realised that it would need 1 more week.
 Then story will be roll over to next spring with valid comments.
+
+
+# How to upload image on README.md file
+![Project Architecture](image/03.PNG)

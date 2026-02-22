@@ -348,3 +348,66 @@ In config file - /etc/ansible/hosts
 # How to specify host with port number?
 In /etc/ansible/hosts
 hostname:port
+
+
+## Interview Q&A
+1. How do you use reusable components in Ansible?
+   - By using Ansible Roles, which allow you to organize tasks, variables, files, and templates into reusable units.
+2. How do you configure your outlook into Ansible playbook?
+   - By using Ansible Mail Module
+
+3. What if Build fail, how to send Failure mail?
+ We can register the output in a variable & check for the status of that variable, if its failed then send mail using mail module.
+ when: variable_name.rc ==0        It will send success mail
+ when: variable_name.rc !=0        It will send Failure mail
+ 
+ ansible galaxy install init role_name      
+
+
+ DB, Infra, app team
+ roles
+    DB - main.yml
+    Infra - main.yml
+    App - main.yml
+
+# handlers in ansible -
+Ansible handlers are special tasks that run only when they are explicitly notified by another task in a playbook. They are primarily used to trigger actions in response to a change in the system state caused by a previous task, such as restarting a service after its configuration file has been updated. 
+
+Triggered by notify: A task uses the notify directive to call a handler by its unique name.
+By default, handlers run at the end of a play, after all tasks in the tasks section are finished
+Use Cases:
+Restarting or reloading services (e.g., web servers, databases) after a configuration change.
+Triggering a system reboot if a kernel or critical library update requires it.
+Performing maintenance tasks like clearing a cache or sending alerts. 
+
+---
+- name: Example playbook with handlers
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Ensure the web server configuration file is present
+      ansible.builtin.template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+      notify:
+        - Restart Nginx
+
+  handlers:
+    - name: Restart Nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+
+---
+
+# What is Idempotent in Ansible?
+An action is idempotent if it can be applied multiple times without changing the result beyond the initial application.
+Most Ansible modules (e.g., file, package, user) verify if the desired state (e.g., file present, package installed) already exists. If it does, the task does nothing and reports "OK" or "SUCCESS," rather than changing anything.
+Non-idempotent Exceptions: Modules like command and shell are not natively idempotent, as they execute commands regardless of the system's state
+
+
+# Why is Ansible Idempotent?
+Consistency & Stability: It ensures the server state is identical to the configuration described in the playbook, eliminating configuration drift.
+Safety in Re-execution: Playbooks can be run repeatedly (e.g., during automated CI/CD) without causing errors or breaking existing, correct configurations.
+Efficiency: By identifying that a system is already in the desired state, Ansible avoids unnecessary work, saving time and system resources.
+Declarative Approach: It allows engineers to define "what" the final state should be, rather than "how" to achieve it.  

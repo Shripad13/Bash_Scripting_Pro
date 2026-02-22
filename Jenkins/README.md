@@ -388,3 +388,16 @@ To implement blue-green deployments using Jenkins pipelines and Groovy, you can 
 
 # How do you clenup temporary file in jenkins workspace?
 You can use the cleanWs() step in your Jenkins pipeline to clean up temporary files in the workspace. This step removes all files and directories in the workspace, helping to free up space and ensure a clean environment for subsequent builds.
+
+# Shared Library
+Use a Shared Library to avoid duplicating jenkins pipeline code across multiple Java projects or environments.
+
+# Build Failure notifications
+1. Install Email extension plugin & Install
+2. configure SMTP server
+3. In jenkinsfile, In post job add failure block with emailext
+
+# Clean up Old Build Artefacts
+Add post block, inside it use cleanWs
+
+

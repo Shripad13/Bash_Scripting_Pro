@@ -1,4 +1,7 @@
 ############## GITFLOW PRINCIPLES 3########################
+A branch-heavy model with long-lived branches.
+GitFlow is suitable for large teams with scheduled releases and strict QA processes.
+
 With the git repo initialized, and the default branch renamed to main,
 git branch -M main
 
@@ -21,20 +24,20 @@ Support Branch - support
 
 ## git GitFlow extension need to be pre-installed using the apt install git-flow command (for ubuntu)
 
-##create the GitFlow branch structure using the GitFlow git extension:
+## create the GitFlow branch structure using the GitFlow git extension:
 
 git flow init 
  
 #The main branch often contains code for production–in GitFlow especially,
  commits should never be made directly to the main branch.
  
-#lists the existing feature branches with the following command:
+# lists the existing feature branches with the following command:
 git flow feature 
 
 
 git flow feature start 123-show-password-on-login-page
 
-#The code is ready to merge with the develop branch. Do this by executing the finish command in GitFlow:
+# The code is ready to merge with the develop branch. Do this by executing the finish command in GitFlow:
 
 git flow feature finish 123-show-password-on-login-page
  
@@ -44,10 +47,7 @@ feature/123-show-password-on-login-page
 But the command omits the leading feature/. You should see text indicating that the feature branch was merged to develop, and that the feature branch was deleted. 
 
 
-
-
-
-##### Implement a release with GitFlow by using the release aspect of GitFlow:  ###
+##### Implement a release with GitFlow by using the release aspect of GitFlow: 
 
 git flow feature start 123-implement-multifactor-auth
 
@@ -84,8 +84,33 @@ git branch
 ###
 Note: If a problem had arisen in between releases, you could use the hotfix branch. With a hotfix, a new branch is created from the release branch, where you can perform whatever new work is necessary to fix and test the code. Once the hotfix is complete, it is merged to BOTH the develop and the release branches, so that you can release the fix and integrate the fix with ongoing work.
 
-############################################################################################################
- 
+####################################################################################################
+
+2️⃣ Trunk-Based Development (TBD)
+Developers commit directly or very frequently to a single branch (main or trunk).
+Trunk-based development is ideal for high-maturity DevOps teams practicing continuous deployment.
+
+Short-lived branches (hours, not days)
+Small, frequent commits
+Feature flags instead of long branches
+
+How it works
+Code merged to main daily
+CI runs on every commit
+Production is always deployable
+
+Pros
+✅ Fast deployments
+✅ Less merge conflict
+✅ Strong CI/CD alignment
+
+
+> There is no one-size-fits-all. GitFlow suits release-driven products, Trunk-Based suits continuous deployment, and GitHub Flow is a lightweight PR-based model for fast-moving teams.
+
+GitFlow → more manual approvals, slower pipelines
+Trunk-Based → strongest CI/CD automation
+GitHub Flow → best balance of simplicity + control
+
 
 ##################### Implement Semantic Versioning Principles #####################
 
@@ -234,3 +259,42 @@ Modify your .gitignore file to exclude certain files or directories and see how 
 Try using Git commands you haven’t used yet, such as git stash to temporarily save changes or git rebase to rewrite commit history.
 
 
+# Why Gitlab CI over Jenkins?
+1. Built in CICD - No Need of extra plugins; everything is integrated seamlessly.
+2. Easier setup - Kust push your code & Gitlab takes care of the rest CICD
+3. Better scalability - Runs effortlessly om k8, autoscaling runners as needed.
+4. Simplieifed maintainance - No Managing Jenkins servers, plugins or dependecies
+5. Tighter Git integrations - Native support of git reporitoies, issue tracking, merge requests
+
+# When would you rebase?
+I use rebase to keep a clean, linear commit history, mainly for local or short-lived feature branches before merging. I avoid rebasing shared or already-pushed branches.
+
+
+| Action      | Use When                    |
+| ----------- | --------------------------- |
+| Cherry-pick | One specific commit         |
+| Merge       | Full branch integration     |
+| Rebase      | Clean history / sync branch |
+
+# When would you cherry-pick?
+I use cherry-pick when I need to apply a specific commit from one branch to another without merging the entire branch.
+Cherry-pick is ideal for production hotfixes where only a single fix needs to be applied.
+
+# when to use stash?
+I use git stash when I need to temporarily save uncommitted changes so I can switch branches or pull updates without committing incomplete work.
+
+| Tool   | Purpose              |
+| ------ | -------------------- |
+| Stash  | Temporary local save |
+| Commit | Permanent history    |
+| Branch | Parallel work        |
+
+# What is HEAD ?
+In Git, HEAD is a pointer to the current commit that your working directory is based on.
+It usually points to the latest commit on the current branch, and it moves as you commit or checkout branches.
+    “HEAD points to the tip of the current branch.”
+    “Detached HEAD means you are on a specific commit, not a branch.”
+    “HEAD moves with commits or branch checkouts.”
+
+# what is Pre-commit hooks?
+A pre-commit hook is a script that Git runs before a commit is finalized, allowing you to check or modify code, run tests, or enforce standards, preventing bad commits from entering the repository.

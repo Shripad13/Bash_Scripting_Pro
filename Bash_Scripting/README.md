@@ -19,3 +19,254 @@ It will show the path where these applications installed on server
 sudo dnf list installed |grep java
 sudo dnf list |grep java
 sudo dnf list |grep jdk
+
+> PATH ---> shell looks for executable files
+
+
+
+# 1️⃣ Extract IP addresses from logs using awk "How do you find the top 5 IPs hitting a web server?”
+ $ cat /var/log/nginx/access.log | awk '{print $1}' | sort | uniq -c | sort -nr | head -5
+    $1 → first field in log (IP address)
+    sort | uniq -c → count occurrences
+    sort -nr → sort by number descending
+    head -5 → top 5 IPs hitting your server
+
+2️⃣ Extract usernames from /etc/passwd using cut "How do you list all system users?”
+ $ cut -d':' -f1 /etc/passwd
+    -d':' → delimiter is colon
+    -f1 → first field (username)
+
+3️⃣ Replace a word in a configuration file using sed  "“How do you change the port in Apache config via CLI?”
+  $ sed -i 's/Listen 80/Listen 8080/' /etc/httpd/conf/httpd.conf        
+  s/old/new/ → substitute
+  -i → edit file in-place
+
+4️⃣ Extract the total memory from free -m using awk
+“How do you get total system memory in MB from command line?”
+
+$ free -m |grep Mem | awk '{print $2}'
+$ free -m | awk 'NR==2 {print $2}'
+    NR==2 → second line (memory info)
+    $2 → second field (total memory in MB)
+
+If you just want a single snapshot, use: Prints line 7 & 8 of top command
+ $ top -b -n1 | awk 'NR==7,NR==8'
+
+
+5️⃣ Extract domain names from a URL list using sed
+ How do you get domain names from a list of URLs?”
+
+ $ cat urls.txt | sed 's|https\?://||' | cut -d'/' -f1    
+
+    sed 's|https\?://||' → remove http:// or https://
+    cut -d'/' -f1 → get domain before first /
+
+
+
+1️⃣ Find files modified in the last 24 hours
+How do you find recently modified log files?
+  $find /var/log -type f -mtime -1    
+
+    /var/log → search directory
+    -type f → only files
+    -mtime -1 → modified less than 1 day ago (-n = last n days)
+
+2️⃣ Find files older than 7 days for cleanup
+“How would you remove old temporary files automatically?”
+  $ find /tmp -type f -mtime +7
+    -mtime +7 → modified more than 7 days ago
+    Useful for automated cleanup scripts    
+
+3️⃣ Delete files older than 30 days
+  $ find /var/log/archive -type f -mtime +30 -exec rm -f {} \;
+    
+    -mtime +30 → modified more than 30 days ago
+    -exec rm -f {} \; → delete each found file
+
+4️⃣ Find directories modified in the last 3 days
+“How do you find recently updated project folders?”
+
+ $find /opt/projects -type d -mtime -3
+    -type d → only directories
+    -mtime -3 → modified in the last 3 days
+
+5️⃣ Find and list files older than 15 days with details
+How do you audit old backup files?”
+
+ $ find /home/user/backups -type f -mtime +15 -ls
+
+--------------------------------------------------
+ | Syntax      | Meaning                          |
+| ----------- | --------------------------------- |
+| `-mtime +N` | Modified **more than N days ago** |
+| `-mtime -N` | Modified **less than N days ago** |
+| `-mtime N`  | Modified **exactly N days ago**   |
+Know difference between -mtime (days) and -mmin (minutes)
+
+
+# To remove the directoy based on timestamp of directories
+find . -maxdepth 1 -type d -newermt 2021-01-01 ! -newermt 2025-01-01 -exec rm -rf {} \;
+
+
+##
+
+sudo su   ----> /home/user
+sudo su - ---> /root
+
+top -bn1 |grep "Cpu(s)" |awk '{print $2+$4}'
+top -bn1 | grep "Cpu(s)"
+top -bn1  ---> Show me the current system status one time and quit.
+-b → batch / non-interactive
+-n1 → run once
+
+(echo "$MEMORY_USAGE > $THRESHOLD" | bc -l) 
+bc -l: This command-line calculator is used for floating-point comparison. 
+
+s/OLD/NEW/
+sed 's/%//g': Removes the percentage sign & replace with blank space
+
+df /|grep / |awk '{print $5}' | sed 's/%//g'
+
+
+uptime | awk -F'load average: ' '{ print $2 }' | cut -d, -f1 | tr -d ' '
+-F'load average: ' -----> Sets the field separator to the string
+
+cut -d, -f1    -----> 
+-d -----> Sets delimiter as a comma
+-f1  --------> Selects the first field
+ tr -d ' '       ---> 
+tr     ----> delete characters 
+-d ' ' ------> deletes spaces
+
+ping -c 4 google.com|tail -1| awk -F '/' '{print $5}'
+
+awk -F '/' '{print $5}': Extracts the average latency.
+-F '/'   ----> Sets the field separator to /
+
+uptime | awk -F 'load average:' '{ print $2 }' | awk '{print $1}' | sed 's/,//'
+s/OLD/NEW/ -------> s/,//
+
+
+
+awk 'NR==2 {print $3}' | sed 's/m//'
+NR ---> Number of Record
+NR==2   ----> Only act on the second line of input
+{print $3}   ----> Print the third field (column) of that line
+
+
+#awk to print names of people who are older than 25 
+awk '$2 > 25 {print $1}' data.txt
+
+# TO check Memory consumption of processes
+ps -eo pid,comm,%mem --sort=-%mem | head
+
+# Print lines that contain the word "error"
+awk '/error/ {print}' log.txt
+
+
+set -x ----> enables debugging mode
+set +x ----> disables debugging mode
+set -e ----> script exit immediately if any command returns non-zero status
+set -u ----> treat unset variables as an error and exit immediately
+set -o pipefail ----> causes a pipeline to return the exit status of the last command in the pipe that returned a non-zero return value
+
+Background process - Ex- sleep 5 &
+Foreground process - Ex- echo "Enter a name";read name ; echo "Hello, $name"
+
+
+Q6. Have you written shell scripts? Give an example.
+
+Yes. I’ve written shell scripts for:
+Log cleanup and archiving
+Monitoring disk usage and alerts
+Application health checks
+Example: A script to check WebLogic service status and restart automatically if it’s down
+
+
+# Advanced sed examples
+sed '/alpha/s/beta/gamma/'
+sed '/apple/,/orange/d'
+sed '/important/!s/print/throw_away/'
+
+| Command                           | Effect                                              |
+| --------------------------------- | --------------------------------------------------- |
+| `/alpha/s/beta/gamma/`            | Replace `beta` → `gamma` only on lines with `alpha` |
+| `/apple/,/orange/d`               | Delete lines from `apple` to `orange`               |
+| `/important/!s/print/throw_away/` | Replace `print` unless line has `important`         |
+
+
+sed 's/@home/@domicile/; s/truck/lorie/'
+sed -e 's/[xX]/Y/' -e 's/b.n*/blue/'
+sed -f sedscript -n sed4
+date | sed 's/j/J/'
+sed '1,5p'
+
+
+| Command                           | Effect                                              |
+| --------------------------------- | --------------------------------------------------- | 
+| `s/@home/@domicile/; s/truck/lorie/` | Multiple substitutions in one command                |
+| `-e 's/[xX]/Y/' -e 's/b.n*/blue/'` | Multiple `-e` expressions for complex edits          |
+| `-f sedscript -n sed4`            | Use script file for multiple commands                     |
+| `date | sed 's/j/J/'`             | Replace lowercase `j` with uppercase `J` in date output |
+| `1,5p`                            | Print lines 1 to 5                                   |
+
+# Linux Boot Process -
+Power On  
+   ↓
+BIOS / UEFI  --> Performs POST, initializes hardware, and loads bootloader from disk
+   ↓
+GRUB (Bootloader)   --> Presents boot menu, loads Linux kernel into memory
+   ↓
+Linux Kernel Initialization  --> Detects hardware, mounts root filesystem, and starts init process
+   ↓
+init process (PID 1)  --> Manages system services and targets, starts essential services
+   ↓
+Services Start  --> Network, SSH, Web Server, etc. are started based on configuration
+   ↓
+Login Prompt --> User can log in via console or SSH to access the system
+
+# UUID stands for Universally Unique Identifier.
+UUID in Linux is a unique 128-bit identifier assigned to filesystems or partitions, used to reliably identify and mount disks instead of device names like /dev/sda, which may change.
+
+128-bit unique ID assigned to:
+Disk partitions
+Filesystems
+Swap partitions
+Sometimes hardware devices
+⚠ Problem:
+Device names can change after:
+Reboot
+Adding/removing disks
+Changing SATA/NVMe ports
+To solve this, Linux uses UUID, which:
+✅ Never changes (unless filesystem is recreated)
+✅ Uniquely identifies the filesystem
+✅ Ensures correct disk mounting
+
+Where UUID is Commonly Used
+1️⃣ In /etc/fstab   partitions are usually mounted using UUID
+This ensures the correct partition mounts at boot.
+
+How to Check UUID in Linux:
+ $ blkid
+ $ lsblk -f
+ $ ls -l /dev/disk/by-uuid/
+
+
+LVM is used in Linux to provide flexible disk management. It allows dynamic resizing, combining multiple disks, taking snapshots, and extending storage without downtime, which is difficult with traditional partition
+
+| Setup   | Steps                                                   |
+| ------- | ------------------------------------------------------- |
+| LVM     | Increase disk → pvresize → lvextend → resize filesystem |
+| Non-LVM | Increase disk → grow partition → resize filesystem      |
+
+LVM has 3 layers:
+PV (Physical Volume) → Actual disk/partition
+VG (Volume Group) → Pool of storage
+LV (Logical Volume) → Virtual partition created from VG
+
+1️⃣ Easy Disk Expansion (Most Important) without downtime.
+2️⃣ Combine Multiple Disks - merge multiple disks into one large storage pool.
+3️⃣ Resize Volumes Easily- Even reduce size (carefully)
+4️⃣ Snapshots (For Backup) - Take snapshot before upgrade
+5️⃣ Better Resource Utilization- Allocate space dynamically, Expand only when needed

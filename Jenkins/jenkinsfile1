@@ -1,0 +1,41 @@
+// for conditional check of previous build
+
+pipeline {
+    agent any
+    parameters {
+        choice(name: 'ENV' , choices: ['dev', 'staging', 'prod'], descriptions: 'select Environment')
+    }
+    stages {
+
+    stage ('Build') {
+            steps{
+                script {
+                    if (params.ENV == 'dev') {
+                        env.DOCKER_IMAGE = 'myapp:dev'
+                    } else if (params.ENV == 'staging') {
+                        env.DOCKER_IMAGE = 'myapp:staging'
+                    }else if (params.ENV == 'prod') {
+                        env.DOCKER_IMAGE = 'myapp:latest'
+                    }
+                    echo "Docker Image set to: ${env.DOCKER_IMAGE}"
+                }
+                }
+            }
+
+
+        stage ('Pre_Check') {
+            steps{
+                script {
+                    if (currentBuild.previousBuild !=null
+                    && currentBuild.previousBuild != 'success' )
+                    error ('Previous build Failed, so skipping ...')
+                }
+            }
+        }
+    stage ('Build') {
+            steps{
+                echo 'Running Build....'
+                }
+            }
+        }
+    }

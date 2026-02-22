@@ -1,0 +1,42 @@
+// If based on User input of git branch, build will trigger
+
+pipeline {
+    agent any
+    parameters {
+        string(name: 'GIT_BRANCH',
+        defaultValue: 'main';
+        description: 'ENter Git branch to build')
+    }
+    stages {
+        stage('Checkout code') {
+            steps {
+                git branch: "${params.GIT_BRANCH}"
+                url: 'https://github.com/your-org/your-repo.git'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                // Add your test commands here
+            }
+        }
+        stage('Deploy to prod stage') {
+            steps {
+                echo 'Deploying...'
+                // Add your deployment commands here
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'This will always run after the stages.'
+        }
+        success {
+            echo 'This will run only if the pipeline succeeds.'
+        }
+        failure {
+            echo 'This will run only if the pipeline fails.'
+        }
+    }
+}

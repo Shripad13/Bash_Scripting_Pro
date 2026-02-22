@@ -1,8 +1,26 @@
-pipeline {
-    agent any
+// Use of poll SCm
+// trigger when only chnages in java files
+// Also added SMTP emial trigger block 
+// Added Clear old Build artefacts in post block
 
+ {
+    agent any
+    trigger {
+        pollSCM('H/5 * * * *') // Polls SCM every 5 minutes, it will check every 5 min for changes
+        cron ('H 2 * * 1-5') // Runs at 2 AM from Monday to Friday
+        cron ('0 0-12,14-23 * * *') // it will skip 1pm trigger
+        cron ('0 9,17 * * 1-5') // Runs at 2 AM from Monday to Friday
+    }
+    
+     environment {
+        // Define any environment variables here
+        MY_VAR = 'some_value'
+    }
     stages {
         stage('Build') {
+            when {
+                changeset "backend/**/*.java"  // it will start when *.java file changes
+            }
             steps {
                 echo 'Building...'
                 // Add your build commands here
@@ -14,7 +32,10 @@ pipeline {
                 // Add your test commands here
             }
         }
-        stage('Deploy') {
+        stage('Deploy to prod stage') {
+            when {
+                branch 'main'
+            }
             steps {
                 echo 'Deploying...'
                 // Add your deployment commands here
@@ -27,9 +48,24 @@ pipeline {
             echo 'This will always run after the stages.'
         }
         success {
+            clearWs {
+                deleteDirs: true,
+                disableDeferredWipeout: true
+
+            }
+            emailext{
+                to: 'shripad.maddi@gmail.com',
+                subject: "SUCCESS": ${env.JOB_NAME},
+                body: "Build success - Logs: ${env.BUILD_URL}"
+            }
             echo 'This will run only if the pipeline succeeds.'
         }
         failure {
+            emailext{
+                to: 'shripad.maddi@gmail.com',
+                subject: "FAILURE": ${env.JOB_NAME},
+                body: "Build Failed - Logs: ${env.BUILD_URL}"
+            }
             echo 'This will run only if the pipeline fails.'
         }
     }

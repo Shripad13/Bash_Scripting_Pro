@@ -1,0 +1,13 @@
+[Unit]
+Description=Node-Exporter service
+
+[Service]
+User=node_exporter
+WorkingDirectory=/opt/node_exporter-1.9.1.linux-amd64
+ExecStart=/opt/node_exporter-1.9.1.linux-amd64/node_exporter start
+ExecStop=/opt/node_exporter-1.9.1.linux-amd64/node_exporter stop
+
+SyslogIdentifier=node_exporter
+
+[Install]
+WantedBy=multi-user.target

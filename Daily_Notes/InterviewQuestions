@@ -59,3 +59,16 @@ Pipeline Management: GitLab CI/CD troubleshooting & development.
 Configuration Updates: Environment configs, Helm charts.
 Documentation: Deployment guides, monitoring setup.
 Automation & Continuous Improvement: Scripts, alerts, dashboards.
+
+
+# Git Branching Strategy?
+I typically use GitFlow for branching, which includes a main branch for production-ready code, a develop branch for ongoing development, and feature branches for new work. When a feature is complete, it’s merged into develop, and when develop is stable, it’s merged into main for release. This strategy helps maintain a clean codebase and supports parallel development effectively.
+
+# Git Commands for Branching Strategy
+git Clone
+git init
+git add .
+git commit -m "message"
+git checkout -b <branch-name>
+git push origin <branch-name>
+Create a Pull request from feature branch to develop branch, and then merge it after review.

@@ -41,6 +41,7 @@ decsecopswithshri.site  ---> ISP ---> Route53 Public Hosted Zone ---> NLB ---> I
 
 http --->> Port 80  --->> Non Secure --> communication will be in plain text
 https --->> Port 443 --->> Secure  --> communication will be encrypted using SSL/TLS certificate
+
 # SSL/TLS Certificate :
 1. DigiCert, SSL.com, GlobalSign, Cloudflare , Let's Encrypt (Free) are the top SSL certificate providers.
 2. Using AWS Certificate Manager (ACM) we can request & manage SSL/TLS certificates. & attache to LB.
@@ -124,3 +125,95 @@ Hashicorp Vault
 4. Billing 
 5. Environment
 6. App
+
+
+
+# What we covered in training -
+1. Provisioned VPC
+2. Subnets
+3. Network Peering
+4. Database
+5. EKS Cluster
+   1. Metric-server
+   2. Argo-CD
+   3. prometheus
+   4. grafana
+   5. fleuntd
+   6. opensearch
+   7. external-dns
+   8. HPA
+   9. CNI
+6. Helm Charts
+7. Containerization
+8. Schema Injection using Jobs
+9. Vault Integration
+10. Continuous deployment
+11. Node Autoscaling
+12. Workloads autoscaling
+13. Automatic Deployments
+14. Bench Marking
+15. Loadtesting of our product
+    
+    CI----> Cont. Deployment ----> Continuous Monitoring using DevSecops Strategy
+
+# Interview
+
+Familiar with Monolithic & MicroServices
+> AngularJS, HTML       ----> USed in frontend
+> Python, java, Go, nodejs ----> Used in Backend
+> RabbitMQ (Kafka), MySql- server, Mongo (Document DB & Atlas), Atlas (ELasticase/Memorystore)
+
+
+CICD
+  > CI : Github Actions (100% of the coe based pipeline/workflow)
+  > CD : Go CD used for server/EC2 based & ArgoCD for EKS based
+
+Secret Management 
+   > Hashicorp Vault
+
+
+Observability: Prometheus, Grafana, ELK, Opensearch, Filebeat/fluentd
+   > Error Rate
+   > Saturation
+   > Traffic
+   > Latency
+
+> Automation
+   > Bash Scripting (Implemented DRY Approach)
+   > Ansible Playbooks (Roles & DRY approach)
+
+Integrations that we made as a part of CICD:
+   > Github Actions----> Github ----> Static Code Analysis (SAST:SonarQube) ----> Code Compilation ----> SCA (Software Composition Aalysis: CHeckMarx) ----> Generate Artefacts ----> Publish to ECR/Dockerhub ----> Container Apps will be deployed to EKS by using ArgoCD
+
+
+Learning & Implemented a network of your own like a VPN (100% of our Infra is not accessible from the internet)   
+   > Learning Networking
+   > Provisioned VPC and enabled connectivity to bastion
+
+Terraform :
+   > 100% of the effort was achieved by using Terraform
+   > Vault, aws, helm, eks, k8s proivders used
+   > Integrated vault with terraform
+   > 100% of the TF code out of secrets
+
+Kubernetes:
+> Pods
+> Deployments, Replicasets, statfulsets, daemonsets
+> configMaps, Secrets
+> Roles, RBAC
+> Jobs, Scheduler
+> Init containers
+> Reuqests & Limits
+> Health Checks with Liveness & Readiness probes
+> Network Policies
+> Plugins on EKS
+> VPC CNI
+> Metric Servers
+> Node Auto-scaling
+
+> With a Single Click of button , we achieved everything.
+
+# 3 Questions plays critical role in selection/Rejection :
+1. Tell me about Yourself
+2. What are your day to day activities?
+3. Explain me about your project?

@@ -3,12 +3,20 @@
 Latest ansible version is 13 with 13.2.0 is the most recent update.
 sudo dnf list |grep ansible
 
+Latest Ansible-Core : 2.19.8; 2.18.15
+
+Latest Ansible Stable VErsion released on March 2026 - 2.20.4
+
 yum is the package manager till RHEL8
 dnf is the package manager for RHEL9
 
 # To Install Ansible (Install only on Controller machine) -
 sudo pip3.11 install ansible
 ansible --version
+
+# Python is mandatory to for using Ansible on COntroller Node.
+ $ sudo dnf install python3
+ $ python3 --version
 
 # What is inventory?
  Inventory is a file that has the list of all the VM IP'sthat needs to be managed by ansible
@@ -337,7 +345,7 @@ vars:
         secrets: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=expense-dev/data/backend', token=token, url='https://vault.devsecopswithshri.site:8200', validate_certs=False) }}"
 
 
-> Ansible config file - /etc/ansible/ansible.cfg
+> Ansible primary configuration file - /etc/ansible/ansible.cfg
 > Ansible log - /var/log/ansible.log
 > Ansible looks for modules - /usr/share/ansible
 
@@ -411,3 +419,31 @@ Consistency & Stability: It ensures the server state is identical to the configu
 Safety in Re-execution: Playbooks can be run repeatedly (e.g., during automated CI/CD) without causing errors or breaking existing, correct configurations.
 Efficiency: By identifying that a system is already in the desired state, Ansible avoids unnecessary work, saving time and system resources.
 Declarative Approach: It allows engineers to define "what" the final state should be, rather than "how" to achieve it.  
+
+
+# Question 7: How can you configure a rolling update for services using Ansible?
+- hosts: webservers 
+  serial: 2 
+  tasks: 
+  - name: Update application 
+    command: update_app 
+
+This updates two hosts at a time, ensuring minimal downtime. Combine with 
+health checks to validate each host before proceeding. 
+
+
+
+
+# Run Ansible Playbook with verbose - Use -v, -vv, -vvv, -vvvv for increasing levels of verbosity.
+ $ ansible-playbook -v playbook.yml
+
+
+
+# Using /etc/sudoers (Direct Edit) 
+Open the file: Run sudo visudo in your terminal.
+Add the entry: Navigate to the end of the file and add a line for your specific user or group:
+For a user: username ALL=(ALL) NOPASSWD: ALL.
+%sudo ALL=(ALL) NOPASSWD: ALL
+root    ALL=(ALL:ALL) ALL
+
+For a group: %groupname ALL=(ALL) NOPASSWD: ALL (commonly used with the %wheel or %sudo groups).

@@ -10,6 +10,17 @@ alias ssh="ssh ec2-user@$1"
 When you want something to be prompted on server whenever login to server, 
 that also you can update in .bash_profile file
 
+# .bashrc file
+To customize the user’s shell environment whenever a new interactive Bash terminal is opened.
+1. Setting Environment Variables
+2. Creating Aliases (Shortcuts)
+3. Customizing Prompt (PS1)
+4. Defining Functions
+5. Running Commands at Startup
+
+The purpose of the .bashrc file is to configure the Bash shell environment for a user. It is executed whenever a new interactive shell starts and is used to set environment variables, define aliases, customize the prompt, and create functions.”
+
+
 # type
 Ex: type git, type date, type cat , type fdisk 
 
@@ -22,6 +33,35 @@ sudo dnf list |grep jdk
 
 > PATH ---> shell looks for executable files
 
+
+# Hard Link - 
+A hard link is another name (directory entry) for the same file data (same inode).
+Both the original file and the hard link share the same inode number.
+
+If original file is deleted, data still exists as long as one hard link remains
+command -     $ ln original.txt hardlink.txt
+check inode - $ ls -li
+
+If inode numbers are same → it's a hard link.
+
+# Soft Link (Symbolic Link)-
+A soft link (symlink) is a shortcut that points to the filename (path) of another file.
+It is like a shortcut in Windows.
+Has different inode number
+If original file is deleted, symlink becomes broken (dangling link)
+Centralized file management – One file, accessible from multiple locations.
+
+Command - $ ln -s original.txt softlink.txt
+Check symlink - ls -l
+
+A hard link is another name for the same file and shares the same inode. Even if the original file is deleted, the data remains accessible.
+A soft link is a symbolic pointer to the file path. If the original file is deleted, the soft link becomes broken.”
+
+The purpose of a hard link is to provide multiple directory entries for the same file data without consuming extra space.”
+The purpose of a soft link is to act as a shortcut that points to another file or directory, even across filesystems.”
+
+Hard Link = Two different names for the same person.
+Soft Link = A paper that contains someone’s address.
 
 
 # 1️⃣ Extract IP addresses from logs using awk "How do you find the top 5 IPs hitting a web server?”
@@ -270,3 +310,29 @@ LV (Logical Volume) → Virtual partition created from VG
 3️⃣ Resize Volumes Easily- Even reduce size (carefully)
 4️⃣ Snapshots (For Backup) - Take snapshot before upgrade
 5️⃣ Better Resource Utilization- Allocate space dynamically, Expand only when needed
+
+
+#  5 Productive Linux Commands for Sysadmins-
+ncdu - Disk usage analyzer with interactive interface (instead of du -sh *)
+tldr find - Simplified command explanations and examples (instead of find --help)
+tldr ps - Quick reference for process management commands
+rg (ripgrep) - Fast recursive search tool for code and logs (instead of grep -rl "" *)
+rg insane - Search for "insane" word in current directory and subdirectories
+
+* wants to find a particular folder- go for find, ls, grep command
+fzf & enter
+
+* Open & read the command- cat, less, more, head, tail
+bat - A cat clone with syntax highlighting and Git integration (instead of cat)
+
+
+# what is system call in linux ?
+A system call (syscall) is the mechanism by which a user-space program requests a service from the Linux kernel.
+Linux separates memory into two privilege levels:
+User space — where your programs run (restricted access)
+Kernel space — where the OS runs (full hardware access)
+
+A program can't directly touch hardware, files, or network interfaces. It must ask the kernel to do it via a system call.
+
+You can trace every syscall a program makes using strace:  $ strace ls
+This shows every syscall ls makes — openat, read, write, close, etc. — with arguments and return values. Very useful for debugging. 

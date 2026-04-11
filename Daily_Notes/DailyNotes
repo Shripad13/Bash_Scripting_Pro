@@ -98,3 +98,31 @@ git push -u origin main
 
 
 Mostly you see Operational Issues like maintaing multiple machines Storage inconsistency , Network Issues, Port issues
+
+##########################################################
+If you have updated some Access keys or secret keys in README file and want to push to Github , it will throw an error and prevents from pushing to Github because of security reasons. So you have to remove those keys from README file and then push to Github.
+Even if you remove those keys from README file and push to Github, those keys are still there in the commit history. So you have to remove those keys from commit history as well using below command - 
+git filter-branch --force --index-filter 
+git rm --cached --ignore-unmatch README.md --prune-empty --tag-name-filter cat -- --all
+
+
+git reset --hard HEAD~1  # This will remove the last one commit and all the changes in that commit will be lost, so be careful while using this command.
+
+
+
+######################## Increase Disk Space of LVM ##################################
+sudo lsblk # to check the disk space
+sudo fdisk /dev/xvda  # to create a new partition on the disk
+sudo partprobe  # to update the kernel about the new partition
+sudo pvcreate /dev/xvda3  # to create a physical volume on the new partition
+sudo vgextend VolGroup00 /dev/xvda3  # to extend the volume group
+sudo lvextend -l +100%FREE /dev/VolGroup00/LogVol00  # to extend the logical volume
+sudo lvextend -r -L +5G /dev/mapper/RootVG-homeVolume  # to extend the logical volume and resize the filesystem
+sudo resize2fs /dev/VolGroup00/LogVol00  # to resize the
+sudo growpart /dev/nvme0n1 4 # to grow the partition 4 is the partition number which we want to grow
+
+# In case of No Space left on device error, you can use below command to find out which directory is consuming the most space -
+df -kh 
+sudo lsblk
+sudo growpart /dev/nvme0n1 4
+sudo lvextend -r -L +5G /dev/mapper/RootVG-homeVol

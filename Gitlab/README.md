@@ -298,3 +298,4 @@ It usually points to the latest commit on the current branch, and it moves as yo
 
 # what is Pre-commit hooks?
 A pre-commit hook is a script that Git runs before a commit is finalized, allowing you to check or modify code, run tests, or enforce standards, preventing bad commits from entering the repository.
+

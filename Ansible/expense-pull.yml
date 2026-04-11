@@ -2,4 +2,4 @@
   hosts: localhost               # so ansible playbook will run on localhost
   become: yes
   roles:
-    - "{{ component }}"
+    - role: "{{ component }}"

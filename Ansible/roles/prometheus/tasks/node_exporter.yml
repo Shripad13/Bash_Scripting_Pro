@@ -1,0 +1,23 @@
+- name: Create a Prometheus user
+  ansible.builtin.user:
+    name: prometheus
+
+
+- name: Download the & Extract Node-exporter
+  ansible.builtin.unarchive:
+    src: "{{ url }}"
+    dest: /opt
+    remote_src: yes
+    owner: prometheus
+    group: prometheus
+
+- name: COpying the Systemd file
+  ansible.builtin.template:
+  src: node-exporter.service
+  dest: /etc/systemd/system/node-exporter.service
+
+- name: Restarting node-exporter service
+  ansible.builtin.systemd_service:
+    name: node-exporter
+    state: restarted
+    enabled: true

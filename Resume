@@ -102,9 +102,9 @@ With my earlier experience at TCS handling large-scale production systems, I’v
 
 “Hi, I’m Shripad Maddi, a Senior DevOps Engineer with 6+ years of experience, working closely with SRE principles such as automation, observability, and reliability engineering.
 
-In my current role, I manage microservices running on Amazon EKS, where I focus on deployment automation, RBAC security, and performance tuning. I use Terraform to provision AWS infrastructure and Helm with ArgoCD for consistent, GitOps-based deployments.
+In my current role, I manage microservices running on Amazon EKS, where I focus on deployment automation,  and performance tuning. 
 
-I actively work on monitoring and alerting using Prometheus, Grafana, AppDynamics, and Splunk, ensuring actionable alerts and system visibility. I also automate operational tasks using Ansible, Bash, and Python, reducing manual toil.
+I actively work on monitoring and alerting using Prometheus, Grafana, AppDynamics, and Splunk, ensuring actionable alerts and system visibility. I also automate operational tasks using Ansible, Bash, reducing manual toil.
 
 From an SRE perspective, I focus on improving deployment reliability, reducing MTTR, and maintaining production stability while enabling frequent releases.”
 
@@ -126,7 +126,28 @@ My work includes creating secure CI/CD pipelines, integrating Vault for secret m
 
 My goal as a Platform Engineer is to provide reliable, scalable foundations that empower teams while maintaining security and operational excellence.”
 
+
+
+
+
+
+
 ## 1️⃣ “Tell me about your current project” – Strong Technical Response (2 minutes)
+
+Since Iam working on Airline domain related product, company offers B2B solutions majority applications based on B2B appplications.
+End User customers , Business clients can connect to our product and they can avail the online services, book the allotment bookings from website.
+
+Application running on kubernetes as a containerized infra, so we have 40 microservices that are type of java, python, spring based where there are statful workloads are hosting on the top of MySQL, Oracle SQL, we also have caching solutions of Redis.
+
+We have ingress controller on top of EKS along with 80 % workloads runs on top of EKS. 30 % infra on top of on-prem.
+We have enabled the connectivity between the on-Prem to AWS using Direct connect.
+We have an agreement with AWS for the AWS Direct connect so which ffers 200Gigs per second.
+Continuous deployment is happening through ArgoCD, where as Continuous Integration image delivery process, sonarqube, SAST, everything written by using workflows and we have developed workflows by using the github Actions.
+For each & every workload, we have 3 different runners, which going to make the build on top of particular runner , we are also using ECR Elastic container Registry which is an artefactory to host our containerized workloads and all our secrets hosted on HashiCorp Secret Manger.
+We have made init Container that has the capability to go & talk to vault to fetch the secrets.
+This is High level & intricate details of my project, where I actively contributing to Infra, CI CD, and responsible for mitigating the security issues flagged by the security team ,
+So this is about my Project And my Job.
+
 
 “Currently, I’m working as a Senior DevOps Engineer at Accelya Group, where my primary responsibility is building and managing a cloud-native microservices platform on AWS.
 
@@ -145,7 +166,30 @@ Overall, the project focuses on scalability, security, automation, and reliabili
 
 
 
-###
+### Day to Day activities of DevOps Engineer
+
+I work in a Agile Based Environment with sprint timeline of 2 weeks, My 70% of Day to Day activities are planned in advanced as per sprint timeline & 20-30 % of work comes as an ad-hoc based for support work.
+Iam responsible for sprint deliverables as well as ad-hoc deliverables.
+As Iam working as DevOps Engineer, I pretty much closely work with dev & QA team for resolving the issues.
+Day to Day activities includes , we work towards automation & improvement.
+My current project is microservices based project where we actively doing the deployments as part of deployments have beedn asked to develop helm charts to keep the code DRY so iam actively working on writing the helm Charts as part of Deployment.
+Our Certain Infrastructure is on top of EC2 instances applications are running on it.
+Iam key member in automating the areas of improvement.
+Since I have experience on Ansible Playbook, I have observe things where manual work is done & I try to automate with Ansible Playbooks.
+
+Mojority of Infrastructure is on AWS cloud as part of AWS, 99% of infra provisioned is by terraform, I write Terraform modules, whenever new versions modules comes up I try to update.
+Majority of pipelines will fail whenever pipeline fails as a part of Infra or CI, I find the issues & I will try to fix at the same time I make sure to optimize it rather than just work around.
+Every project needs observability so I was key member craeting grafana dashboarding, we have aggregateing logs on Elastic Search, all Microservices logs are lying on top of elastic search, i have enabled integrate connectivity between EKS and Elastic search.
+I was working on greenfield project where applications are running on on-premise, those we are containerizing.
+Majority applications are spring boot based so we are containerising with Docker & target is to deploy them on top of EKS.
+I work towards the sprint goals and Iam mid level senior engineer & indirectly leading 2 to 3 Engineers so Iam also responsible to enable them if my team members have blocker.
+These all includes day to day activities of mine.
+
+
+
+
+
+
 
 1. How do you start a day at work as a DevOps Engineer & Cloud Engineer ?
 As a DevOps and Cloud Engineer, I typically start my day by reviewing any alerts or notifications from our monitoring systems like Prometheus, Grafana, or Splunk to check for any incidents or performance issues that may have occurred overnight. I prioritize addressing any critical issues first to ensure system stability.
@@ -222,4 +266,14 @@ A 403 Forbidden error indicates that the server understands the request but refu
 Possible causes of 403 errors include incorrect permissions, misconfigured access controls, or issues with authentication mechanisms.
 
 
+# Tell me about yourself?
+My name is Shripad Maddi, Currently working at Accelya Group with over a 6 years of experience.
+Its been 3+ years that iam working with this company where iam responsible for managing the AWS Cloud & DevSecops InfraStructure.
+iam key member in playing the role of devsecops lead, i am managing the 2-3 members, majority of Infra that iam working is based on AWS Cloud so Iam pretty much sound on AWS.
+I like automating & keeping this automating skill into mind, I got an opportunity to do lot of automations using Ansible & Bash scripting
+so Iam someone who is keen to learn from someone with something & at the same time people always ask me &   i will be the first person in my team who reaches to me for help.
+Iam good player who is ready to learn , contribute to the company and thats something about professionally.
+
+I would like to spend time with family, I would like to watch movies, Cricket.
+I keep watching the latest updates on tehchnology.
 

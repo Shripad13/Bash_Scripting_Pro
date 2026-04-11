@@ -24,6 +24,7 @@ Operators on Strings: ( a=10, abc == abc, a != b)
 
     [ abc = abc ]
 
+
     -z , -n 
 
     [ -z "$var" ] -> This is true if var is not having any data
@@ -38,6 +39,10 @@ Operators on files:
     [ -f file ] -> True of file exists and file is a regular file 
 
     [ -d xyz ]  -> True if file exists and it is a directory
+    [ -w file ] -> True if file exists and it is writable
+    [ -x file ] -> True if file exists and it is executable
+    [ -s file ] -> True if file exists and it is not empty
+    [ -L file ] -> True if file exists and it is a symbolic link
 
     ### Explore the file types, There are 7 types on files in Linux.
 COMMENT

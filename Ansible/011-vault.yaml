@@ -15,10 +15,26 @@
 
 
 # ansible-vault encrypt_string 'DevOps123' --name 'DBPASS'  # To encrypt a single variable
-# ansible-vault encrypt secret.txt  # To encrypt the file
-# ansible-vault decrypt secret.txt  # To decrypt the file
+# ansible-vault encrypt secret.yml  # To encrypt the file
+# ansible-vault decrypt secret.yml  # To decrypt the file
 # Ansible vault is to encrypt sensitive data like passwords, API keys, etc., within Ansible playbooks or files.
 
 
 # Command to run the vault file -
+# When executing the playbook, you must provide the vault password so Ansible can decrypt the file at runtime.
 # ansible-playbook -i localhost, -e ansible_user=ec2-user -e ansible_password=DevOps321 011-vault.yaml --ask-vault-password
+
+# Interactive prompt: ansible-playbook playbook.yml --ask-vault-pass.
+# Using a password file: ansible-playbook playbook.yml --vault-password-file .vault_pass (ensure .vault_pass is excluded from version control via .gitignore). 
+
+
+
+# Create a encrypted secret.yml file
+# $ansible-vault create secret.yml
+# Add secrets in file
+#db_password: "YourSuperSecretPassword"
+#api_token: "xyz123abc789"
+# Encrypt single file - $ ansible-vault encrypt secret.yml
+# Edit: ansible-vault edit secret.yml
+# View: ansible-vault view secret.yml
+# Change Password: ansible-vault rekey secret.yml

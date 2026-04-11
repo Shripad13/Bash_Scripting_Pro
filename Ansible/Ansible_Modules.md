@@ -27,6 +27,14 @@ ansible.builtin.stat - conditional check module
 
 ansible all -m setup - To gather ad-hoc info about system.
 
+ansible.buitlin.unarchive - This module unpacks an archive after transferring it to the remote node.
+
+ansible.builtin.git - This module manages git checkouts of repositories.
+
+ansible.builtin.copy - This module copies files to remote locations.
+
+ansible.builtin.template - This module copies a file from the local machine to the remote machine, but it also processes the file as a Jinja2 template, allowing you to dynamically generate content based on variables and conditions.
+
 ✅ state: present  #means:"Make sure the package is installed."
 If the package is already installed, Ansible does nothing (it's idempotent). If it's not installed, Ansible will install it.
 ✅state: absent   #Ensure the package is removed/uninstalled.
@@ -56,3 +64,4 @@ ignore_errors: True          # ignore_errors is a predefined keyword in Ansible 
 ## How to check Connectivity of all the target Nodes?
 ansible all -m ping
 
+forks: The number of parallel processes to use.

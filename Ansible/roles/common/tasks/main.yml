@@ -1,2 +1,12 @@
 - name: Configuring hostname
   ansible.builtin.shell: set-hostname {{ COMPONENT }}-{{ ENV }}
+
+- name: Installing hvac, Prerequisite for vault
+  ansible.builtin.pip:
+    name: hvac
+    executable: pip3.11
+
+- name: Setup Node-exporter
+  ansible.builtin.import_role:
+    name: prometheus
+    tasks_from: node_exporter

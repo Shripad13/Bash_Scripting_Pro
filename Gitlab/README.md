@@ -261,9 +261,9 @@ Try using Git commands you haven’t used yet, such as git stash to temporarily 
 
 # Why Gitlab CI over Jenkins?
 1. Built in CICD - No Need of extra plugins; everything is integrated seamlessly.
-2. Easier setup - Kust push your code & Gitlab takes care of the rest CICD
-3. Better scalability - Runs effortlessly om k8, autoscaling runners as needed.
-4. Simplieifed maintainance - No Managing Jenkins servers, plugins or dependecies
+2. Easier setup - Just push your code & Gitlab takes care of the rest CICD
+3. Better scalability - Runs effortlessly on k8, autoscaling runners as needed.
+4. Simplified maintainance - No Managing Jenkins servers, plugins or dependecies
 5. Tighter Git integrations - Native support of git reporitoies, issue tracking, merge requests
 
 # When would you rebase?
@@ -299,3 +299,8 @@ It usually points to the latest commit on the current branch, and it moves as yo
 # what is Pre-commit hooks?
 A pre-commit hook is a script that Git runs before a commit is finalized, allowing you to check or modify code, run tests, or enforce standards, preventing bad commits from entering the repository.
 
+# git reset & git revert
+| Command     | Purpose                          | Use Case                         |
+| ----------- | -------------------------------- | -------------------------------- |
+| git reset   | Moves HEAD and optionally changes the index and working directory. | Undo local commits or changes.   |
+| git revert  | Creates a new commit that undoes the changes of a previous commit. | Undo changes in a public history. |

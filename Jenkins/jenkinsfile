@@ -49,8 +49,8 @@
         }
         success {
             clearWs {
-                deleteDirs: true,
-                disableDeferredWipeout: true
+                deleteDirs: true,           // it will delete the old build artefacts and free up space
+                disableDeferredWipeout: true  // it will delete the old build artefacts and free up space
 
             }
             emailext{

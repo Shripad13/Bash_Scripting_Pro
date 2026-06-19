@@ -336,3 +336,137 @@ A program can't directly touch hardware, files, or network interfaces. It must a
 
 You can trace every syscall a program makes using strace:  $ strace ls
 This shows every syscall ls makes — openat, read, write, close, etc. — with arguments and return values. Very useful for debugging. 
+
+
+# how do you find particular error messgae word in log file on linux server, with commands?
+grep -i "error" logfile.log
+grep "connection timeout" logfile.log
+grep -r "error" /var/log/
+grep -n "error" logfile.log
+grep -C 3 "error" logfile.log
+Shows 3 lines before and after each match
+
+tail -f logfile.log | grep "error"
+less logfile.log
+
+
+# Even after killing the process in linux, still its coming up on server, what could be the reasons for process running back
+1. Modern Linux systems use systemd, which can auto-restart services.
+systemctl status <service-name>
+Look for:
+Restart=always
+
+1. Sometimes a parent process keeps restarting the child.
+ ps -ef | grep <process-name>
+ ps -fp <PPID>-
+
+3. A cron job may be launching it repeatedly.
+crontab -l
+cat /etc/crontab
+ls /etc/cron.*
+
+4. If it's inside a container, it will restart automatically.
+   docker ps
+   docker inspect <container-id> | grep RestartPolicy
+   
+5. Normal kill may not terminate stubborn processes.
+kill -9 <PID>
+
+###########################################################################################
+
+1. how do you pick the list of numbers from an excel sheet & print the total of those values using ?
+Shell scripts typically don't read .xlsx directly; I'd first convert it to CSV using a tool like xlsx2csv and then use awk to calculate the total.
+
+$ awk -F, '{sum += $2} END {print sum}' file.csv
+
+2. How to stop script if any of its instructions fails
+Use set -e at the beginning of the shell script. It makes the script exit immediately if any command returns a non-zero (failure) status."
+ $ set -euo pipefail
+
+-e → exit on error
+-u → error on undefined variables
+pipefail → fail if any command in a pipeline fails
+
+3. write a script to take a input from the user and print whether its a even or odd?
+
+#!/bin/bash
+
+echo "Enter a number:"
+read num
+
+if (( num % 2 == 0 ))
+then
+    echo "$num is Even"
+else
+    echo "$num is Odd"
+fi
+
+4. write a script that recursively checks the directories & list the top 15 utilized/largest files
+
+find /path/to/search -type f -exec du -h {} + 2>/dev/null | sort -hr | head -15
+
+find . -type f -exec du -h {} + 2>/dev/null | sort -hr | head -15
+
+5. what is the difference between apt vs yum vs rpm vs source code based installations?
+APT and YUM are package managers that automatically resolve dependencies; 
+RPM is a lower-level package installer for RPM files and doesn't handle dependencies automatically; source code installation requires compiling the application manually and managing dependencies yourself."
+
+
+apt --> Debian-based systems (Ubuntu, Debian)
+yum --> Red Hat-based systems (RHEL, CentOS, Fedora)
+rpm --> Red Hat Package Manager, used for installing .rpm files
+
+6. how do you handle writing a bash script with multiple linux farms of different distros?
+I write portable shell scripts, avoid distro-specific commands where possible, and detect the operating system at runtime to execute distro-specific logic when needed.
+
+#!/bin/bash
+
+if [ -f /etc/redhat-release ]; then
+    PKG_MGR="yum"
+elif [ -f /etc/debian_version ]; then
+    PKG_MGR="apt"
+else
+    echo "Unsupported OS"
+    exit 1
+fi
+echo "Using package manager: $PKG_MGR"
+
+
+7. what is the difference between && and || in bash scripting?
+In bash scripting, && and || are logical operators used to control the flow of command execution based on the success or failure of previous commands.
+
+&& executes the next command only when the previous command succeeds, 
+while || executes the next command only when the previous command fails. 
+They are commonly used for conditional execution and error handling in shell scripts.
+
+ $ mkdir test && cd test
+cd test executes only if mkdir test succeeds.
+
+
+ $ mkdir test || echo "Directory creation failed"
+The message is printed only if mkdir fails.
+
+
+8. write a script to list the number of non-empty lines in a file
+
+ $ awk 'NF {count++} END {print count}' "$1"
+ NF in awk checks if a line contains at least one field
+
+9. If you want to print the 5th line and the 4th field from a CSV file:
+   $ awk -F',' 'NR==5 {print $4}' file.csv
+-F',' → comma is the field separator.
+NR==5 → process only line 5.
+$4 → print the 4th field.
+
+10. If interviewer asks to print both line number and 4th field
+ $ awk -F',' 'NR==5 {print "Line:", NR, "Field4:", $4}' file.csv
+
+ Output - Line: 5 Field4: 5000
+
+11. Load average in a Linux server represents the average number of processes that are either running or waiting for CPU time over a specific period.
+commands - uptime & top
+last 1 minute, 5 minutes, and 15 minutes
+
+A value of 0 → system is idle
+A value equal to number of CPU cores → fully utilized
+A value higher than CPU cores → system is overloaded

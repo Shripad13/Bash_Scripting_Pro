@@ -1,4 +1,10 @@
 # this file going to be executed first before any task execution in our case backend, frontend, mysql
+#🧠 When you actually need .meta file
+#You should use it when:
+#your role depends on other roles
+#you're publishing to Ansible Galaxy
+#you're working in large team environments
+#you need platform/version control
 dependencies:
   - role: common
   

@@ -26,8 +26,7 @@ pipeline {
         stage ('Pre_Check') {
             steps{
                 script {
-                    if (currentBuild.previousBuild !=null
-                    && currentBuild.previousBuild != 'success' )
+                    if (currentBuild.previousBuild !=null && currentBuild.previousBuild.result != 'SUCCESS')
                     error ('Previous build Failed, so skipping ...')
                 }
             }

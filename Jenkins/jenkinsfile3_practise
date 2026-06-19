@@ -1,0 +1,76 @@
+// a Declarative Pipeline to enforce a clean workspace before every build?
+
+pipeline{
+    agent any {
+        options {
+            skipDefaultCheckout(true) // Skip the default SCM checkout step
+        }
+        stages {
+            stage('Clean Workspace') {
+                steps {
+                    cleanWs() // Clean the workspace before starting the build
+                }
+            }
+            stage('Build'){
+                steps {sh 'mvn clean install -DskipTests=true'} // Build the project using Maven, skipping tests
+            }
+        }
+    }
+}
+
+
+// Parallel stage example 
+
+pipeline {
+    agent any {
+        stages {
+            stage ('Test'){
+                steps{
+                    parallel (
+                        "Unit Test": {
+                            sh mvn test -Dgroups="unit"
+                        },
+                        "Integration Tests": {
+                            sh 'mvn test -Dgroups="integration"'
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
+
+// dynamic environment variables across stages? 
+
+pipeline {
+    agent any // means the pipeline can run on any available agent
+    environment {
+        BUILD_VERSION = "1.0.${env.BUILD_NUMBER}" // Define a dynamic environment variable using the build number
+        TIMESTAMP = sh(script: 'date+%Y%m%d%H%M%S', returnStdout: true).trim() // Get the current timestamp
+    }
+    stages {
+        stage('Build'){
+            steps {
+                sh "echo Building version ${env.BUILD_VERSION} at ${env.TIMESTAMP}" // Use the environment variables in the build step
+            }
+        }
+    }
+}
+
+
+// How to parameterize a Jenkins Pipeline to accept user inputs?
+
+pipeline {
+    agent any
+    parameters {
+        string(name: 'DEPLOY_NAME', defaultValue: 'main', description: 'Environment to build') // Define a string parameter for branch name
+        choice(name: 'REGION', choices: ['us-east1', 'eu-west-1'], description: 'AWS Region') // Define a choice parameter for REGION selection
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh "echo Building environment ${params.DEPLOY_NAME} for region ${params.REGION}" // Use the parameters in the build step
+            }
+        }
+    }
+}

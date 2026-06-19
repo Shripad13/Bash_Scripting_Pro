@@ -18,6 +18,31 @@ ansible --version
  $ sudo dnf install python3
  $ python3 --version
 
+# What will be the updates in every ansible version releases
+Ansible releases two types of updates: Major community packages and ansible-core. Major updates occur roughly every six months to introduce new features and structural changes. Minor/patch updates occur every four weeks to provide bug fixes, minor functionality updates, and new collection versions.
+
+
+# What is so special in Ansible -
+it does automation in a way that’s simple, agentless, and human-readable, which is surprisingly rare in infrastructure tooling.
+🧠 1. Agentless architecture - SSH/WinRM
+Lower maintenance overhead
+Easier onboarding of new servers
+Fewer security concerns (no extra daemon running everywhere)
+
+📜 2. Human-readable automation (YAML playbooks)
+
+🔁 3. Idempotency (safe repeated execution)
+Ansible is designed so that running the same playbook multiple times:
+Does not break systems
+Only applies changes if needed
+⚙️ 5. Huge built-in ecosystem (modules)
+Ansible comes with thousands of modules:
+
+🔄 6. Push-based model (no server required)
+
+Playbooks themselves must be YAML in Ansible.
+But Ansible is extensible, and you can use other languages for modules, plugins, scripts, and inventory generation.
+
 # What is inventory?
  Inventory is a file that has the list of all the VM IP'sthat needs to be managed by ansible
  all is the default group on this file that includes every thing on the file.
@@ -52,6 +77,9 @@ Ansible Playbook = Ansible Scripts
  ansible -i inv all -e ansible_user=ec2-user -e ansible_password=DevOps321 -m ansible.builtin.systemd_service nginx
  ansible -i inv all -e ansible_user=ec2-user -e ansible_password=DevOps321 ansible.builtin.get_url http://xtz/a 
  
+
+
+
 
 # Recommended approach - Go with Playbook
 1. Ansible scripts are referred as a Playbook
@@ -112,7 +140,7 @@ In Ansible, If you attempt to use a variable which is not declared, then it retu
 
 # How to Gather facts of the nodes mentioned on the invemtory -
 
-Gathering facts refers to the automatic collection of system information/properties (also known as facts) from the managed nodes (hosts) before running any tasks. This is handled by the setup module,(ansible.builtin.setup:)
+Gathering facts refers to the automatic collection of system information/properties (also known as facts) from the managed nodes (hosts) before running any tasks. This is handled by the setup module,(*ansible.builtin.setup*:)
 
 Types of facts gathers - OS details, Network interfaces, Memory & CPU info, Disk & mounts etc
 
@@ -128,7 +156,10 @@ ansible -i inv all -e ansible_user=ec2-user -e ansible_password=  -m ansible.bui
 Also you can search particualr info by using grep
 ansible -i inv all -e ansible_user=ec2-user -e ansible_password=  -m ansible.builtin.gather_facts|grep "ansible_nodename"
 
+# command to generate the facts of the nodes mentioned in inventory file & redirect the output to some file, becoz it generated hug info of facts
 ansible -i inv frontend -e ansible_user=ec2-user -e ansible_password=DevOps321  -m ansible.builtin.gather_facts
+
+
 $ ansible -i inv frontend -e ansible_user=ec2-user -e ansible_password=DevOps321  -m ansible.builtin.gather_facts|grep nameservers
 
 $ ansible -i inv frontend -e ansible_user=ec2-user -e ansible_password=DevOps321  -m ansible.builtin.gather_facts|grep "ansible_nodename"
@@ -138,6 +169,9 @@ $ ansible -i inv frontend -e ansible_user=ec2-user -e ansible_password=DevOps321
 You can redirect the output to some file, becoz it generated hug info of facts
 ansible -i inv all -e ansible_user=ec2-user -e ansible_password=  -m ansible.builtin.gather_facts > ~/op.txt
 
+
+# use of ansible.builtin.setup - To gather ad-hoc info about system.
+ansible -i inv all -e ansible_user=ec2-user -e ansible_password=DevOps321 -m ansible.builtin.setup -a "filter=ansible_cmdline"  | grep BOOT_IMAGE
 
 # Ansible Vault
 Vault helps you in encrypting the string & supplying in a format thats not plain text.
@@ -447,3 +481,18 @@ For a user: username ALL=(ALL) NOPASSWD: ALL.
 root    ALL=(ALL:ALL) ALL
 
 For a group: %groupname ALL=(ALL) NOPASSWD: ALL (commonly used with the %wheel or %sudo groups).
+
+
+📘 Why playbooks start with -
+A playbook is actually a list of “plays”.
+Playbook = list of plays
+- means “this is a list item”.
+Also it’s pure YAML syntax.
+
+1. Dictionary (key-value)
+name: Install nginx
+hosts: web
+2. List (sequence)
+- item1
+- item2
+- item3

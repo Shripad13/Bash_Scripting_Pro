@@ -1,3 +1,4 @@
+
 ## Ansible Modules
 
 ansible.builtin.ping - To check the connectivity of target machine
@@ -45,6 +46,14 @@ If the package is already installed, Ansible does nothing (it's idempotent). If 
 ✅become: yes           #Instructs Ansible to escalate privileges (e.g., using sudo) for executing tasks.
 ✅remote_src: yes       #Means things will happen to remote servers (manadatory to mention this)
 
+✅daemon_reload: true  # Reload systemd daemon (after unit file changes)
+
+ state: restarted #Restart the service if it is already running, or start it if it is not running.
+ state: stopped #Stop the service if it is running, and do nothing if it is already stopped.
+
+# Command Line for encrypting the pwd with base64 encoding
+echo -n "your_password" | base64
+
 ```
 In Ansible if one task fails then successive task will not execute & stops there only, so for exceptions handling sometimes you can use below -
 
@@ -65,3 +74,49 @@ ignore_errors: True          # ignore_errors is a predefined keyword in Ansible 
 ansible all -m ping
 
 forks: The number of parallel processes to use.
+serial: Whether to run tasks serially (one at a time) or in parallel.
+async: Whether to run tasks asynchronously (in the background) or synchronously (wait for completion).
+poll: The interval (in seconds) at which to check the status of asynchronous tasks.
+retries: The number of times to retry a task if it fails.
+delay : The amount of time (in seconds) to wait before executing a task.
+delegate_to: Whether to delegate the execution of a task to another host.
+run_once: true --> Need to run task only once (DB migration)
+
+Increase the SSH timeout in ansible.cfg by setting timeout = 30 or higher
+under the [ssh_connection] section.
+
+
+
+Q. can you create a modules in ansible?
+Yes — Ansible lets you create custom modules, which are reusable pieces of Python (or sometimes other languages) that extend Ansible’s functionality.
+You can write your own when built-in modules aren’t enough.
+📁 1. Folder structure
+project/
+├── library/
+│   └── dir_size.py   <-- custom module
+├── playbook.yml
+
+Ansible automatically looks in the library/ folder for custom modules.
+
+🧠 2. Custom module code (library/dir_size.py)
+   
+▶️ 3. Playbook using the module
+---
+- name: Test custom Ansible module
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Get directory size
+      dir_size:
+        path: /tmp
+      register: result
+    - name: Show result
+      debug:
+        var: result
+
+📦 Where modules can live
+You can store custom modules in:
+
+library/ (recommended per project)
+~/.ansible/plugins/modules/
+configured ANSIBLE_LIBRARY path        

@@ -5,6 +5,13 @@ Continuous Integration (CI) is the practice of automatically building and testin
 Continuous Deployment - Will be done by Big companies like Netflix, Amazon, Microsoft, MAANG, where every code which is tested & passed will be directly deployed to production without manual intervention.
 You should not say continuous deployment in interviews, say continuous delivery.
 
+| Concept               | Production Deployment    |
+| --------------------- | ------------------------ |
+| Continuous Delivery   | Manual approval required |
+| Continuous Deployment | Fully automated          |
+
+
+
 ## Jenkins -
 1. Jenkins is an open-source framework & is a free to use tool.
 2. Its been there in industry for almost 2 decades.
@@ -63,7 +70,7 @@ node {
 
 # What is a shared library in Jenkins?
 A shared library is a reusable piece of code stored in a Git repository that can be loaded in multiple Jenkins pipelines using Groovy. It helps in avoiding code duplication across pipelines.
-
+DRY principle & Standardization
 # How can you share code across multiple pipelines in Jenkins using Groovy?
 Use a Shared Library:
 Define your Groovy classes or functions in vars/ or src/ directories.
@@ -397,7 +404,271 @@ Use a Shared Library to avoid duplicating jenkins pipeline code across multiple 
 2. configure SMTP server
 3. In jenkinsfile, In post job add failure block with emailext
 
-# Clean up Old Build Artefacts
+# How would you structure a Declarative Pipeline to enforce a clean workspace before every build? 
 Add post block, inside it use cleanWs
 
+Use the cleanWs step (from the Workspace Cleanup Plugin) or 
+the deleteDir() command in the post or options section: 
 
+pipeline { 
+agent any 
+options { 
+skipDefaultCheckout(true)  // Skip default SCM checkout 
+} 
+stages { 
+        stage('Clean Workspace') { 
+            steps { 
+                cleanWs()  // Cleans workspace before proceeding 
+            } 
+        } 
+        stage('Build') { 
+            steps { sh 'mvn clean install' } 
+        } 
+    } 
+}
+
+
+✅ Integrate with Slack
+Install Slack plugin in jenkins
+Create Slack webhook in Slack workspace
+Configure Jenkins in Manage Jenkins -> Configure System -> Slack
+Add slackSend in pipeline
+Use post block for notifications
+
+✅ Integrate with Teams
+Create webhook in Teams channel
+Use curl or plugin in Jenkins 
+Trigger in post block (success/failure)
+Use credentials for security'
+
+
+
+## Jenkins Blocks
+1. agent - where to run the pipeline
+2. stages - define stages of the pipeline
+3. steps - define steps within a stage
+4. post - define actions to take after the pipeline or stage completes
+5. environment - define environment variables for the pipeline
+6. parameters - define input parameters for the pipeline
+7. options - define pipeline-level options (e.g., timeout, retry)
+8. retry - retry a block of steps on failure - retry(3)
+9. Jenkins store credentials securely - Use the Credentials Binding Plugin or withCredentials in pipelines to avoid exposing secrets in logs. 
+ Use the withCredentials block to bind secrets to environment variables:
+11. Jenkins RBAC-  Use the Role-Based Authorization Strategy Plugin
+
+12. What steps would you take to harden a Jenkins instance? 
+Answer: 
+1. Enable HTTPS for the Jenkins dashboard. 
+2. Disable legacy protocols (JNLP3) and use JNLP4. (Java Network Launch Protocol agents)
+3. Limit plugin installations to trusted sources. 
+4. Regularly update Jenkins and plugins. 
+5. Use the Matrix Authorization Strategy Plugin to fine-tune permissions. 
+6. Set up CSRF protection in "Configure Global Security".
+
+✅ What is JNLP in Jenkins?
+JNLP = Java Network Launch Protocol
+Used for agent-to-controller communication
+Typically used when agents:
+Are outside the network
+Connect via firewall/NAT
+Initiate connection (instead of master connecting)
+
+Q: How do you optimize Jenkins for large-scale deployments?
+ Use Jenkins Agents (distribute builds across worker nodes). 
+• Implement **Parallel Stages** to speed up builds.
+• Leverage **Pipeline Shared Libraries** to reuse code across projects. 
+• Configure Jenkins Configuration as Code (JCasC) for scalable, version-controlled 
+setups. 
+
+Q.  How do you reduce build times for large monorepo projects?
+• Incremental Builds: Use tools like git diff to identify changed modules and build 
+only those. 
+• Caching: Cache dependencies (e.g., Maven, npm) using Artifactory or Nexus. 
+• Parallel Stages: Split tests and builds across parallel agents. 
+• Distributed File Systems: Use shared storage (e.g., NFS, S3) for large artifacts.
+
+Static agents are permanently configured nodes in Jenkins that remain available all the time.
+A VM or server permanently added to Jenkins:
+✔ Pre-configured manually
+✔ Always running
+✔ Fixed infrastructure
+✔ Long-lived machines
+
+Dynamic agents are created on demand when a job runs and destroyed after completion.
+✔ Created automatically
+✔ Short-lived (ephemeral)
+✔ Scalable
+✔ Cloud-native
+
+✅ 1. Why is Jenkins called “stateless” but still needs persistence?
+Jenkins is conceptually stateless for builds, but it stores state in $JENKINS_HOME:
+Job configs
+Build history
+Plugins
+Credentials
+
+✅ 2. What happens if Jenkins Master goes down?
+Running builds may fail or stop
+Agents may disconnect
+Pipelines can be retried if designed properly
+✅ Solutions:
+High Availability setup
+Backup $JENKINS_HOME
+Use distributed builds with agents
+
+✅ 4. What is Jenkinsfile and where should it be stored?
+A Jenkinsfile defines pipeline as code.
+✅ Must be stored: In SCM (Git)
+
+👉 Benefits: Version controlled AND Reproducible builds
+
+✅ 5. How do you achieve zero downtime during deployment in Jenkins?
+Jenkins doesn’t do zero downtime itself, but integrates with strategies:
+✅ Use:
+Rolling deployment
+Blue-Green deployment
+Canary deployment
+👉 Jenkins triggers deployment via pipeline
+
+✅ 6. What are Jenkins Executors?
+Executors = parallel build slots on a node
+1 executor → 1 job at a time
+4 executors → 4 jobs parallel
+⚠️ Too many executors = resource contention
+
+✅ 7. How do you handle secret management in Jenkins?
+✅ Use:
+Jenkins Credentials Store
+Vault integration
+Environment binding
+⚠️ Never hardcode secrets in Jenkinsfile
+withCredentials([string(credentialsId: 'token', variable: 'TOKEN')]) {
+    sh 'echo $TOKEN'
+}
+
+✅ 8. What is the difference between Poll SCM and Webhooks?
+Poll SCM: Jenkins periodically checks the repository for changes (e.g., every 5 minutes).
+Webhooks: Repository sends an HTTP POST to Jenkins when changes occur, triggering a build immediately.
+
+✅ 9. What is a “Workspace” in Jenkins?
+Workspace = directory where job runs
+👉 Contains:
+Code checkout
+Build artifacts
+
+⚠️ Issue:
+Workspace conflicts in parallel jobs
+
+✅ Solution:
+Use isolated agents or cleanup step
+
+
+✅ 10. Why do builds fail intermittently in Jenkins?
+Common reasons:
+Shared workspace issues
+Dependency conflicts
+Resource starvation (CPU/memory)
+Network issues
+
+✅ Fix:
+Use clean workspace
+Use dynamic agents
+Add retry logic
+
+✅ 11. What is Jenkins agent connection failure troubleshooting?
+Check:
+Network connectivity
+JNLP port
+Agent logs
+Firewall rules
+Java version compatibility
+
+✅ Common issue:
+👉 JNLP port blocked
+
+✅ 12. How do you scale Jenkins?
+✅ Horizontal scaling via:
+Adding agents
+Kubernetes plugin (dynamic agents)
+Cloud agents (EC2)
+✅ Avoid scaling master heavily
+
+✅ 13. What is throttling in Jenkins?
+Limits number of concurrent builds
+✅ Use case:
+Prevent DB overload
+Control resource usage
+
+✅ 14. How do you manage Jenkins plugins in production?
+✅ Best practices:
+Avoid unnecessary plugins
+Pin plugin versions
+Test in staging
+Backup before upgrade
+
+✅ 15. Blue-Green deployment vs Canary in Jenkins?
+Blue-Green → full switch
+Canary → partial traffic
+Jenkins just orchestrates these using scripts/tools.
+
+✅ 18. What is “agent any” vs specific agent?
+agent any → run on any available node
+agent { label 'docker' } → run on specific node
+
+✅ 19. How do you secure Jenkins?
+Enable authentication (LDAP/OAuth)
+Use Role-based access control
+HTTPS (SSL)
+Disable anonymous access
+
+✅ 20. Why Jenkins pipeline fails after restart?
+Not using Durable Task Plugin
+Pipeline not resumable
+Agent lost connection
+
+✅ 21. Difference between freestyle job and pipeline?
+Freestyle: GUI-based, less flexible, not code-defined
+Pipeline: Code-defined (Jenkinsfile), more flexible, supports complex workflows
+
+✅ 22. What are common Jenkins performance issues?
+Too many plugins
+Large $JENKINS_HOME
+Heavy builds on master
+Network latency with agents
+✅ Fix:
+Use agents
+Clean workspace
+Move builds to agents
+Cleanup jobs
+Archive artifacts externally
+
+✅ 23. How do you implement parallel stages?
+Use parallel block in Declarative Pipeline and add stages
+
+✅ 24. What is the difference between stash and archive?
+Stash: Temporary storage for files during a pipeline run, used to share files between stages.
+Archive: Permanent storage of build artifacts after a pipeline run, used for long-term access and retrieval.
+
+❓ Why Jenkins is not fully cloud-native?
+Stateful (JENKINS_HOME)
+Plugin dependency issues
+Scaling master is difficult
+
+❓ What is biggest limitation of Jenkins?
+Plugin management complexity
+Single point of failure (controller)
+
+❓ How do you improve reliability?
+Use dynamic agents
+Backup Jenkins home
+Use monitoring (Prometheus/Grafana)
+
+❓ “Tell me a real issue you solved”
+“We faced intermittent build failures in Jenkins due to shared workspace conflicts. I analyzed logs, identified parallel job interference, and migrated to Kubernetes-based dynamic agents with isolated workspaces. This improved build stability and reduced failures by ~80%.”
+
+✅ Strong Closing Answer (if asked “your experience”)
+“I’ve worked extensively with Jenkins pipelines using Kubernetes-based dynamic agents, implemented CI/CD with canary and blue-green deployments, handled scaling using cloud agents, and troubleshot production issues like agent disconnections, plugin failures, and performance bottlenecks.”
+
+
+
+I have 5+ years of experience managing CI/CD pipelines, AWS infrastructure, and Linux-based Java applications/environments. I’ve worked on automating deployments using PowerShell and Ansible, implementing high-availability architectures, and optimizing cost using auto-scaling and dynamic agents. I also have hands-on experience with Jenkins, GitHub Actions, Prometheus, and Grafana for monitoring and observability.

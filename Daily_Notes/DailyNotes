@@ -91,7 +91,7 @@ git push -u origin main
 ####################### Miscellaneous Points ###################################
 
 >> During launching EC2 instance if you want to execute or run any commands or installing tools during start of Server then you can put them in User Data & launch ec2.
-
+\
 >> Every company maintain their own AMI's , in that they will install required softwares needed for application & you will use that only.
 
 ##########################################################

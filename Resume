@@ -141,7 +141,7 @@ Application running on kubernetes as a containerized infra, so we have 40 micros
 
 We have ingress controller on top of EKS along with 80 % workloads runs on top of EKS. 30 % infra on top of on-prem.
 We have enabled the connectivity between the on-Prem to AWS using Direct connect.
-We have an agreement with AWS for the AWS Direct connect so which ffers 200Gigs per second.
+We have an agreement with AWS for the AWS Direct connect so which offers 200Gigs per second.
 Continuous deployment is happening through ArgoCD, where as Continuous Integration image delivery process, sonarqube, SAST, everything written by using workflows and we have developed workflows by using the github Actions.
 For each & every workload, we have 3 different runners, which going to make the build on top of particular runner , we are also using ECR Elastic container Registry which is an artefactory to host our containerized workloads and all our secrets hosted on HashiCorp Secret Manger.
 We have made init Container that has the capability to go & talk to vault to fetch the secrets.

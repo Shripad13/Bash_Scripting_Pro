@@ -282,12 +282,14 @@ Cherry-pick is ideal for production hotfixes where only a single fix needs to be
 
 # when to use stash?
 I use git stash when I need to temporarily save uncommitted changes so I can switch branches or pull updates without committing incomplete work.
-
+| ----------- | --------------- |
 | Tool   | Purpose              |
 | ------ | -------------------- |
 | Stash  | Temporary local save |
 | Commit | Permanent history    |
 | Branch | Parallel work        |
+| ----------- | --------------- |
+
 
 # What is HEAD ?
 In Git, HEAD is a pointer to the current commit that your working directory is based on.
@@ -300,7 +302,50 @@ It usually points to the latest commit on the current branch, and it moves as yo
 A pre-commit hook is a script that Git runs before a commit is finalized, allowing you to check or modify code, run tests, or enforce standards, preventing bad commits from entering the repository.
 
 # git reset & git revert
+| ----------- | -------------------------------- | -------------------------------- |
 | Command     | Purpose                          | Use Case                         |
 | ----------- | -------------------------------- | -------------------------------- |
-| git reset   | Moves HEAD and optionally changes the index and working directory. | Undo local commits or changes.   |
-| git revert  | Creates a new commit that undoes the changes of a previous commit. | Undo changes in a public history. |
+| git reset   | Moves HEAD and optionally changes| Undo local commits or changes.   |
+              | the index and working directory  |                                  |
+| git revert  | Creates a new commit that undoes | Undo changes in a public history.|
+              | the changes of a previous commit |                                  |
+| ----------- | -------------------------------- | -------------------------------- |
+
+# git revert
+helps in situation of rollback.
+
+# git branch -D
+we can delete obsolete branches from our repositiry so that our repo can be light weight
+
+# git mv  
+To rename the file in git repo without losing history of that file
+In order to save changes , we have to perform commit
+
+# git rm 
+To delete the files from git repo
+If its done by mistake, then run git revert command to reraver the changes
+git rm filename ;  git add . ; git commit -m "delete" 
+
+# git rm --cached fielname
+you can delete the file from git repo but file will not be permanently deleted from local repo.
+We can easily access the file, even after running this command.
+
+# Difference beween git pull & git fetch
+git pull = git fetch + git merge
+
+git pull command pulls new changes or commits from a particular branch from your central repository and updates.
+
+# git log --oneline
+recent commits in one line, quick history
+
+
+# git stash
+temporarily saves changes without committing to git
+
+# git rebase -i HEAD~N
+Edit, squash or reorder your last N committs
+
+# git cherry-pick <hash>
+Copy one specific commit from another branch.
+
+`git blame` is a command that shows the last modification for each line of a file, including the author and the commit hash. 

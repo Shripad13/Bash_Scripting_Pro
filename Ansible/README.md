@@ -156,7 +156,7 @@ ansible -i inv all -e ansible_user=ec2-user -e ansible_password=  -m ansible.bui
 Also you can search particualr info by using grep
 ansible -i inv all -e ansible_user=ec2-user -e ansible_password=  -m ansible.builtin.gather_facts|grep "ansible_nodename"
 
-# command to generate the facts of the nodes mentioned in inventory file & redirect the output to some file, becoz it generated hug info of facts
+# command to generate the facts of the nodes mentioned in inventory file & redirect the output to some file, becoz it generated huge info of facts
 ansible -i inv frontend -e ansible_user=ec2-user -e ansible_password=DevOps321  -m ansible.builtin.gather_facts
 
 

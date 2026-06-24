@@ -7,7 +7,7 @@ CPU - 2 cores
 OS - Linux (RHEL/CentOS/Ubuntu)
 Disk space - 10 GB (minimum)
 Java - Java 8 or Java 11 (depending on Jenkins version)
-Javae - java 17 or Java 21 to tun correctly
+Javae - java 17 or Java 21 to run correctly
 Java Development Kit - JDK - is preferred for developers,
  while JRE is sufficient for standard hosting
 Default Port - 8080

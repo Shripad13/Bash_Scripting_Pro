@@ -1,6 +1,8 @@
 
 # What is Continuous Integration and Continuous Deployment (CI/CD) in Jenkins?
-Continuous Integration (CI) is the practice of automatically building and testing code changes as they are committed to a shared repository. Continuous Deployment (CD) extends this by automatically deploying successful builds to production or staging environments. Jenkins is a popular open-source automation server that facilitates CI/CD by allowing developers to create pipelines that automate the build, test, and deployment processes.
+Continuous Integration (CI) is the practice of automatically building and testing code changes as they are committed to a shared repository. 
+Continuous Deployment (CD) extends this by automatically deploying successful builds to production or staging environments. 
+Jenkins is a popular open-source automation server that facilitates CI/CD by allowing developers to create pipelines that automate the build, test, and deployment processes.
 
 Continuous Deployment - Will be done by Big companies like Netflix, Amazon, Microsoft, MAANG, where every code which is tested & passed will be directly deployed to production without manual intervention.
 You should not say continuous deployment in interviews, say continuous delivery.
@@ -148,6 +150,7 @@ MyHelper.sayHello()
 For Shared Libraries which only define Global Variables ( vars/ ), or a Jenkinsfile which only needs a Global Variable, the annotation pattern @Library('my-shared-library') _ may be useful for keeping code concise.
 
 # How can you run parallel stages in Jenkins Groovy script?
+Inside parallel block we can define stages
 
 stage('Parallel Tasks') {
     parallel {
@@ -289,7 +292,7 @@ H - Hashed value for load balancing job execution
 Benefits - Avoids collisions, spreads load, consistent per job
 
 # PollSCM -
-Wehnever Source code or any change in script or if new Commit then only Pipeline will be triggered.
+Whenever Source code or any change in script or if new Commit then only Pipeline will be triggered.
  Ex - triggers { pollSCM ('H */4 * * 1-5') }
 
 # Cronjob in jenkins - it triggers according to schedule
@@ -318,12 +321,14 @@ Tools like Spinnaker, ArgoCD, or GitLab CI/CD are often used for fully managed c
 Jenkins can be used for continuous deployment, but by default, it is more geared toward continuous integration. For CD, it requires additional configuration and might require integrating with other deployment and orchestration tools to handle full lifecycle deployments safely and efficiently.
 
 # how have you implemented CI/CD pipelines in your previous roles, especially using jenkins?
-My experience with jenkins included managing & maintaining the build & release pieplines, which involved monitoring Continuous deployment processes Ans resolving deployment failures quickly.
+My experience with jenkins included managing & maintaining the build & release pieplines, which involved monitoring Continuous deployment processes And resolving deployment failures quickly.
 In my previous roles, I built and managed end-to-end CI/CD pipelines in Jenkins using Pipeline-as-Code with Jenkinsfiles. I automated build, test, and deployment stages, integrated unit and security scans, and used webhooks for automatic triggers on code commits. I also implemented Docker-based builds, pushed artifacts to registries, and deployed to Kubernetes or cloud environments using Helm or kubectl. For production releases, I added approval gates, rollback strategies, and notifications. Overall, I used Jenkins to deliver faster, reliable, and repeatable deployments.
 
 # What is Multibranch Pipeline in Jenkins?
-A Multibranch Pipeline in Jenkins is a type of pipeline that automatically creates and manages pipelines for  each branch in a source code repository. It scans the repository for branches containing a Jenkinsfile and creates a separate pipeline for each branch, allowing for isolated builds and tests per branch. This is particularly useful for teams practicing Git branching strategies, as it enables continuous integration and delivery workflows tailored to each branch without manual configuration. 
-use Webhooks to trigger builds on code changes.
+A Multibranch Pipeline in Jenkins is a type of pipeline that automatically creates and manages pipelines for  each branch in a source code repository. 
+It scans the repository for branches containing a Jenkinsfile and creates a separate pipeline for each branch, allowing for isolated builds and tests per branch. 
+This is particularly useful for teams practicing Git branching strategies, as it enables continuous integration and delivery workflows tailored to each branch without manual configuration. 
+Use Webhooks to trigger builds on code changes.
 
 # How do you set up a Multibranch Pipeline in Jenkins?
 To set up a Multibranch Pipeline in Jenkins, follow these steps:
@@ -335,7 +340,9 @@ To set up a Multibranch Pipeline in Jenkins, follow these steps:
 6. Save the Configuration: Click "Save" to create the Multibranch Pipeline job.
 
 # How does Jenkins handle branch-specific configurations in a Multibranch Pipeline?
-In a Multibranch Pipeline, Jenkins handles branch-specific configurations by looking for a Jenkinsfile in each branch of the repository. Each branch can have its own Jenkinsfile that defines the pipeline stages, steps, and configurations specific to that branch. When Jenkins scans the repository, it automatically creates a separate pipeline for each branch that contains a Jenkinsfile, allowing for isolated builds and tests per branch. This enables teams to implement different CI/CD workflows for different branches, such as feature branches, development branches, and production branches, without manual configuration.
+In a Multibranch Pipeline, Jenkins handles branch-specific configurations by looking for a Jenkinsfile in each branch of the repository. 
+Each branch can have its own Jenkinsfile that defines the pipeline stages, steps, and configurations specific to that branch. 
+When Jenkins scans the repository, it automatically creates a separate pipeline for each branch that contains a Jenkinsfile, allowing for isolated builds and tests per branch. This enables teams to implement different CI/CD workflows for different branches, such as feature branches, development branches, and production branches, without manual configuration.
 
 # What are some best practices for managing Jenkins pipelines using Groovy?
 1. Use Declarative Pipelines: Prefer Declarative syntax for better readability and maintainability.
@@ -345,10 +352,20 @@ In a Multibranch Pipeline, Jenkins handles branch-specific configurations by loo
 5. Implement Error Handling: Use try-catch blocks and post conditions to handle errors gracefully.
 6. Use Credentials Management: Store sensitive information securely using Jenkins credentials.
 
+12. What steps would you take to harden a Jenkins instance? 
+Answer: 
+1. Enable HTTPS for the Jenkins dashboard. 
+2. Disable legacy protocols (JNLP3) and use JNLP4. (Java Network Launch Protocol agents)
+3. Limit plugin installations to trusted sources. 
+4. Regularly update Jenkins and plugins. 
+5. Use the Matrix Authorization Strategy Plugin to fine-tune permissions. 
+6. Set up CSRF protection in "Configure Global Security".
+
+
 # How do you store credntials securely in Jenkins pipelines using Groovy?
 Use the withCredentials step to securely access stored credentials in Jenkins pipelines. This ensures that sensitive information like passwords and API keys are not exposed in the pipeline definition or logs.
 
-#  How will you ensure secondary pipelines runs after the secondary pipeline is successful in jenkins using groovy?
+#  How will you ensure secondary pipelines runs after the Primary pipeline is successful in jenkins using groovy?
 You can use the build step to trigger a secondary pipeline after the primary pipeline completes successfully. Here is an example of how to do this in a Jenkins Declarative Pipeline using Groovy:
 pipeline {
     agent any
@@ -671,4 +688,4 @@ Use monitoring (Prometheus/Grafana)
 
 
 
-I have 5+ years of experience managing CI/CD pipelines, AWS infrastructure, and Linux-based Java applications/environments. I’ve worked on automating deployments using PowerShell and Ansible, implementing high-availability architectures, and optimizing cost using auto-scaling and dynamic agents. I also have hands-on experience with Jenkins, GitHub Actions, Prometheus, and Grafana for monitoring and observability.
+I have 5+ years of experience managing CI/CD pipelines, AWS infrastructure, and Linux-based Java applications/environments. I’ve worked on automating deployments using Shell and Ansible, implementing high-availability architectures, and optimizing cost using auto-scaling and dynamic agents. I also have hands-on experience with Jenkins, GitHub Actions, Prometheus, and Grafana for monitoring and observability.

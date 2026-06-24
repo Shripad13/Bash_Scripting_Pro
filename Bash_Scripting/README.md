@@ -241,6 +241,10 @@ sed -f sedscript -n sed4
 date | sed 's/j/J/'
 sed '1,5p'
 
+-e option- stands for expression. when you want to execute more than one editing command on a file
+g flag stands for Global replacemnet for search and replace.
+s stands for substitute
+
 
 | Command                           | Effect                                              |
 | --------------------------------- | --------------------------------------------------- | 

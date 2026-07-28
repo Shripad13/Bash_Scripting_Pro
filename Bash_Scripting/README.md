@@ -154,7 +154,10 @@ find . -maxdepth 1 -type d -newermt 2021-01-01 ! -newermt 2025-01-01 -exec rm -r
 
 
 # A filesystem has unexpectedly remounted as read-only, How do you diagnose & fix it?
+what would you check in dmesg for underlying I/O errors?
+Check kernel messages using below command -
 
+dmesg -T | tail -100
 ##
 
 sudo su   ----> /home/user

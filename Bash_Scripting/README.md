@@ -474,3 +474,66 @@ last 1 minute, 5 minutes, and 15 minutes
 A value of 0 → system is idle
 A value equal to number of CPU cores → fully utilized
 A value higher than CPU cores → system is overloaded
+
+
+#
+# Why top first?
+top provides a real-time, high-level view of the entire system in a single screen:
+CPU utilization
+Memory usage
+Load average
+Running/sleeping processes
+Process-level CPU and memory consumption
+System uptime
+Zombie processes
+
+# vmstat 1
+vmstat = Virtual Memory Statistics
+1 = Refresh and display statistics every 1 second
+
+Use after top when you want to understand:
+CPU wait time (wa)
+Memory pressure
+Swapping activity (si, so)
+Run queue (r)
+Context switches
+
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b swpd free buff cache si so bi bo in cs us sy id wa st
+ 1  0    0 2G   1G   4G   0  0  5 10 120 230 10  5 80  5  0
+
+r = Processes waiting for CPU
+b = Processes blocked (usually I/O)
+si/so = Swap In/Swap Out
+bi/bo = Blocks read/written
+us = User CPU %
+sy = System CPU %
+id = Idle CPU %
+wa = I/O Wait %
+
+Example:
+
+wa = 5% → CPU is waiting for disk/storage.
+si/so > 0 → System is swapping (memory pressure).
+
+# iostat -xz 1
+-x = Extended disk statistics
+-z = Hide devices with no activity
+1 = Refresh every 1 second
+
+It provides:
+Disk utilization (%util)
+Disk latency (await)
+
+Device    r/s   w/s   rkB/s   wkB/s  await  %util
+sda      10    50    1024    4096    25.0   95.0
+r/s = Reads per second
+w/s = Writes per second
+rkB/s = Read throughput
+wkB/s = Write throughput
+await = Average I/O latency (ms)
+%util = Disk utilization
+
+Example:
+%util ≈ 95% → Disk is fully busy.
+await > 20-30 ms (for SSDs) → Potential storage latency issue.   

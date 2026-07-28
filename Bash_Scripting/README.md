@@ -67,9 +67,14 @@ Soft Link = A paper that contains someone’s address.
 # 1️⃣ Extract IP addresses from logs using awk "How do you find the top 5 IPs hitting a web server?”
  $ cat /var/log/nginx/access.log | awk '{print $1}' | sort | uniq -c | sort -nr | head -5
     $1 → first field in log (IP address)
-    sort | uniq -c → count occurrences
-    sort -nr → sort by number descending
+    sort | uniq -c → count occurrences (sort the IP adddress if its same IP coming multiple times)
+    sort -nr → sort by number descending (r - reverse, n - numeric)
     head -5 → top 5 IPs hitting your server
+    awk -> search/filter or read rows & columns , perform calculations & applied conditions & format outputs
+   Syntax -> awk 'pattern {action}' filename
+    grep -> find lines
+    cut -> extarct columns
+
 
 2️⃣ Extract usernames from /etc/passwd using cut "How do you list all system users?”
  $ cut -d':' -f1 /etc/passwd
@@ -148,16 +153,26 @@ Know difference between -mtime (days) and -mmin (minutes)
 find . -maxdepth 1 -type d -newermt 2021-01-01 ! -newermt 2025-01-01 -exec rm -rf {} \;
 
 
+# A filesystem has unexpectedly remounted as read-only, How do you diagnose & fix it?
+
 ##
 
 sudo su   ----> /home/user
 sudo su - ---> /root
 
 top -bn1 |grep "Cpu(s)" |awk '{print $2+$4}'
+OR
+top -bn1 | grep "Cpu(s)" | awk '{print 100-$8}'
+
+$8  - $8 is often the id (idle CPU) value.
+100 - idle% = used CPU%
+
 top -bn1 | grep "Cpu(s)"
 top -bn1  ---> Show me the current system status one time and quit.
 -b → batch / non-interactive
 -n1 → run once
+$2 = User CPU (us)
+$4 = System CPU (sy)
 
 (echo "$MEMORY_USAGE > $THRESHOLD" | bc -l) 
 bc -l: This command-line calculator is used for floating-point comparison. 
@@ -487,6 +502,12 @@ Process-level CPU and memory consumption
 System uptime
 Zombie processes
 
+top -H -p <PID>
+
+starce or perf - using this pause the process 
+
+
+
 # vmstat 1
 vmstat = Virtual Memory Statistics
 1 = Refresh and display statistics every 1 second
@@ -537,3 +558,4 @@ await = Average I/O latency (ms)
 Example:
 %util ≈ 95% → Disk is fully busy.
 await > 20-30 ms (for SSDs) → Potential storage latency issue.   
+

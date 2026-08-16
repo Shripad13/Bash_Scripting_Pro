@@ -9,7 +9,7 @@
       - unzip
       - zip 
       - htop
-    app_user: shripad
+    app_user: devops
     app_directory: /home/devops
 
   tasks:
@@ -53,6 +53,9 @@
       copy:
         src: /home/devops/application.conf
         dest: "{{ app_directory }}/application.conf"
+        owner: "{{ app_user }}"
+        group: "{{ app_user }}"
+        mode: '0644'
 
     - name: Install nginx
       apt:

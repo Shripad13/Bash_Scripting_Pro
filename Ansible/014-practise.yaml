@@ -1,6 +1,7 @@
 ---
 - name: complete webapp deployment
   hosts: all
+  gather_facts: false
   become: true
   vars:
     packages:

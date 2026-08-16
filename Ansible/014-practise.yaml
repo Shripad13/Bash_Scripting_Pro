@@ -18,7 +18,8 @@
         msg: "Configuration server {{ inventory_hostname }}"
     - name: Display the OS
       debug:
-        msg: "OS is {{ ansible_distribution }}"
+        #msg: "OS is {{ ansible_distribution }}"   --- deprecated ---
+        msg: "OS is {{ ansible_facts['distribution'] }}"
    # install packages via loops
     
     - name: install required packages
@@ -57,7 +58,8 @@
       apt:
         name: nginx
         state: present
-      when: ansible_os_family == "Debian"        
+      # when: ansible_os_family == "Debian"    -- deprecated ---
+      when: ansible_facts['os_family'] == "Debian"        
       notify:
              - Restart nginx
   

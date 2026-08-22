@@ -387,7 +387,7 @@ vars:
 
 
 # What is the filename where we store all the host ip?
-In config file - /etc/ansible/hosts
+In config file at root level- /etc/ansible/hosts
 
 # How to specify host with port number?
 In /etc/ansible/hosts

@@ -50,6 +50,8 @@ But Ansible is extensible, and you can use other languages for modules, plugins,
  # Running ansible commands manually
 timeout 3 telnet <Private IP> 22           # after 3 sec telnet will get break
 ping <Private IP>
+ansible -i inv all --list-hosts
+ansible localhost -m ansible.builtin.ping
 ansible -i inv all -e ansible_user=ec2-user -e ansible_password=DevOps321 -m ansible.builtin.shell -a uptime
 ansible -i inv all -e ansible_user=ec2-user -e ansible_password=DevOps321 -m ansible.builtin.ping
 ansible -i inv frontend -e ansible_user=ec2-user -e ansible_password=DevOps321 -m ansible.builtin.ping
@@ -496,3 +498,8 @@ hosts: web
 - item1
 - item2
 - item3
+
+
+> vars - You can directly use it in the playbook
+> vars_files - external file call in playbook
+> group_vars/host_vars -  

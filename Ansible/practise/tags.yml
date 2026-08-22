@@ -1,0 +1,21 @@
+- name: ansible tags lab
+  hosts: localhost
+  become: true 
+  tasks:
+   - name: install nginx
+     apt:
+      name: nginx
+      state: present
+     tags: 
+       - install
+
+   - name: create website
+     copy:
+       src: index.html
+       dest: /var/www/html/index.html
+     tags: 
+        - config
+
+
+# ansible-playbook playbook1.yml --tags “config,install” 
+# ansible-playbook playbook1.yml --list-tags 

@@ -34,6 +34,8 @@
       tags: Backend      
 
   # Command : 
+  # $ ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=your_password 007-tags.yaml --list-tags
+  # $ ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=your_password 007-tags.yaml --tags "DB,Backend,Frontend"
   # $ ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=your_password 007-tags.yaml -t "Backend"
   
   # $ ansible-playbook -i inv -e ansible_user=ec2-user -e ansible_password=your_password 007-tags.yaml --tags "DB"

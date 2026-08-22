@@ -9,14 +9,21 @@
         name: nginx
         state: present
       when: ansible_os_family == "Debian"
+      
+    - name: Deploy the configuration
+      copy:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+      notify: restart nginx
 
+  handlers:    
     - name: Start nginx
       service:
         name: nginx
         state: started
         enabled: yes
 
-2. Create a user and add SSH key
+1. Create a user and add SSH key
 
 - name: Create user with SSH access
   hosts: all
@@ -173,7 +180,7 @@ Errors-
 - Verify inventory
 - Inspect generated files on target
 - Test with --check Dry run
-
+- ansible-playbook file.yml --check
 
 4. Cause - Ansible hangs
 - ssh_connection timeout
@@ -229,3 +236,31 @@ Use async & Pol for long running tasks
           - files_after.matched == 0
         fail_msg: "Directory is NOT empty after cleanup!"
         success_msg: "Directory is successfully empty (0 files)."
+
+
+1. group_vars/host_vars
+
+group_var - variables that apply to all hosts belonging to an inventory group
+
+[webservers]
+web01
+web02
+[dbserver]
+db01
+db02
+
+Grop_vars/
+ webserver.yml
+  nginx_port: 80
+
+ dbserver.yml
+  nginx_port: 81
+
+Playbook:
+--- 
+- name: variable demo
+  hosts: webserver
+  tasks:
+   - name: display variables
+       debug:
+         msg:   

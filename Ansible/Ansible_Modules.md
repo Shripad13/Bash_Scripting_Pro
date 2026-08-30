@@ -37,6 +37,9 @@ ansible.builtin.copy - This module copies files to remote locations.
 
 ansible.builtin.template - This module copies a file from the local machine to the remote machine, but it also processes the file as a Jinja2 template, allowing you to dynamically generate content based on variables and conditions.
 
+ansible.buitlin.synchronize - rsync utility designed to optimize file transfers within ansible playbooks; only transfer the differences between the source & destination file.
+
+
 ✅ state: present  #means:"Make sure the package is installed."
 If the package is already installed, Ansible does nothing (it's idempotent). If it's not installed, Ansible will install it.
 ✅state: absent   #Ensure the package is removed/uninstalled.
@@ -86,6 +89,11 @@ run_once: true --> Need to run task only once (DB migration)
 Increase the SSH timeout in ansible.cfg by setting timeout = 30 or higher
 under the [ssh_connection] section.
 
+# To run ansible playbook for a single host.
+Use the --limit or -l in short form
+ansible-playbook -i inventory.ini playbook.yml --limit "host1,host2"
+ansible-playbook -i inventory.ini playbook.yml -l "host1"
+ansible-playbook -i "hosti_ip" playbook.yml 
 
 
 Q. can you create a modules in ansible?

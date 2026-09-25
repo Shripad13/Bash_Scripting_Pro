@@ -227,17 +227,48 @@ When deciding between deploying an application on EC2 (Elastic Compute Cloud) ve
    - The application is serverless and doesn't require managing servers or infrastructure.
 
  3. What do you understand by DevOps?
+DevOps is a cultural and professional movement that bridges the gap between Development (Dev) and Operations (Ops) teams.
 
+Its goal is to shorten the systems development life cycle and provide continuous delivery with high software quality. Instead of working in isolated silos, teams use automation, continuous integration, and continuous deployment (CI/CD) to build, test, and release reliable software faster and more frequently.
 
 5. Consider i have an application for which pod is running on EKS Cluster. Now I want that whenever I hit myapp.com in browser the request should get routed to that pod. What all steps will you take?
 
-Ingress controller for host/path based routing
-Which service will you choose ? CLuster IP, NodePort, LoadBalancer
+
+To route public traffic from a domain like myapp.com to a pod running inside an Amazon EKS cluster, I would implement a standard cloud-native routing path. This involves mapping Route 53 (DNS) ➡️ an AWS Application Load Balancer (ALB) ➡️ the Kubernetes Service ➡️ and finally, the Pods.
+
+1. Deploy the Application (Pod & Service)
+   I will deploy the application pods using a Kubernetes Deployment.
+   I will expose these pods internally within the cluster using a Kubernetes ClusterIP Service, mapping the target ports of the container to the service.
+
+2. Install the AWS Load Balancer Controller
+   I will ensure the AWS Load Balancer Controller is installed in the EKS cluster (typically via Helm).
+   This controller watches for Kubernetes Ingress resources and automatically provisions actual AWS Application Load Balancers (ALBs) in the AWS Cloud.
+
+3. Create an Ingress Resource
+   I will create a Kubernetes Ingress resource configured with the ingressClassName: alb.
+   
+   Inside the Ingress manifest, I will add annotations to specify internet-facing schemes, target types (instance or IP), and SSL certificate ARNs from AWS Certificate Manager (ACM).
+   
+   I will define the routing rule: matching the host myapp.com and forwarding it to the backend ClusterIP Service created in Step 1.
+
+4. Configure DNS in Route 53
+   Once the Ingress resource is live, the AWS Controller will generate a public ALB DNS name (e.g., ://amazonaws.com).
+   I will go to Amazon Route 53 (or the respective DNS provider), navigate to the hosted zone for myapp.com, and create an Alias record (A record) pointing myapp.com directly to that newly created ALB.
+
+5. Secure Traffic (SSL/TLS)
+   To ensure the browser hits the site securely over HTTPS, I will bind an SSL certificate from AWS Certificate Manager (ACM) to the ALB via Ingress annotations, and configure an automatic HTTP-to-HTTPS redirect rule.
+
 
 6. what is NACL & what do you understand about it?
-Network Access Control List (NACL) is a virtual firewall that controls inbound and outbound traffic at the subnet level in an Amazon VPC. It provides an additional layer of security by allowing or denying specific IP addresses, protocols, and ports for traffic entering or leaving a subnet. NACLs are stateless, meaning that return traffic must be explicitly allowed by rules. They are typically used to provide a basic level of security for subnets, complementing security groups that operate at the instance level.
+Network Access Control List (NACL) is a virtual firewall that controls inbound and outbound traffic at the subnet level in an Amazon VPC. 
 
-7. How to choose security group vs NACL?
+It provides an additional layer of security by allowing or denying specific IP addresses, protocols, and ports for traffic entering or leaving a subnet. 
+
+NACLs are stateless, meaning that return traffic must be explicitly allowed by rules. 
+
+They are typically used to provide a basic level of security for subnets, complementing security groups that operate at the instance level.
+
+1. How to choose security group vs NACL?
 Security Groups vs NACLs:
 1. Security Groups: 
    - Operate at the instance level.
@@ -251,7 +282,7 @@ Security Groups vs NACLs:
    - Provide a basic layer of security for multiple instances within a subnet.
 Choose Security Groups for instance-level security and NACLs for subnet-level security.
 
-8. How will you troubleshoot 403 error in your application?
+1. How will you troubleshoot 403 error in your application?
 A 403 Forbidden error indicates that the server understands the request but refuses to authorize it. To troubleshoot a 403 error in an application, I would follow these steps:
 1. Check Application Logs: Review the application logs to identify any specific error messages or details related to the 403 error.
 2. Verify Permissions: Ensure that the user or service account making the request has the necessary permissions to access the requested resource.
@@ -277,3 +308,25 @@ Iam good player who is ready to learn , contribute to the company and thats some
 I would like to spend time with family, I would like to watch movies, Cricket.
 I keep watching the latest updates on tehchnology.
 
+
+## Recommended interview introduction
+
+Good morning, and thank you for giving me the opportunity to introduce myself.
+
+I’m a Senior DevOps Engineer with around seven years of experience in IT, primarily focused on DevOps, cloud infrastructure, CI/CD, automation, and platform engineering.
+
+Over the course of my career, I’ve worked extensively across AWS and Azure environments, with hands-on experience in technologies & tools such as Terraform, Ansible, Docker, Kubernetes, GitLab, GitHub Enterprise, and CI/CD platforms. My experience has been a combination of engineering, automation, production support, and improving the reliability and efficiency of delivery platforms.
+
+In my current role, I’m also involved in administering GitHub Enterprise, managing access and security policies, supporting self-hosted GitHub Actions runners across Linux and Windows, and building automation using Ansible and Python. Alongside this, I work closely with cross-functional teams such as development, infrastructure, security, and application teams to improve deployment processes and resolve production issues.
+
+On the CI/CD side, I’ve designed and maintained end-to-end pipelines using GitHub Actions, Jenkins, and ArgoCD, enabling automated build, test, and deployment for microservices. I use Helm charts to standardize deployments and reduce configuration complexity, which has significantly improved deployment speed and reliability.
+
+One of the areas I’m particularly proud of is working on large-scale cloud and infrastructure initiatives. I’ve been involved in migrating more than 50 environments to AWS, automating 20-plus environments using Terraform and Ansible, and improving deployment efficiency, infrastructure cost, and incident response through automation and observability.
+
+I’ve also had opportunities to take ownership beyond individual technical tasks—for example, coordinating activities across teams during migration and production initiatives, supporting junior engineers, handling technical escalations, and working with different stakeholders to ensure that changes are delivered safely and with minimal business impact.
+
+**From a technical perspective, my core strengths are DevOps and cloud automation, CI/CD, infrastructure as code, Kubernetes, GitHub Enterprise, Ansible, Terraform, Linux, and production operations. At the same time, I’m increasingly focused on DevSecOps practices, platform reliability, governance, and building secure and scalable engineering processes.
+
+At this stage of my career, I’m looking for a Nice opportunity where I can contribute not only through hands-on technical expertise, but also through ownership, technical leadership, mentoring, and collaboration with different teams.
+
+That’s a brief overview about me, and I’d be happy to take you through any of these areas in more detail.

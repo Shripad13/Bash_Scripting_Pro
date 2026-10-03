@@ -317,6 +317,8 @@ I’m a Senior DevOps Engineer with around seven years of experience in IT, prim
 
 Over the course of my career, I’ve worked extensively across AWS and Azure environments, with hands-on experience in technologies & tools such as Terraform, Ansible, Docker, Kubernetes, GitLab, GitHub Enterprise, and CI/CD platforms. My experience has been a combination of engineering, automation, production support, and improving the reliability and efficiency of delivery platforms.
 
+In my current role, I work across the delivery lifecycle — from infrastructure provisioning and pipeline development to deployment, monitoring, troubleshooting and production support. I’ve automated more than 20 environments using Terraform and Ansible, reduced build and deployment time by around 50% across three development teams, and improved deployment reliability by reducing deployment failures by around 40%.
+
 In my current role, I’m also involved in administering GitHub Enterprise, managing access and security policies, supporting self-hosted GitHub Actions runners across Linux and Windows, and building automation using Ansible and Python. Alongside this, I work closely with cross-functional teams such as development, infrastructure, security, and application teams to improve deployment processes and resolve production issues.
 
 On the CI/CD side, I’ve designed and maintained end-to-end pipelines using GitHub Actions, Jenkins, and ArgoCD, enabling automated build, test, and deployment for microservices. I use Helm charts to standardize deployments and reduce configuration complexity, which has significantly improved deployment speed and reliability.
@@ -325,8 +327,23 @@ One of the areas I’m particularly proud of is working on large-scale cloud and
 
 I’ve also had opportunities to take ownership beyond individual technical tasks—for example, coordinating activities across teams during migration and production initiatives, supporting junior engineers, handling technical escalations, and working with different stakeholders to ensure that changes are delivered safely and with minimal business impact.
 
-**From a technical perspective, my core strengths are DevOps and cloud automation, CI/CD, infrastructure as code, Kubernetes, GitHub Enterprise, Ansible, Terraform, Linux, and production operations. At the same time, I’m increasingly focused on DevSecOps practices, platform reliability, governance, and building secure and scalable engineering processes.
 
 At this stage of my career, I’m looking for a Nice opportunity where I can contribute not only through hands-on technical expertise, but also through ownership, technical leadership, mentoring, and collaboration with different teams.
 
 That’s a brief overview about me, and I’d be happy to take you through any of these areas in more detail.
+
+
+# Davies Introduction - For this role, position yourself as someone who owns delivery platforms and automation.
+
+I’m a Senior DevOps Engineer with 7+ years of experience working on cloud infrastructure, CI/CD automation, container platforms and production operations.
+
+My core experience includes Azure and AWS cloud environments, Terraform and Ansible for infrastructure automation, Jenkins, GitHub Actions and Git-based CI/CD workflows, along with Docker and Kubernetes.
+
+In my current role, I work across the delivery lifecycle — from infrastructure provisioning and pipeline development to deployment, monitoring, troubleshooting and production support. I’ve automated more than 20 environments using Terraform and Ansible, reduced build and deployment time by around 50% across three development teams, and improved deployment reliability by reducing deployment failures by around 40%.
+
+I’ve also been involved in large-scale cloud migration and production operations, including migration of 50+ environments to AWS, where I was responsible for coordination, environment readiness and deployment activities.
+
+From a technical perspective, I’m particularly interested in CI/CD optimisation, infrastructure as code, Kubernetes, cloud automation and improving platform reliability.
+
+What attracted me to this Davies role is that it combines hands-on engineering with technical ownership — designing scalable CI/CD pipelines, managing Azure infrastructure through Terraform, improving reliability and security, and mentoring engineers. That aligns very well with the direction I want to continue growing in as a senior DevOps engineer.
+ 

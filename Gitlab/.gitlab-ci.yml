@@ -1,0 +1,64 @@
+# Global Environment Variables (Available to all jobs)
+variables:
+  GLOBAL_STAGE: "Production"
+  APP_NAME: "my-awesome-app"
+
+stages:
+  - build
+  - test
+  - scan
+  - deploy
+
+# --- BUILD STAGE (Using 'rules' and 'when') ---
+build-job:
+  stage: build
+  variables:
+    JOB_ENVIRONMENT: "build-env" # Job-level environment variable
+  script:
+    - echo "Building application $APP_NAME for $JOB_ENVIRONMENT..."
+  rules:
+    # Rule 1: Always run this job automatically on merge requests
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+    # Rule 2: Run this job automatically on the default branch (main/master)
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+
+# --- TEST STAGE (Using 'only' and 'except') ---
+test-job:
+  stage: test
+  script:
+    - echo "Running tests for $APP_NAME..."
+  # 'only' limits execution to specific branches, tags, or triggers
+  only:
+    - main
+    - merge_requests
+  # 'except' prevents execution under specific conditions
+  except:
+    - schedules # Don't run this test job if the pipeline was triggered by a timer/schedule
+
+# --- SCAN STAGE (Using 'when: manual') ---
+security-scan-job:
+  stage: scan
+  script:
+    - echo "Executing security scan on branch $CI_COMMIT_BRANCH..."
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      when: manual # Requires a developer to click "Play" in GitLab UI if not on main branch
+      allow_failure: true # Pipeline can finish even if someone skips this manual scan
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always # Always run automatically on the main branch
+
+# --- DEPLOY STAGE (Using 'environment' settings) ---
+deploy-prod-job:
+  stage: deploy
+  environment:
+    name: production
+    url: https://my-app.com
+  script:
+    - echo "Deploying $APP_NAME to the $GLOBAL_STAGE environment..."
+    - echo "Triggered by user $GITLAB_USER_NAME"
+  rules:
+    # Only deploy if it's the default branch AND the commit has a specific git tag
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_TAG
+      when: manual # Requires a manual approval click to deploy to production

@@ -1,7 +1,7 @@
 // for conditional check of previous build
 
 pipeline {
-    agent any
+    agent { label 'linux-agent' } // Runs the pipeline on an agent with the label 'linux-agent'
     parameters {
         choice(name: 'ENV' , choices: ['dev', 'staging', 'prod'], descriptions: 'select Environment')
     }

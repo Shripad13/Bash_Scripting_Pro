@@ -126,6 +126,53 @@ Hashicorp Vault
 5. Environment
 6. App
 
+# An AWS Organizations account management service is the foundational core used to 
+consolidate and centrally bill multiple AWS accounts, 
+1. What it is: A native account management and billing service.
+2. Main Purpose: Allows you to group multiple AWS accounts into a hierarchy of Organizational Units (OUs), 
+manage consolidated billing, and apply basic preventive controls via Service Control Policies (SCPs).
+3. Level of Setup: It provides the structural building blocks and empty containers (accounts and OUs),
+but it does not automatically configure your security baselines, logging architecture, or network topology for you
+
+# AWS Landing Zone is a well-architected, multi-account environment built on top of that foundation 
+with security, networking, and governance guardrails already configured.
+1. What it is: A pre-configured, multi-account environment 
+(often automated via services like AWS Control Tower).
+2. Main Purpose: Implements an entire operational architecture. 
+It takes AWS Organizations and populates it with core shared services accounts 
+(such as a Log Archive account, Security/Audit account, and Network account), identity setups 
+(like IAM Identity Center), and automated compliance guardrails.
+3. Level of Setup: It is a complete "ready-to-use" template or blueprint for deploying production workloads safely at scale.
+
+                  AWS Landing Zone
+(Overall architecture, security baseline, networking, and governance)
+                        |
+                        |
+                        v
+              AWS Control Tower (optional)
+(Automated setup, guardrails, account provisioning, and governance)
+                        |
+                        |
+                        v
+                 AWS Organizations
+(Accounts, OUs, consolidated billing, and organizational policies)
+                        |
+                        v
+Security Account   Log Archive Account  Workload Accounts
+
+
+
+
+Feature / Aspect	AWS Organizations	                                              AWS Landing Zone
+
+Type of Service	Core account management and billing service.	      Multi-account environment architecture & framework.
+
+
+Relationship	   It is the foundation upon which a                  	It uses AWS Organizations as its base layer.
+                  landing zone is built.
+
+
+Core Function	Account creation, consolidated billing, basic OU grouping, and SCPs.        Automated setup of core accounts (log archive, audit), networking, IAM, and guardrails.
 
 
 # What we covered in training -

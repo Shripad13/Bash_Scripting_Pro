@@ -12,6 +12,48 @@ Java Development Kit - JDK - is preferred for developers,
  while JRE is sufficient for standard hosting
 Default Port - 8080
 
+Jenkins follows a Master-Agent architecture designed for distributed builds and scalability
+
+• Jenkins Controller (Master / "The Brain"):
+	• Manages the Web UI, stores global configurations, and handles user authentication.
+	• Hosts the Build Queue, schedules jobs, monitors agent statuses, and collects execution logs.
+	• Interview Note: In a scalable, production-grade setup, no build workloads should run on the controller.
+
+• Jenkins Agents (Workers / "The Brawn"):
+	• Remote machines or execution environments running a tiny Java executable sent by the controller.
+	• They perform the actual heavy lifting: code checkouts, code compilation, executing unit tests, and deployments.
+	• Agents can be Static (dedicated bare-metal or cloud VMs) or Dynamic/Ephemeral (on-demand Docker containers or Kubernetes pods spawned per build).    
+
+1. Trigger: A developer pushes code to a Source Code Management (SCM) system like GitHub, which triggers a webhook.
+2. Scheduling: The Jenkins Controller polls the change, creates a job, and pushes it into the Build Queue.
+3. Dispatching: Based on the labels defined in your Jenkinsfile, the controller assigns the job to an isolated, matching agent.
+
+# How to Set Up Jenkins in High Availability (HA)
+https://medium.com/@chriskevin_80184/jenkins-active-passive-high-availability-setup-d6b334532114
+
+Traditional Jenkins controllers are Active-Passive 
+You can use enterprise Jenkins offerings, but the cost will be higher.
+
+The simplest option is to configure Jenkins High Availability with two Jenkins masters, one of which will always be active to serve builds and the other will be passive. If the active master becomes inactive, the passive master is activated.
+
+e will set up Jenkins Cluster with HAProxy and shared storage. We could use solutions like EFS (Elastic File System) on AWS as cloud options.
+
+3. Load Balancer with Health Checks (HAProxy / ALB):
+	• Place an Application Load Balancer or HAProxy in front of your primary and secondary controllers.
+	• Configure health checks against Jenkins' login or status endpoint (polling every 5 seconds). If the primary controller drops heartbeats or fails health checks, the load balancer automatically reroutes incoming web traffic and user requests to the secondary (standby) controller.
+
+# Jenkins Configuration as Code (JCasC)
+There is a plugin called Jenkins Configuration as Code (JCasC) for saving configuration data in a text format that is readable by humans. JCasC is a Jenkins plugin that allows you to store and maintain your Jenkins configuration in a YAML file.    
+
+
+# What if Jenkins Master (Controller) node goes down?
+the web interface, build scheduling, and build queue become completely unavailable,
+
+• No New Triggers: Webhooks from GitHub/GitLab cannot reach Jenkins, so new pipelines cannot be queued or started.
+• UI/API Outage: Administrators lose access to the dashboard, logs, and configuration management.
+• Active Builds: traditional builds may fail or lose tracking, though declarative pipeline steps on separate agents can sometimes survive brief controller disconnects before timing out
+
+
 Q: Can Jenkins run without Java?
 "No, the Jenkins controller cannot run without Java because Jenkins is built on the Java platform. A supported JDK must be installed before starting Jenkins."
 
@@ -35,13 +77,13 @@ Click New Node.
 Enter a node name.
 Select Permanent Agent.
 Click Create.
-3. Configure the Agent
+1. Configure the Agent
 Set values such as:
 Remote root directory (e.g., /home/jenkins on Linux or C:\Jenkins on Windows)
 Labels (used to target jobs to this agent)
 Number of executors
 Usage (whether it can run any job or only labeled job
-4. Launch via SSH (Linux/Unix)
+1. Launch via SSH (Linux/Unix)
 Select Launch agents via SSH.
 Enter:
 Hostname/IP
@@ -185,7 +227,7 @@ Email Extension plugin – advanced email alerts
 Slack Notification plugin – Slack alerts for pipeline status
 
 
-Q. what is the time taken by your CICD piepline?
+Q. what is the time taken by your CICD pipeline?
 There is no fixed time for a CI/CD pipeline as it varies based 
 typically completing within 10-30 minutes for standard applications.
 
@@ -214,3 +256,45 @@ Jenkins is completely open-source and free. However, there is no official paid v
 
 Q. How do you configure global security to jenkins?
 Global security in Jenkins is configured via Manage Jenkins → Configure Global Security, where we define authentication mechanisms like LDAP or Jenkins user database and authorization strategies like Matrix-based or Role-based access control to manage user permissions."
+
+
+1. Rolling Back Application Code (Pipeline Deployments)
+   Managing application rollbacks requires moving away from manual overrides and adopting automation inside your Jenkinsfile
+
+The Post-Failure Strategy (post { failure }):
+The most straightforward approach is to configure the pipeline to catch failures immediately after a deployment step. If smoke tests or automated health checks fail, the pipeline redeploys the last known good image or artifact
+
+pipeline {
+    agent any
+    stages {
+        stage('Deploy') {
+            steps {
+                // Deploy new application artifact/image
+                sh './deploy.sh --version ${BUILD_NUMBER}'
+            }
+        }
+        stage('Smoke Test') {
+            steps {
+                // Verify the application is healthy
+                sh 'curl -f http://myapp.com'
+            }
+        }
+    }
+    post {
+        failure {
+            echo 'Deployment or health checks failed! Initiating automated rollback...'
+            // Fetch and redeploy the last stable build artifact from a repository (e.g., Nexus or Artifactory)
+            sh './deploy.sh --rollback-to-last-stable'
+        }
+    }
+}
+
+
+• The Parameterized Manual Rollback Job:
+For non-automated, on-demand rollbacks, create a separate parameterized pipeline. 
+The job prompts the user for a specific BUILD_NUMBER, GIT_TAG, or IMAGE_TAG to pull from your artifact repository (like Artifactory, AWS S3, or Docker Hub) and instantly forces a deployment of that targeted older version.
+
+• Cloud-Native / Orchestrator Rollbacks:
+If deploying to platforms like Kubernetes, let Jenkins delegate the recovery natively. 
+You can trigger a rollback by evaluating the exit code of kubectl rollout status. 
+If it fails, run kubectl rollout undo to instantly flip the platform back to the previous deployment revision

@@ -309,7 +309,7 @@ I would like to spend time with family, I would like to watch movies, Cricket.
 I keep watching the latest updates on tehchnology.
 
 
-## Recommended interview introduction
+## Recommended interview introduction for Aramex
 
 Good morning, and thank you for giving me the opportunity to introduce myself.
 
@@ -325,12 +325,80 @@ On the CI/CD side, I’ve designed and maintained end-to-end pipelines using Git
 
 One of the areas I’m particularly proud of is working on large-scale cloud and infrastructure initiatives. I’ve been involved in migrating more than 50 environments to AWS, automating 20-plus environments using Terraform and Ansible, and improving deployment efficiency, infrastructure cost, and incident response through automation and observability.
 
+i work on environment readiness before Production releases and ensuring Passive site is in sync with Active site & followed by Switchover of applications to make fault tolerant & to achive resiliency during the disruption.
+
 I’ve also had opportunities to take ownership beyond individual technical tasks—for example, coordinating activities across teams during migration and production initiatives, supporting junior engineers, handling technical escalations, and working with different stakeholders to ensure that changes are delivered safely and with minimal business impact.
+
+I have received appreciation from One of the Big airlines across world like United airlines and Emirates SkyCargo , Scandinavian airline, FlyDubai , Finnair for the Environment readiness, smooth Production releases with minimal business impact.
+Received recognition of efforts i put during the migration from Top Leadership of Accelya.
 
 
 At this stage of my career, I’m looking for a Nice opportunity where I can contribute not only through hands-on technical expertise, but also through ownership, technical leadership, mentoring, and collaboration with different teams.
 
 That’s a brief overview about me, and I’d be happy to take you through any of these areas in more detail.
+
+## MFA Change rollout
+One of the most significant changes implemented across our product portfolio was the rollout of Multi-Factor Authentication (MFA) for all clients. Given the scale and criticality of the initiative, the deployment was carefully planned and executed in phases based on key factors such as:
+
+Business Impact – Prioritizing high-value and business-critical customers.
+User Base Size – Sequencing deployments based on the number of active users and operational complexity.
+Agreed RPO & RTO Commitments – Ensuring alignment with customer recovery objectives and service continuity requirements.
+Planned Downtime Windows – Scheduling implementations during approved maintenance windows to minimize business disruption.
+
+The rollout required extensive coordination across Product, Operations, Infrastructure, and Customer teams to ensure a seamless transition. Through detailed planning, risk assessment, stakeholder communication, and execution governance, MFA was successfully enabled across the client landscape while maintaining service stability and meeting customer expectations.
+
+
+# Tell me about the most memorable production incident you handled.
+
+One of the most memorable production incidents I handled was during a major application migration from an on-premises data center to AWS Cloud for a customer-facing cargo platform.
+
+Shortly after the production cutover, users started reporting intermittent failures while accessing specific API services. Transaction volumes started dropping and some business users were unable to retrieve cargo booking and offer details. Since this was a customer-facing platform, the incident had a direct business impact and required immediate attention.
+
+As the Release and Implementation lead, I took ownership of the incident bridge and coordinated across Application, Middleware, Network, Database, and Cloud infrastructure teams.
+
+My first step was to establish the scope of the issue by reviewing application logs, WebLogic server logs, AWS Load Balancer metrics, and backend database connectivity. We initially suspected an application defect because the deployment had just completed successfully. However, after deeper analysis, I noticed that only requests routed through specific application nodes were failing while others were functioning normally.
+
+I organized a structured troubleshooting approach:
+
+Validated application health across all WebLogic nodes.
+Compared configurations between healthy and impacted instances.
+Checked AWS security groups, routing rules, and load balancer target health.
+Reviewed DNS and endpoint configurations used post-migration.
+Correlated timestamps from user reports with infrastructure logs.
+
+The investigation revealed that a subset of application servers had stale configuration references pointing to the previous on-premise backend endpoints. During peak traffic, requests routed to those nodes experienced connection failures, resulting in intermittent production outages rather than a complete service disruption.
+
+Once the root cause was identified, I drove the recovery plan by:
+
+Removing impacted nodes from the load balancer rotation.
+Updating the endpoint configuration on affected servers.
+Performing controlled validation testing with business users.
+Gradually reintroducing nodes into production traffic.
+Monitoring application performance and transaction success rates until stability was confirmed.
+
+The service was fully restored without requiring a complete rollback, which helped avoid extended downtime.
+
+The most important part was not just resolving the issue but driving the post-incident improvements. I led a root cause analysis session and implemented several preventive measures:
+
+Automated configuration validation checks before production cutovers.
+Enhanced migration runbooks with endpoint verification steps.
+Added health-check monitoring to detect node-level inconsistencies earlier.
+Introduced additional release governance checkpoints during cloud migration activities.
+
+This incident was memorable because it highlighted the importance of end-to-end ownership. Beyond the technical troubleshooting, I had to manage communication with stakeholders, provide regular status updates, coordinate multiple teams under pressure, and make decisions that balanced speed of recovery with production stability. The incident reinforced my ability to lead critical production situations, which is a key aspect of the Associate Manager role.
+
+
+# Short Interview Version (2-minute answer)
+
+"During a major migration from on-premises infrastructure to AWS, we experienced an intermittent production issue immediately after go-live. Users were unable to access certain cargo booking APIs, impacting business operations. 
+I took ownership of the incident bridge and coordinated application, middleware, database, network, and cloud teams. 
+Through log analysis and infrastructure validation, I identified that a few application servers were still pointing to legacy on-prem endpoints, causing intermittent failures when traffic hit those nodes. 
+I isolated the affected servers, corrected the configuration, validated functionality with business users, and restored full service without rollback. 
+After resolution, I led the RCA and implemented automated validation checks and stronger migration controls to prevent recurrence. 
+The incident demonstrated both my technical troubleshooting capabilities and my ability to lead cross-functional teams during high-pressure production events."
+
+This sounds realistic and aligns well with your actual experience in cloud migrations, release management, production cutovers, and application switchovers.
+
 
 
 # Davies Introduction - For this role, position yourself as someone who owns delivery platforms and automation.
@@ -347,3 +415,8 @@ From a technical perspective, I’m particularly interested in CI/CD optimisatio
 
 What attracted me to this Davies role is that it combines hands-on engineering with technical ownership — designing scalable CI/CD pipelines, managing Azure infrastructure through Terraform, improving reliability and security, and mentoring engineers. That aligns very well with the direction I want to continue growing in as a senior DevOps engineer.
  
+
+# Azure DevOps Introduction for Cognizant
+“I have hands-on experience in Azure DevOps covering source-code management, CI/CD pipeline implementation, infrastructure automation, deployment, and production support. I have worked with Git, Azure DevOps Repos and YAML-based pipelines, and automated build and deployment processes across multiple environments.  
+I have also worked with Terraform and Ansible for infrastructure and operational automation, along with Azure CLI and scripting. From the Azure side, I have worked with services such as VMs, networking, storage, Key Vault and Kubernetes/AKS.  
+My focus has been on building reliable and repeatable deployment processes, reducing manual activities, improving deployment time, and troubleshooting production issues.”

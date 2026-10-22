@@ -503,3 +503,15 @@ hosts: web
 > vars - You can directly use it in the playbook
 > vars_files - external file call in playbook
 > group_vars/host_vars -  
+
+# Ansible Credentials:
+Ansible credentials are stored authentication objects used by platforms like Ansible AWX  to securely connect to remote hosts, cloud providers, and external services.
+
+They eliminate the need to hardcode sensitive data into playbooks or store plaintext passwords on disk
+
+
+Key Functions
+
+• Authentication: Provide the usernames, passwords, SSH private keys, or API tokens required to log into target nodes or external systems.
+• Privilege Escalation: Define how Ansible gains administrative power (such as sudo or su passwords) on remote systems.
+• Secure Injection: Encrypts and passes secrets directly into runtime environments or memory pipes without writing them to disk.

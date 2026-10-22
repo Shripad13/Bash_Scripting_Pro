@@ -129,3 +129,13 @@ You can store custom modules in:
 library/ (recommended per project)
 ~/.ansible/plugins/modules/
 configured ANSIBLE_LIBRARY path        
+
+
+1. Using ansible.builtin.get_url - 
+The get_url module downloads a file from a URL and saves it to a target node. It is idempotent, meaning it skips downloading if the file already exists and matches checksum or size requirements.
+
+- name: Download a file from the internet
+  ansible.builtin.get_url:
+    url: https://example.com
+    dest: /opt/app.tar.gz
+    mode: '0644'

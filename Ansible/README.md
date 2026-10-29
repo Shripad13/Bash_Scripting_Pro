@@ -44,7 +44,7 @@ Playbooks themselves must be YAML in Ansible.
 But Ansible is extensible, and you can use other languages for modules, plugins, scripts, and inventory generation.
 
 # What is inventory?
- Inventory is a file that has the list of all the VM IP'sthat needs to be managed by ansible
+ Inventory is a file that has the list of all the VM IP's that needs to be managed by ansible
  all is the default group on this file that includes every thing on the file.
  
  # Running ansible commands manually

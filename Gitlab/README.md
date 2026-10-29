@@ -580,3 +580,40 @@ Outside of CI/CD pipelines, GitLab uses rules to manage permissions and secure c
 • Implement progressive delivery: Use canary deployments or blue/green patterns to test releases on a small subset of live traffic before rolling out globally.
 
 • Pin dependencies and images: Avoid floating tags (like latest) in Docker images or package managers; pin explicit version tags or digests so builds remain reproducible over time.
+
+
+# how to configure in gitlab so that pipeline should not trigger even after code commit by developer with gap of 1 minute
+
+you can use GitLab's native Pipeline Rate Limiting feature or configure Push Option.
+
+# Option 1: Set a Pipeline Rate Limit (Instance/Project Level)
+If you have administrator access or maintain a self-managed GitLab instance, you can enforce a rate limit on pipeline creation per user or per project.
+• For self-managed administrators:
+	1. Go to Admin Area > Settings > Network.
+	2. Expand the Pipeline rate limits section.
+	3. Set the Max pipelines per minute per user or per project to 1.
+• For GitLab.com (SaaS): Rate limits are pre-configured globally by GitLab to prevent abuse, but you can request or manage custom limits if you are on an Ultimate tier with a dedicated environment.
+
+
+# Option 2: Use Push Options to Skip CI (Developer-Controlled)
+
+If developers know they are pushing rapid commits back-to-back, they can explicitly tell GitLab not to run a pipeline for intermediate commits using Git push options.
+Run this command for your quick intermediate commits:
+ $ git push -o ci.skip
+
+How it works: This pushes the code but explicitly commands GitLab to ignore pipeline creation for that specific push, saving your CI runners for the final push.
+
+
+
+# Option 3: Implement Debouncing / Throttling via .gitlab-ci.yml Rules
+
+While GitLab CI doesn't have a built-in "wait 1 minute before running" delay trigger, you can use rules to prevent specific automated commits or fast-tracked commits from running.
+For example, you can configure your pipeline to only trigger on specific branch updates or when a commit message does not contain a specific skip tag:
+
+workflow:
+  rules:
+    # Skip pipeline if the commit message contains [skip ci] or [wip]
+    - if: '$CI_COMMIT_MESSAGE =~ /\[skip ci\]/i'
+      when: never
+    # Otherwise, run the pipeline normally
+    - when: always

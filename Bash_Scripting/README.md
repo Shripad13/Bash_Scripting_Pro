@@ -20,6 +20,12 @@ To customize the user’s shell environment whenever a new interactive Bash term
 
 The purpose of the .bashrc file is to configure the Bash shell environment for a user. It is executed whenever a new interactive shell starts and is used to set environment variables, define aliases, customize the prompt, and create functions.”
 
+1. Put it in .bashrc: Custom commands, short cuts (alias ll='ls -lh'), custom color schemes, or prompts. This ensures they are available in every normal terminal window you use
+.bashrc is for Interactive, Non-Login Shells. It **runs every time** you open a new terminal window or tab within an already logged-in session.
+
+2. Put it in .bash_profile: Changes to the PATH variable, API tokens, or heavy initialization scripts that only need to run exactly once when you log in.
+.bash_profile is for Login Shells. It **runs only once** when you first log into a system.
+
 
 # type
 Ex: type git, type date, type cat , type fdisk 

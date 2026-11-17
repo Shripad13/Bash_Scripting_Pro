@@ -296,6 +296,33 @@ A 403 Forbidden error indicates that the server understands the request but refu
 10. Implement Fixes: Based on the findings, implement the necessary fixes to resolve the 403 error and test to ensure access is restored.
 Possible causes of 403 errors include incorrect permissions, misconfigured access controls, or issues with authentication mechanisms.
 
+> Trust Policy and Resource Policy are both used for access control, but they serve different purposes.
+
+1. What is a Trust Policy?
+A Trust Policy defines WHO is allowed to assume an IAM role.
+It is attached to an IAM Role and specifies which AWS users, roles, accounts, or services can assume that role.
+
+2. What is a Resource Policy?
+A Resource Policy defines WHO can access a particular AWS resource and WHAT actions they can perform.
+It is attached directly to a resource.
+
+Examples:
+S3 bucket policy.
+SQS queue policy.
+SNS topic policy.
+KMS key policy.
+Secrets Manager resource policy.
+
+
+Feature                   Trust Policy                       Resource Policy
+Purpose           Allows an entity to assume a role       Controls access to a resource
+Attached to       IAM Role                                 AWS resource
+Principle         Who can assume the role                Who can access the resource
+Example           EC2 assumes IAM role                   Another account accesses S3
+
+
+
+
 
 # Tell me about yourself?
 My name is Shripad Maddi, Currently working at Accelya Group with over a 6 years of experience.
